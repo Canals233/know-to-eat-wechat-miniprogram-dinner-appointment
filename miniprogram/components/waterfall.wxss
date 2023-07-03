@@ -1,0 +1,82 @@
+/* components/waterfall.wxss */
+@import "../colorui/icon.wxss";
+.waterfall-wrap {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-around;
+}
+.item {
+  width: 100%;
+  border: 1px solid rosybrown;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 10px #ccc;
+}
+.item-where,.nickname{
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.item-where{
+  margin: 5px;
+  font-size: 10px;
+  width: 70%;
+  float: left;
+}
+
+
+.item-icon{
+  
+  float: right;
+  color: #0047ab;
+  font-weight: bold;
+}
+.item-img{
+  background-color: gray;
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+.item-title{
+  font-weight: bold;
+   font-size: small;
+   margin: 0 0 10rpx 10rpx;
+   text-align: center;
+   font-weight:bolder ;
+}
+.userinfo{
+  float: left;
+  
+  width: 70%;
+}
+
+.absolute-bottom{
+  position: absolute;
+  right: 5rpx;
+  bottom: 10rpx;
+}
+.absolute-top{
+  position: absolute;
+  right: 5rpx;
+  bottom: 58rpx;
+}
+
+.avatarimg{
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin: 0 10rpx 10rpx 10rpx;
+  vertical-align: middle;
+}
+.nickname{
+ height: 40rpx;
+ line-height: 40rpx;
+ font-weight: bold;
+ font-size: 12px;
+}
+
+

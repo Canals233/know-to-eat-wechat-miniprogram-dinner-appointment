@@ -1,0 +1,22 @@
+<!--pages/mylike-star/mylike-star.wxml-->
+
+<view class="cu-bar bg-white" wx:if="{{articleList.length==0}}">
+  <view class="action">
+    <text class="cuIcon-title text-orange"></text> 暂无信息
+  </view>
+</view>
+<view class="cu-bar bg-white" wx:if="{{articleList.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-orange"></text> 我的{{likeflag?'喜欢':'收藏'}}
+  </view>
+</view>
+
+<scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight-70+'px':'auto'}}" class="SC">
+
+
+
+
+  <waterfall id="waterfall"></waterfall>
+
+
+</scroll-view>

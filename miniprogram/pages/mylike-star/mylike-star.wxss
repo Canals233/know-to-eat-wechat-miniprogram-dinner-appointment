@@ -1,0 +1,4 @@
+/* pages/mylike-star/mylike-star.wxss */
+.SC{
+  padding-top: 20px;
+}

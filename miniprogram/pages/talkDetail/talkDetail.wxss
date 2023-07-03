@@ -1,0 +1,107 @@
+/* pages/talkDetail/talkDetail.wxss */
+.title{
+  z-index: 2;
+  width: 100%;
+  height: 90rpx;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 90rpx;
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+.SW{
+  
+  z-index: 1;
+}
+
+.avatar{
+  
+    width: 70rpx;
+    height: 70rpx;
+    border-radius: 50%;
+    margin: 0 20rpx 0 10rpx;
+    vertical-align: -50rpx;
+
+}
+.msgbox{
+  height: auto;
+  width: 100%;
+  min-height: 120rpx;
+
+  display: -webkit-box;
+ margin-bottom:-30rpx;
+}
+.rightone{
+ width: 100%;
+  text-align: right;
+ 
+}
+.nickname{
+
+  font-weight: bold;
+  margin-top: 20rpx;
+}
+.right-msg{
+float: right;
+transform: translateX(-100rpx) translateY(-60rpx);
+background-color: #fff;
+border-radius: 40rpx;
+max-width: 70%;
+padding: 10rpx 20rpx 20rpx 20rpx;
+
+}
+.left{
+  float: left;
+}
+.left-msg{
+  float: left;
+
+transform: translateX(100rpx) translateY(-40rpx); 
+background-color: #fff;
+border-radius: 40rpx;
+max-width: 70%;
+padding: 10rpx 30rpx 30rpx 30rpx;
+
+}
+
+
+.input{
+ 
+  width: 65%;
+  min-height: 80rpx;
+  max-height: 200rpx;
+  margin: 20rpx;
+  background-color: #fff;
+  border-radius: 40rpx;
+  padding:20rpx 20rpx 4rpx 20rpx;
+  position: absolute;
+  left: 0rpx;
+  bottom: 0rpx;
+}
+.bottom-box{
+  width: 100%;
+ bottom: 0;
+ min-height: 120rpx;
+  position: fixed;
+  background-color: #efefef;
+}
+.send{
+  width: 25%;
+  text-align: center;
+  line-height: 80rpx;
+  height: 80rpx;
+  margin: 20rpx;
+  background-color: royalblue;
+  border-radius: 50rpx;
+  font-weight: bold;
+  color: #fff;
+  position: absolute;
+  bottom: 0rpx;
+  right: 0rpx;
+}

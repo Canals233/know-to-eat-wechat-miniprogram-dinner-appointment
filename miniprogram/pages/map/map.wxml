@@ -1,0 +1,88 @@
+<!--pages/map/map.wxml-->
+<map id="map" style="height: {{wh}};width: {{ww}};" subkey="UQPBZ-HQDWW-U5FRD-RW6N7-P7DDJ-DCBH7" longitude="{{longitude}}" latitude="{{latitude}}" min-scale="8" scale="{{scale}}" markers="{{markers}}" bindmarkertap="markertaper" max-scale="18">
+
+<!-- 图片按钮群 -->
+	<cover-image class="location" src="/static/city.png" bindtap="chooseCity"></cover-image>
+		
+
+	<cover-image class="search" src="/static/search.png" bindtap="tapSearchBtn" ></cover-image>
+
+	<cover-view class="bottomBtn" wx:if="{{cityChose}}" bindtap="addmeet">
+		<cover-image class="eatimg" src="/static/letsEat.png"></cover-image>
+		<cover-view class="eattext">发布约饭</cover-view>
+	</cover-view>
+	
+	<!-- 图片按钮群 -->
+
+
+
+
+	 <cover-view wx:if="{{!cityChose}}" class="getLocate" bindtap="AuthorizeLocate">点击选择您的城市开始约饭</cover-view>
+	<cover-view wx:if="{{!cityChose}}" class="maskall"></cover-view>
+
+<!-- mask -->
+
+
+<view class="decbody  {{viewshow?'mapshow':''}}"  >
+	<view  class="map-row-show">
+	<view class="map-row" style="text-align: center;">
+		<!-- 描述模块 -->
+		<view>
+
+			<view style="font-weight: bold;margin: 5px 0;">{{marker.content.title}}</view>
+		
+			<text wx:for="{{marker.content.labels}}" wx:key="id">
+				<text class="label">{{item}}</text>
+			</text>
+
+
+			
+			<view style="margin: 5px 0;">店名:{{marker.content.shopname}}</view>
+			<view style="font-size: 12px;">详细地址:{{marker.content.address}}</view>
+			<view class="imgrow">
+			</view>
+			
+			<view>
+				<text style="margin-right:20px;">人数：{{marker.content.nowNum}}/{{marker.content.needNum}}</text>
+				<text>预计人均：{{marker.content.cost}}</text>
+			</view>
+      <view>
+        <text>约饭时间：{{marker.content.DateTime}}</text>
+      </view>
+		</view>
+
+		<view class="break"></view>
+
+	
+		<view  bindtap="goToMeet" data-marker="{{marker}}" class="teleport" style="color: #000;">点击前往该次拼饭详情页</view>
+		<!--  -->
+		<!-- 关闭按钮 -->
+		<cover-image class="close" src="/static/close.png" bindtap="closeshow"></cover-image>
+		<!--  -->
+	</view>
+	
+	
+
+</view>
+</view>
+
+
+
+
+<!-- 搜索 -->
+<view class="searchbody   {{searchshow?'searchshow':''}}">
+	<view  class="search-row-show">
+		<input class="searchtext" type="text" placeholder="请输入要搜索的店名" bindinput="onSearch" confirm-type="search" focus="{{searchshow?true:false}}"/>
+		<cover-image class="close" src="/static/close.png" catchtap="closesearch" ></cover-image>
+<!--  循环输出结果 -->
+<block wx:for="{{search}}" wx:key="index">
+<cover-view class="searchres" bindtap="tapRes" data-item="{{item}}">{{item.title}}：{{item["菜名"]}}</cover-view>
+</block>
+	</view>
+	
+</view>
+
+
+
+</map>
+

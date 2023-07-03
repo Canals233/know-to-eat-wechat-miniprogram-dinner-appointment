@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "waterfall":"/components/waterfall"
+  }
+}

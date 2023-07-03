@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "waterfall":"/components/waterfall"
+  },
+  "enablePullDownRefresh": true
+}

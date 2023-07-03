@@ -1,0 +1,16 @@
+<!--pages/secondtalk/secondtalk.wxml-->
+<view class="cu-bar bg-white" >
+  <view class="action">
+    <text class="cuIcon-title text-orange"></text> 点击进入与该用户的通信（非即时）
+  </view>
+</view>
+<scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight-50+'px':'auto'}};">
+<view class="item-container">
+  <view wx:for="{{costomers}}" wx:key="key" wx:for-index="index" wx:for-item="item" class="item" bindtap="gotoTalk" data-id="{{meetid}}" data-index="{{index}}" data-costomerid="{{item.openid}}">
+
+  <image class="user-img" src="{{item.avatarUrl}}"></image>
+<text> {{item.nickName}}</text>
+<view class="preview">{{talkList[index].talklist.length?talkList[index].talklist[talkList[index].talklist.length-1].content:' '}}</view>
+  </view>
+</view>
+</scroll-view>

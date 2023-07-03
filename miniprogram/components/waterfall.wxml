@@ -1,0 +1,60 @@
+<!--components/waterfall.wxml-->
+
+<view class="waterfall-wrap">
+    <view class="waterfall-column" style="width: 330rpx">
+        <view class="left-container" id="left">
+            <block wx:for="{{leftList}}" wx:key="id">
+                <view class="item" style="height: auto" data-id="{{item[0]._id}}"   bindtap="goArticleDetail"> 
+                
+                <image src="{{item[0].picture[0]}}" lazy-load="true"   mode="widthFix" class="item-img"></image>
+                <view class="item-dec">
+                    
+                    <view class="item-title" > 
+                        {{item[0].title}}
+                    </view>
+
+                    <view class="where">
+                     <view class="item-where">{{item[0].shopname}}</view>
+                        <view class="cuIcon-likefill item-icon  absolute-top"> {{item[0].likeNum}}</view> </view>
+                   
+                    <view class="userinfo">
+                        <image src="{{item[1].avatarUrl}}" class="avatarimg"></image>
+                    <text class="nickname">{{item[1].nickName}}</text>
+                    
+                    </view>
+                    <text class="cuIcon-favorfill item-icon  absolute-bottom"> {{item[0].collectNum}}</text> 
+                    </view>
+                
+                </view>
+            </block>
+        </view>
+    </view>
+    <view class="waterfall-column" style="width: 340rpx">
+        <view class="right-container" id="right">
+            <block wx:for="{{rightList}}" wx:key="id">
+                <view class="item" style="height: auto" data-id="{{item[0]._id}}" bindtap="goArticleDetail">
+                
+                <image src="{{item[0].picture[0]}}" lazy-load="true"   mode="widthFix" class="item-img"></image>
+                <view class="item-dec">
+                    
+                    <view class="item-title" > 
+                        {{item[0].title}}
+                    </view>
+
+                    <view class="where">
+                     <view class="item-where">{{item[0].shopname}}</view>
+                        <view class="cuIcon-likefill item-icon  absolute-top"> {{item[0].likeNum}}</view> </view>
+                   
+                    <view class="userinfo">
+                        <image src="{{item[1].avatarUrl}}" class="avatarimg"></image>
+                    <text class="nickname">{{item[1].nickName}}</text>
+                    
+                    </view>
+                    <text class="cuIcon-favorfill item-icon absolute-bottom"> {{item[0].collectNum}}</text> 
+                    </view>
+                
+                </view>
+            </block>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,44 @@
+<!--pages/mymeet/mymeet.wxml-->
+<view class="cu-bar bg-white" wx:if="{{articleinfo.length==0}}">
+  <view class="action">
+    <text class="cuIcon-title text-orange"></text> 暂无发布的约饭
+  </view>
+</view>
+<view class="cu-bar bg-white" wx:if="{{articleinfo.length!=0}}">
+  <view class="action">
+    <text class="cuIcon-title text-orange"></text> 我发布的约饭
+  </view>
+</view>
+
+
+<scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight-44+'px':'auto'}}">
+  <view class="item-container">
+    <view wx:for="{{articleinfo}}" wx:key="key" wx:for-index="index" wx:for-item="item">
+      <view class="item" data-id="{{item._id}}" bindtap="toMeetDetail">
+        <view class="img-user">
+          <image src="{{item.picture[0]}}" class="item-img" mode="aspectFit" data-urls="{{item.picture}}" ></image>
+        </view>
+        <view class="item-dec">
+        <view class="title">{{item.title}}</view>
+        <text wx:for="{{item.labels}}" wx:key="id">
+        <text class="label">{{item}}</text>
+        </text>
+        <view class="item-shop">
+        {{item.shopname}}
+        </view>
+        <view class="item-content">
+        {{item.content}}
+        </view>
+        <view class="item-time">
+        预约时间：<text >{{item.DateTime}} </text>
+        </view>
+        <view class="item-info">
+        <text>预计人均：￥{{item.cost}}  </text>
+        <text> 人数：{{item.nowNum}}/{{item.needNum}}</text>
+        </view>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</scroll-view>

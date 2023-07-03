@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "食研社",
+  "usingComponents": {
+    "waterfall":"/components/waterfall"
+  },
+  "enablePullDownRefresh": true
+}

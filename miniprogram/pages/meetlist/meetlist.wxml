@@ -1,0 +1,54 @@
+<!--pages/meetlist/meetlist.wxml-->
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <!-- 最初始时的搜索框 -->
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="搜索" bindconfirm="onSearch" />
+    </view>
+    <!-- 可编辑时的搜索框 -->
+    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+      <icon class="weui-icon-search" type="search" size="14"></icon>
+      <view class="weui-search-bar__text">支持店名和标题搜索,右下角选择城市</view>
+    </label>
+  </view>
+  <!-- 取消搜索 -->
+  <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+</view>
+<image class="location" src="/static/city.png" bindtap="chooseCity"></image>
+<scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight-44+'px':'auto'}};" class="SW">
+  <view class="item-container">
+    <view wx:for="{{meetList}}" wx:key="key" wx:for-index="index" wx:for-item="item">
+      <view class="item" data-id="{{item._id}}"  bindtap="toMeetDetail">
+        <view class="img-user">
+          <image src="{{item.picture[0]}}" class="item-img" mode="aspectFit" data-urls="{{item.picture}}"  catchtap="ViewImage"></image>
+          <view class="user">
+            <image src="{{userList[index].avatarUrl}}" class="user-img"></image>
+            <text style="font-size: 12px; font-weight: bold;">{{userList[index].nickName}}</text>
+          </view>
+        </view>
+        <view class="item-dec">
+        <view class="title">{{item.title}}</view>
+        <text wx:for="{{item.labels}}" wx:key="id">
+        <text class="label">{{item}}</text>
+        </text>
+        <view class="item-shop">
+        {{item.shopname}}
+        </view>
+        <view class="item-content">
+        {{item.content}}
+        </view>
+        <view class="item-time">
+        预约时间：<text >{{item.DateTime}} </text>
+        </view>
+        <view class="item-info">
+        <text>预计人均：￥{{item.cost}}  </text>
+        <text> 人数：{{item.nowNum}}/{{item.needNum}}</text>
+        <text>   {{item.city}}</text>
+        </view>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</scroll-view>

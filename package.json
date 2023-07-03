@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@vant/weapp": "^1.10.2",
+    "wx-server-sdk": "^2.6.1"
+  },
+  "name": "know-to-eat",
+  "version": "1.0.0",
+  "description": "know-to-eat",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitee.com:Karasu114/knowledge-of-food.git"
+  },
+  "author": "",
+  "license": "ISC"
+
+}

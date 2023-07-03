@@ -1,0 +1,18 @@
+/* pages/secondtalk/secondtalk.wxss */
+@import '../meetlist/meetlist.wxss';
+.user-img{
+  width: 60rpx;
+  height: 60rpx;
+  margin-top: 5rpx;
+}
+.item{
+  height: 140rpx;
+}
+.preview{
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 10rpx 20rpx;
+  color: gray;
+}

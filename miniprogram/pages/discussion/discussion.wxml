@@ -1,0 +1,54 @@
+<view class='order-itembox'>
+
+  <view>
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <!-- 最初始时的搜索框 -->
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" bindconfirm="onSearch" />
+        </view>
+        <!-- 可编辑时的搜索框 -->
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="14"></icon>
+          <view class="weui-search-bar__text">支持店名和标题搜索</view>
+        </label>
+      </view>
+      <!-- 取消搜索 -->
+      <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+    </view>
+  </view>
+  <scroll-view class="{{fade?'fadeaway':'nofade'}}" scroll-y="{{true}}" style="height: {{clientHeight?clientHeight-44+'px':'auto'}}">
+
+
+
+
+    <waterfall id="waterfall"></waterfall>
+
+
+  </scroll-view>
+  <!-- </swiper-item> -->
+  <!-- <swiper-item>
+          <scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight+'px':'auto'}}">
+            
+              第二个页面的数据
+            
+          </scroll-view>
+        </swiper-item> -->
+  <!-- </swiper> -->
+</view>
+
+
+
+
+
+
+
+
+<!-- 文章列表 -->
+
+
+<view>
+
+  <button class="publish" bindtap="topublish">+</button>
+</view>

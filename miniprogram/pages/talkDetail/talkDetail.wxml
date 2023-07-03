@@ -1,0 +1,51 @@
+<!--pages/talkDetail/talkDetail.wxml-->
+
+<scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight*2-120+'rpx':'auto'}};" class="SW" scroll-into-view="{{flag}}" scroll-with-animation="true" >
+  <view>
+      <view>
+        <image src="../../static/minihead.png" class="avatar "></image>
+        <text class=" nickname">识食开发团队</text>
+      </view>
+      <view class="left-msg">
+        <text style="white-space:pre-wrap;text-align: left;">
+  尊敬的用户您好，本通信为非实时通信。
+  平台建议您在本界面与拼主、拼友交换个人联系方式时优先使用私密性较低的联系方式，如社交平台的小号，副号
+  请您确保认真阅读了
+        </text>
+        <view><text  style="color: blue;" bindtap="gotoShouldKnow">《约饭须知》</text></view>
+      </view>
+    </view>
+  <view class="msgbox" wx:for="{{talklist}}" wx:key="id" id="{{'item'+index}}">
+    
+      
+    <view wx:if="{{item.state==state}}" class="rightone">
+      
+        <view>
+          <image src="{{myprofile.avatarUrl}}" class="avatar "></image>
+        </view>
+        <view class="right-msg">
+        <text user-select="true" style="white-space:pre-wrap;text-align: left;">{{item.content}}</text>
+          
+        </view>
+      
+    </view>
+    <view wx:else>
+      <view>
+        <image src="{{friendprofile.avatarUrl}}" class="avatar "></image>
+        <text class=" nickname">{{friendprofile.nickName}}</text>
+      </view>
+      <view class="left-msg">
+        <text user-select="true" style="white-space:pre-wrap;text-align: left;">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+  
+</scroll-view >
+
+
+
+<view class="bottom-box">
+
+  <textarea bindinput="onInput" class="input" maxlength="-1" auto-height="true" value="{{textInput}}"></textarea>
+  <view class="send" bindtap="sendTalk">发送</view>
+</view>

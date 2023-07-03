@@ -1,0 +1,58 @@
+
+<view wx:if="{{!hasUserInfo}}" class="toget">
+  <button bindtap="getUserProfile"> 获取头像昵称 </button>
+</view>
+
+
+<view wx:else>
+  <view class="UCenter-bg">
+
+<button mode="widthFix" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{userInfo.avatarUrl}})"></button>
+
+
+<view class="nickname">
+{{userInfo.nickName}}
+</view>
+
+
+<image src="cloud://cloud1-6g0si7z4debe1c9a.636c-cloud1-6g0si7z4debe1c9a-1309792594/wave.gif" mode="scaleToFill" class="gif-wave"></image>
+
+
+</view>
+
+<view class="TPcontainer">
+  <view class="TPleft" bindtap="mymeet">
+   <image src="../../static/eatmeet.png"></image>
+   <view class="TP-title">我发起的约饭
+   </view>
+  </view>
+  <view class="TPright" bindtap="mytalk">
+   <image src="../../static/talk.png" class="talk"></image>
+   <view class="TP-title">约饭通信
+   </view>
+  </view>
+  
+  <view class="TPleft" bindtap="mylike">
+   <image src="../../static/like.png"></image>
+   <view class="TP-title">我的喜欢
+   </view>
+  </view>
+  <view class="TPright" bindtap="mycollect">
+   <image src="../../static/star.png"></image>
+   <view class="TP-title">我的收藏
+   </view>
+  </view>
+  <view class="TPleft" bindtap="mypublish">
+   <image src="../../static/mypublish.png"></image>
+   <view class="TP-title">我发表的评论
+   </view>
+  </view>
+</view>
+  
+
+  
+  
+  
+  
+
+</view>

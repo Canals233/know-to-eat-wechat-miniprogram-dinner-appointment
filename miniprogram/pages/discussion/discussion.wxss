@@ -1,0 +1,121 @@
+
+
+.fadeaway{
+  transition: all 0.4s;
+  opacity: 0;
+}
+.nofade{
+  transition:  all 0.4s;
+  opacity: 1;
+}
+
+.articleItem{
+  
+  background-color: #FFF7E0;
+  
+  margin: 15rpx 0;
+  padding: 10rpx;
+}
+
+
+
+/* 各个评论 */
+.title{
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+.dsc{
+  width: 100%;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  margin-bottom: 20rpx;
+}
+/* 评论简述 */
+/* 发布的图标 */
+.publish{
+width: 90rpx;
+height: 90rpx;
+position: fixed;
+bottom: 80rpx;
+right: 50rpx;
+text-align: center;
+line-height: 90rpx;
+border-radius: 50%;
+box-shadow: 0 0 10rpx rgba(0,0,0,0.6);
+background-color: lightcoral;
+color: white;
+
+}
+/* 图标的发布 */
+/* 搜索框 */
+
+.weui-search-bar {
+  position: relative;
+  margin: 8px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+  background:transparent;
+  
+}
+.weui-icon-search {
+  margin-right: 4px;
+  font-size: inherit;
+}
+.weui-icon-search_in-box {
+  position: absolute;
+  left: 10px;
+  top: 7px;
+}
+.weui-search-bar__text {
+  display: inline-block;
+  font-size: 16px;
+}
+.weui-search-bar__form {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+          flex: auto;
+  border-radius: 5px;
+  background: #FFFFFF;
+  border: 1rpx solid #E6E6EA;
+  border-radius: 20px;
+}
+.weui-search-bar__box {
+  position: relative;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+ 
+}
+.weui-search-bar__input {
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
+}
+.weui-search-bar__label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  border-radius: 20px;
+  text-align: center;
+  color: #9B9B9B;
+  background: #FFFFFF;
+  line-height: 28px;
+}
+.weui-search-bar__cancel-btn {
+  margin-left: 10px;
+  line-height: 28px;
+  color: #09BB07;
+  white-space: nowrap;
+}
+/* 搜索框 */

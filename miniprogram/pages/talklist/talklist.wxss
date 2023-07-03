@@ -1,0 +1,3 @@
+/* pages/talklist/talklist.wxss */
+@import "../meetlist/meetlist.wxss";
+@import "../../colorui/icon.wxss"
