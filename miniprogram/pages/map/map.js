@@ -53,7 +53,7 @@ Page({
     wx.authorize({
       scope: 'scope.userLocation',//发起定位授权
       success: function () {
-        // console.log('有定位授权')
+        console.log('有定位授权')
         that.setData({
           authorized:true
         })
@@ -92,7 +92,7 @@ Page({
 
   chooseCity(){
     const key = 'UQPBZ-HQDWW-U5FRD-RW6N7-P7DDJ-DCBH7'; //使用在腾讯位置服务申请的key
-    const referer = '识食小程序'; // 调用插件的app的名称
+    const referer = 'know-to-eat'; // 调用插件的app的名称
     const hotCitys = '北京,上海,天津,重庆,广州,深圳,成都,杭州'; // 用户自定义的的热门城市
     
     wx.navigateTo({

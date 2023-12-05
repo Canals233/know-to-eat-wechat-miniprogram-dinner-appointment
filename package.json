@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@vant/weapp": "^1.10.2",
+    "@vant/weapp": "^1.11.2",
+    "axios": "^1.6.2",
     "wx-server-sdk": "^2.6.1"
   },
   "name": "know-to-eat",
@@ -16,5 +17,4 @@
   },
   "author": "",
   "license": "ISC"
-
 }
