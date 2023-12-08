@@ -1,57 +1,61 @@
 <!--pages/meetDetail/meetDetail.wxml-->
 <swiper indicator-dots="true" circular="true" class="SW">
-  <block wx:for="{{articleData.picture}}" wx:key="id" wx:for-item="pic">
-    <swiper-item>
-      <view>
-        <image src="{{pic}}" mode="aspectFit" style='height: 360rpx;' bindtap="ViewImage" data-url="{{pic}}"></image>
-      </view>
-    </swiper-item>
-  </block>
+    <block wx:for="{{articleData.picture}}" wx:key="id" wx:for-item="pic">
+        <swiper-item>
+            <view>
+                <image src="{{pic}}" mode="aspectFit" style='height: 360rpx;' bindtap="ViewImage" data-url="{{pic}}"></image>
+            </view>
+        </swiper-item>
+    </block>
 </swiper>
 
-<view class="tit"><text user-select="true">{{articleData.title}}</text></view>
+<view class="body_container">
+    <view class="tit"><text user-select="true">{{articleData.title}}</text></view>
 
-<view class="userinfo">
-  <image src="{{userData.avatarUrl}}" class="avatarimg"></image>
-  <text class="nickname">{{userData.nickName}}</text>
+    <view class="userinfo">
+        <image src="{{userData.avatarUrl}}" class="avatarimg"></image>
+        <text class="nickname">{{userData.nickName}}</text>
+
+    </view>
+    <view class="label-box">
+        <text wx:for="{{articleData.labels}}" wx:key="id">
+            <text class="label">{{item}}</text>
+        </text>
+    </view>
+
+
+    <view class="info">
+        <view class="shop">店名：<text user-select="true">{{articleData.shopname}}</text></view>
+        <view class="time">预定时间： <text user-select="true">{{articleData.DateTime}}</text></view>
+
+        <view class="shop">
+            已有人数: {{articleData.nowNum}} 空余人数：<text style="color: royalblue;">{{articleData.needNum-articleData.nowNum}} </text>
+            期望人数: {{articleData.needNum}}
+        </view>
+    </view>
+
+
+    <view class="cet"><text user-select="true">{{articleData.content}}</text></view>
 
 </view>
-<view class="label-box">
-  <text wx:for="{{articleData.labels}}" wx:key="id" >
-				<text class="label">{{item}}</text>
-			</text>
-</view>
-
-
-<view class="info">
-  <view class="shop" >店名：<text user-select="true" >{{articleData.shopname}}</text></view>
-<view class="time">预定时间： <text user-select="true" >{{articleData.DateTime}}</text></view>
-
-<view class="shop">
-  已有人数:  {{articleData.nowNum}}  空余人数：<text style="color: royalblue;">{{articleData.needNum-articleData.nowNum}} </text> 
-  期望人数: {{articleData.needNum}}
-</view>
-</view>
-
-
-<view class="cet"><text user-select="true">{{articleData.content}}</text></view>
-
 <view class="bottom-box">
-<view class="checkbox" wx:if="{{!alreadyIn && ! master}}">
-<radio bindtap="checkChange" checked="{{checked}}"></radio> <text style="margin-left: 20rpx;">我已阅读并同意</text><text style="color: blue;" bindtap="gotoShouldKnow">《约饭须知》</text>
+    <view class="checkbox" wx:if="{{!alreadyIn && ! master}}">
+        <radio bindtap="checkChange" checked="{{checked}}"></radio> <text style="margin-left: 20rpx;">我已阅读并同意</text><text style="color: blue;" bindtap="gotoShouldKnow">《约饭须知》</text>
 
-</view>
-<view class="outdate" wx:if="{{ (outdate || full)&& !alreadyIn && ! master}}">
-  {{outdate?'已结束':'已满人'}}
-</view>
+    </view>
 
-<view class="commit" wx:if="{{ !outdate && !full &&!alreadyIn && ! master}}"  bindtap="joinMeet">
-  加入约饭和通信
-</view>
-<view class="cancel"  wx:if="{{ alreadyIn && !master}}" bindtap="leaveMeet">
-  离开约饭和通信
-</view>
-<view class="delete" wx:if="{{master}}" bindtap="deleteMeet">
-  解散约饭和通信
-</view>
+    <view class="outdate" wx:if="{{ (outdate || full)&& !alreadyIn && ! master}}">
+        {{outdate?'已结束':'已满人'}}
+    </view>
+
+    <view class="commit" wx:if="{{ !outdate && !full &&!alreadyIn && ! master}}" bindtap="joinMeet">
+        加入约饭和通信
+    </view>
+    <view class="cancel" wx:if="{{ alreadyIn && !master}}" bindtap="leaveMeet">
+        离开约饭和通信
+    </view>
+    <view class="delete" wx:if="{{master}}" bindtap="deleteMeet">
+        解散约饭和通信
+    </view>
+
 </view>

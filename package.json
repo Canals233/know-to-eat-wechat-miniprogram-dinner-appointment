@@ -16,5 +16,6 @@
     "url": "git@gitee.com:Karasu114/knowledge-of-food.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }

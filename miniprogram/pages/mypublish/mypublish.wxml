@@ -11,7 +11,7 @@
 
 <scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight-50+'px':'auto'}}">
 
-<view wx:for="{{articleinfo}}" wx:key="key" wx:for-index="index" wx:for-item="item">
+<view class="card" wx:for="{{articleinfo}}" wx:key="key" wx:for-index="index" wx:for-item="item">
   <view class="solid-bottom"></view>
   <view class="cu-card case no-card">
     <view class="cu-item shadow" bindtap="viewItem" data-item="{{item}}" data-index="{{index}}" data-user="{{userinfo[index]}}" bindlongtap='onDeleteArticle' bindtap="viewItem">
