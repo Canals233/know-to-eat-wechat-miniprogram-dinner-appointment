@@ -29,11 +29,11 @@
 <view wx:else class="infoPage">
   <view class="UCenter-bg">
 
-<button mode="widthFix" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{userInfo.avatarUrl}})"></button>
+<button mode="widthFix" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{userInfo.userImg}})"></button>
 
 
-<view class="nickname">
-{{userInfo.nickName}}
+<view class="userName">
+{{userInfo.userName}}
 </view>
 
 

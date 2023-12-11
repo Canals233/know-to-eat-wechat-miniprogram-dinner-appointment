@@ -6,10 +6,10 @@
 </view>
 <scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight-50+'px':'auto'}};">
 <view class="item-container">
-  <view wx:for="{{costomers}}" wx:key="key" wx:for-index="index" wx:for-item="item" class="item" bindtap="gotoTalk" data-id="{{meetid}}" data-index="{{index}}" data-costomerid="{{item.openid}}">
+  <view wx:for="{{costomers}}" wx:key="key" wx:for-index="index" wx:for-item="item" class="item" bindtap="gotoTalk" data-id="{{meetid}}" data-index="{{index}}" data-costomerid="{{item.Authorization}}">
 
-  <image class="user-img" src="{{item.avatarUrl}}"></image>
-<text> {{item.nickName}}</text>
+  <image class="user-img" src="{{item.userImg}}"></image>
+<text> {{item.userName}}</text>
 <view class="preview">{{talkList[index].talklist.length?talkList[index].talklist[talkList[index].talklist.length-1].content:' '}}</view>
   </view>
 </view>

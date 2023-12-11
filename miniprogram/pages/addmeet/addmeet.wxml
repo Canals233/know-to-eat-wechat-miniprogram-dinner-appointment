@@ -25,13 +25,13 @@
 
   <view class="cu-form-group margin-top" bindtap="addLabel">
     <view class="title">偏好标签</view>
-    <view  wx:if="{{!labels.length}}">点击输入本次约饭偏好标签，长按标签删除</view>
-<view wx:if="{{labels.length}}" class="labelCtn">
-  <view wx:if="{{labels.length}}">
-      <view wx:for="{{labels}}" class="labelitem" wx:key="index" catchlongpress="DelLabel"  data-index="{{index}}">{{item}}</view>
+    <view  wx:if="{{!partyType.length}}">点击输入本次约饭偏好标签，长按标签删除</view>
+<view wx:if="{{partyType.length}}" class="labelCtn">
+  <view wx:if="{{partyType.length}}">
+      <view wx:for="{{partyType}}" class="labelitem" wx:key="index" catchlongpress="DelLabel"  data-index="{{index}}">{{item}}</view>
       
     </view>
-    <view class="labelcount" wx:if="{{labels.length<5}}">{{labels.length}}/5</view>
+    <view class="labelcount" wx:if="{{partyType.length<5}}">{{partyType.length}}/5</view>
 </view>
     
   </view>
@@ -45,7 +45,7 @@
   </view>
   <view class="cu-form-group margin-top">
     <view class="title">地址</view>
-    <view>{{mylocation?mylocation.address:"地址将在您选择店名后自动显示"}}</view>
+    <view>{{mylocation?mylocation.partyAddress:"地址将在您选择店名后自动显示"}}</view>
 
   </view>
 

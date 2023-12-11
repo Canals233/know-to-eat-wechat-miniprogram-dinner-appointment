@@ -5,7 +5,7 @@ cloud.init({ env: "know-to-eat-1guke3lkd453d421" });
 const db = cloud.database();
 // 云函数入口函数
 exports.main = async (event, context) => {
-	var myavatarUrl = event.avatarUrl;
+	var myuserImg = event.userImg;
 	var mynickName = event.nickName;
 	const myopenid = cloud.getWXContext().OPENID;
 	console.log(myopenid);
@@ -15,7 +15,7 @@ exports.main = async (event, context) => {
 		return await db.collection("user").add({
 			data: {
 				_id: myopenid,
-				avatarUrl: myavatarUrl,
+				userImg: myuserImg,
 				nickName: mynickName,
 				openid: myopenid,
 			},

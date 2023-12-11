@@ -42,7 +42,7 @@
   text-align: right;
  
 }
-.nickname{
+.userName{
 
   font-weight: bold;
   margin-top: 20rpx;

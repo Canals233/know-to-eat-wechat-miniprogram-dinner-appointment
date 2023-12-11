@@ -38,8 +38,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    const myopenid = wx.getStorageSync('useropenid')
-    if (!myopenid) {
+    const myAuthorization = wx.getStorageSync('Authorization')
+    if (!myAuthorization) {
       wx.showModal({
         cancelColor: 'cancelColor',
         title: "您还未登录",
@@ -181,7 +181,7 @@ Page({
     const mycontent = this.data.textareaInput
     const myshop = this.data.shopInput
     const mydatetime = timeUtil.formatTime(new Date());
-    const myopenid=  wx.getStorageSync("useropenid")  
+    const myAuthorization=  wx.getStorageSync("Authorization")  
     const myImgList=self.data.imgList
     if (mytitle == '') {
       wx.showToast({
@@ -247,7 +247,7 @@ Page({
         commentNum: 0,
         datetime: mydatetime,
         content: mycontent,
-        openid: myopenid,
+        Authorization: myAuthorization,
         picture: resImgList,
         title: mytitle,
         shopname:myshop,

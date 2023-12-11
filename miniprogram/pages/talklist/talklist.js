@@ -6,7 +6,7 @@ Page({
 	data: {
 		meetList: [],
 		userList: [],
-		myopenid: wx.getStorageSync("useropenid"),
+		myAuthorization: wx.getStorageSync("Authorization"),
 	},
 
 	/**
@@ -37,7 +37,7 @@ Page({
 		wx.cloud.callFunction({
 			name: "getMyJoin",
 			data: {
-				openid: this.data.myopenid,
+				Authorization: this.data.myAuthorization,
 			},
 			success: (res) => {
 				wx.stopPullDownRefresh();
@@ -74,7 +74,7 @@ Page({
 			e.currentTarget.dataset.costomerlist
 		);
 		console.log(costomerList);
-		if (masterid == this.data.myopenid) {
+		if (masterid == this.data.myAuthorization) {
 			wx.navigateTo({
 				url:
 					"/pages/secondtalk/secondtalk?id=" +
@@ -94,7 +94,7 @@ Page({
 					"&title=" +
 					e.currentTarget.dataset.title +
 					"&costomerid=" +
-					this.data.myopenid,
+					this.data.myAuthorization,
 			});
 		}
 	},

@@ -18,8 +18,8 @@
                         <view class="cuIcon-likefill item-icon  absolute-top"> {{item[0].likeNum}}</view> </view>
                    
                     <view class="userinfo">
-                        <image src="{{item[1].avatarUrl}}" class="avatarimg"></image>
-                    <text class="nickname">{{item[1].nickName}}</text>
+                        <image src="{{item[1].userImg}}" class="avatarimg"></image>
+                    <text class="userName">{{item[1].userName}}</text>
                     
                     </view>
                     <text class="cuIcon-favorfill item-icon  absolute-bottom"> {{item[0].collectNum}}</text> 
@@ -46,8 +46,8 @@
                         <view class="cuIcon-likefill item-icon  absolute-top"> {{item[0].likeNum}}</view> </view>
                    
                     <view class="userinfo">
-                        <image src="{{item[1].avatarUrl}}" class="avatarimg"></image>
-                    <text class="nickname">{{item[1].nickName}}</text>
+                        <image src="{{item[1].userImg}}" class="avatarimg"></image>
+                    <text class="userName">{{item[1].userName}}</text>
                     
                     </view>
                     <text class="cuIcon-favorfill item-icon absolute-bottom"> {{item[0].collectNum}}</text> 

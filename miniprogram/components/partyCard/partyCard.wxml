@@ -1,0 +1,24 @@
+<view class="item" data-id="{{item.partyId}}" data-userid="{{item.userId}}" bindtap="toMeetDetail">
+    <view class="img-container">
+        <image src="{{item.partyImg}}" class="item-img" mode="aspectFit"></image>
+        
+    </view>
+    <view class="item-dec">
+        <view class="title">{{item.partyTitle}}</view>
+        <view class="label" wx:for="{{item.partyType}}" wx:key="id">
+            <text>{{item}}</text>
+        </view>
+        
+        <view class="item-shop">地址:{{item.partyShopName}}</view>
+        <view class="item-content">{{item.partyText}}</view>
+        <view class="item-time">
+            预约时间：
+            <text>{{item.partyOverdue}}</text>
+        </view>
+        <view class="item-costom">
+            <text>预计人均：￥{{item.partyCost}}</text>
+            <text>人数：{{item.userNum}}/{{item.partyMaxUserNum}}</text>
+        </view>
+        <view class="item-city">{{item.partyCity}} {{item.partyDistrict}}</view>
+    </view>
+</view>

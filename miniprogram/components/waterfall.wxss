@@ -15,7 +15,7 @@
   position: relative;
   box-shadow: 0 0 10px #ccc;
 }
-.item-where,.nickname{
+.item-where,.userName{
   overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -72,7 +72,7 @@
   margin: 0 10rpx 10rpx 10rpx;
   vertical-align: middle;
 }
-.nickname{
+.userName{
  height: 40rpx;
  line-height: 40rpx;
  font-weight: bold;

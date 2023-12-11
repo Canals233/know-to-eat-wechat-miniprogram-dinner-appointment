@@ -16,7 +16,7 @@ Page({
     _id:"",
     isCollect:false,
     isLike:false,
-    myopenid: wx.getStorageSync('useropenid')
+    myAuthorization: wx.getStorageSync('Authorization')
   },
 
   //页面加载
@@ -54,7 +54,7 @@ Page({
     var self=this
     const db=wx.cloud.database()
     db.collection('user').where({
-      openid:e.openid
+      Authorization:e.Authorization
     }).get().then(
       res=>{
         console.log(res)
@@ -67,12 +67,12 @@ Page({
   //获取收藏状态
   isCollectAndLike(){
     self=this
-    console.log(self.data.myopenid,self.data.articleData)
+    console.log(self.data.myAuthorization,self.data.articleData)
     wx.cloud.callFunction({
       name: 'isCollectAndLike',
       data: {
         articleid: self.data.articleData._id,
-        openid: self.data.myopenid
+        Authorization: self.data.myAuthorization
       },
       success: function(res) {
         
@@ -90,7 +90,7 @@ Page({
 
   //点击收藏功能
   onCollect: function() {
-   if(!this.data.myopenid){
+   if(!this.data.myAuthorization){
     wx.showModal({
       cancelColor: 'cancelColor',
       title: "您还未登录",
@@ -124,7 +124,7 @@ Page({
       name:"onCollect",
       data:{
         articleid: this.data.articleData._id,
-          openid: this.data.myopenid
+          Authorization: this.data.myAuthorization
       },
       // success:function(res){
       //   self.setData({
@@ -140,7 +140,7 @@ Page({
 
   //点赞功能
   onLike: function() {
-    if(!this.data.myopenid){
+    if(!this.data.myAuthorization){
       wx.showModal({
         cancelColor: 'cancelColor',
         title: "您还未登录",
@@ -172,7 +172,7 @@ Page({
       name:"onLike",
       data:{
         articleid: this.data.articleData._id,
-          openid: this.data.myopenid
+          Authorization: this.data.myAuthorization
       },
       // success:function(res){
       //   console.log(res)

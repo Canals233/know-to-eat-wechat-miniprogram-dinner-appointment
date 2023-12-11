@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    myopenid: wx.getStorageSync('useropenid'),
-    myprofile: wx.getStorageSync('lcuserInfo'),
+    myAuthorization: wx.getStorageSync('Authorization'),
+    
     meetid: null,
     masterid: null,
     costomerid: null,
@@ -25,7 +25,7 @@ Page({
    */
   onLoad(options) {
     const self =this
-    const myopenid = this.data.myopenid
+    const myAuthorization = this.data.myAuthorization
     
     console.log(options)
     this.setData({
@@ -42,13 +42,13 @@ Page({
         });
       }
     })
-    if (options.masterid == myopenid) {
+    if (options.masterid == myAuthorization) {
       this.setData({
         state: 'master'
       })
       db.collection('user').where(
         {
-          openid: options.costomerid,
+          Authorization: options.costomerid,
         }
       ).get().then(
         res => {
@@ -64,7 +64,7 @@ Page({
       })
       db.collection('user').where(
         {
-          openid: options.masterid,
+          Authorization: options.masterid,
         }
       ).get().then(
         res => {

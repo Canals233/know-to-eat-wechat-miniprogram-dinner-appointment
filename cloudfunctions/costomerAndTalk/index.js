@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
 			.update({
 				data: {
 					costomerList: _.addToSet(costomerid),
-					nowNum: _.inc(1),
+					userNum: _.inc(1),
 				},
 			})
 			.then((res) => {
@@ -50,7 +50,7 @@ exports.main = async (event, context) => {
 			.update({
 				data: {
 					costomerList: _.pull(costomerid),
-					nowNum: _.inc(-1),
+					userNum: _.inc(-1),
 				},
 			})
 			.then((res) => {

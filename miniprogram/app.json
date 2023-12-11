@@ -1,5 +1,7 @@
 {
   "usingComponents": {
+    "partyCard": "/components/partyCard/partyCard",
+    "van-tag": "@vant/weapp/tag/index",
     "van-button": "@vant/weapp/button/index",
     "van-field": "@vant/weapp/field/index",
     "van-cell": "@vant/weapp/cell/index",
@@ -35,7 +37,7 @@
       "provider": "wx76a9a06e5b4e693e"
     },
     "citySelector": {
-      "version": "1.0.2",
+      "version": "1.0.1",
       "provider": "wx63ffb7b7894e99ae"
     }
   },

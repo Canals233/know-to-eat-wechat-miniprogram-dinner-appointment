@@ -10,7 +10,7 @@ Page({
     clientHeight:0,
     state:null,
     likeflag:null,
-    openid:wx.getStorageSync('useropenid')
+    Authorization:wx.getStorageSync('Authorization')
   },
 
   /**
@@ -46,8 +46,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    const myopenid=this.data.openid
-    this.getArticle(myopenid)
+    const myAuthorization=this.data.Authorization
+    this.getArticle(myAuthorization)
   },
 
 
@@ -57,7 +57,7 @@ Page({
       name: 'getMyCollectOrLike',
       data:{
         state:mystate,
-        openid:options
+        Authorization:options
       },
       success: function(res) {
        

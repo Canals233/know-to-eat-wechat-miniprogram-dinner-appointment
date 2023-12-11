@@ -13,8 +13,8 @@
     <!-- <view><text  class="right">{{articleDetail.description}}</text></view> -->
     <view class="tit"><text user-select="true">{{articleData.title}}</text></view>
     <view class="userinfo">
-        <image src="{{userData.avatarUrl}}" class="avatarimg"></image>
-        <text class="nickname">{{userData.nickName}}</text>
+        <image src="{{userData.userImg}}" class="avatarimg"></image>
+        <text class="userName">{{userData.userName}}</text>
 
     </view>
     <view class="shop">

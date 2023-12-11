@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    myopenid: wx.getStorageSync('useropenid'),
+    myAuthorization: wx.getStorageSync('Authorization'),
     meetid: null,
     costomerids:[],
    talkList:[],
@@ -69,7 +69,7 @@ wx.cloud.callFunction({
     
     
       wx.navigateTo({
-        url: '/pages/talkDetail/talkDetail?id='+e.currentTarget.dataset.id+'&masterid='+this.data.myopenid+'&title='+this.data.title+'&costomerid='+e.currentTarget.dataset.costomerid,
+        url: '/pages/talkDetail/talkDetail?id='+e.currentTarget.dataset.id+'&masterid='+this.data.myAuthorization+'&title='+this.data.title+'&costomerid='+e.currentTarget.dataset.costomerid,
       })
     },
   

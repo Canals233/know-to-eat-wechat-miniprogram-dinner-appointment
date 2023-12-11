@@ -3,89 +3,83 @@
 
 
 
-.label-box{
-  margin-left: 20rpx;
+.label-box {
+    margin-left: 20rpx;
 }
 
-.label{
-  font-size: 10px;
-  color: gray;
-  border: 1rpx solid #ccc;
-  border-radius: 50%;
-  padding:10rpx;
-  background-color: #ccc;
-  margin-right: 5px;
+.label {
+    font-size: 10px;
+    color: gray;
+    border: 1rpx solid #ccc;
+    border-radius: 50%;
+    padding: 10rpx;
+    background-color: #ccc;
+    margin-right: 5px;
 }
 
-.shop{
-  font-size: 13px;
+
+.time {
+    font-weight: bold;
+    font-size: 13px;
+    width: auto;
+
 }
 
-.time{
-  font-weight: bold;
-  font-size: 13px;
-  width: auto;
-  margin-left: 20rpx;
-}
-.shop{
-  height: 80rpx;
-  line-height: 80rpx;
-}
-.info ,.cet{
-  margin: 20rpx  0 0 20rpx ;
- 
-  border: 1px solid #ccc;
-  width: 90%;
-  border-radius: 40rpx;
-  box-shadow: 0 0 15rpx #ccc;
-  text-indent: 0;
+.info,
+.cet {
+    border: 1px solid #ccc;
+
+    border-radius: 20rpx;
+    box-shadow: 0 0 15rpx #ccc;
+    text-indent: 0;
+
 }
 
-.cet{
-  
-  padding: 20rpx;
-  padding-top: 0;
-  line-height:40rpx;
-  font-size: 13px;
-  margin-bottom: 150rpx;
+
+
+.bottom-box {
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    border-top: 2px solid #ccc;
+    border-radius: 20rpx;
+    height: 130rpx;
+    box-shadow: 0 -10rpx 20rpx #ccc;
+    background-color: #fff;
 }
 
-.bottom-box{
-  display: flex;
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  width: 100%;
-  border-top: 2px solid #ccc;
-  border-radius: 20rpx;
-  height: 130rpx;
-  box-shadow: 0 -10rpx 20rpx #ccc;
-  background-color: #fff;
+.checkbox {
+    width: 58%;
+    line-height: 130rpx;
+    font-size: 13px;
+    padding-left: 20rpx;
 }
-.checkbox{
-  width: 58%;
-  line-height: 130rpx;
-  font-size: 13px;
-  padding-left: 20rpx;
+
+.commit,
+.cancel,
+.delete,
+.outdate {
+    width: 40%;
+    height: 60rpx;
+    border: 1px solid #ccc;
+    margin-top: 32rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border-radius: 50rpx;
+    background-color: green;
+    font-size: 16px;
+    color: #fff;
 }
-.commit,.cancel,.delete,.outdate{
- width: 40%;
-  height: 78rpx;
-  border: 1px solid #ccc;
-  margin: 26rpx 0;
-  line-height: 78rpx;
-  text-align: center;
-  border-radius: 50rpx;
-  background-color: green;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
+
+.cancel,
+.delete {
+    background-color: red;
+    position: fixed;
+    right: 20rpx;
 }
-.cancel,.delete{
-  background-color: red;
-  position: fixed;
-  right: 20rpx;
-}
-.outdate{
-  background-color: #ccc;
+
+.outdate {
+    background-color: #ccc;
 }

@@ -1,0 +1,93 @@
+/* components/partyCard.wxss */
+
+
+.item {
+   
+    width: 95%;
+    margin: 30rpx auto;
+    border: 1px solid rosybrown;
+    border-radius: 20rpx;
+    box-shadow: 0 0 15rpx #ccc;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 10rpx 0;
+}
+
+.item-img {
+    height: 200rpx;
+    width: 100%;
+
+    border-radius: 30rpx;
+    padding: 5rpx 5rpx;
+    margin: 10rpx;
+
+}
+
+.img-container {
+    float: left;
+    width: 30%;
+}
+
+.user-img {
+    width: 40rpx;
+    height: 40rpx;
+    border-radius: 50%;
+  
+    vertical-align: middle;
+}
+
+.item-dec {
+    width: 65%;
+    float: right;
+}
+
+.title,
+.item-shop {
+    font-weight: bold;
+    font-size: 14px;
+  
+}
+
+.label {
+    font-size: 9px;
+    padding: 6rpx;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 10rpx;
+   
+    display: inline-block;
+    margin: 5rpx 10rpx 5rpx 0;
+}
+
+.item-shop {
+    font-size: 12px;
+}
+
+.item-content {
+
+
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-lines: 2;
+    margin:6rpx 0;
+}
+
+.item-time {
+    font-size: 11px;
+    color: black;
+   
+}
+
+.item-costom {
+    font-size: 11px;
+    
+}
+
+.item-city {
+    font-size:10px;
+    color: gray;
+    font-weight: bold;
+}
+

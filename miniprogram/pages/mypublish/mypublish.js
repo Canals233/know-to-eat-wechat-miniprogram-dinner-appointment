@@ -29,7 +29,7 @@ Page({
 			name: "getMyArticleList",
 			data: {
 				dbname: "articles",
-				openid: wx.getStorageSync("useropenid"),
+				Authorization: wx.getStorageSync("Authorization"),
 			},
 			success: function (res) {
 				wx.stopPullDownRefresh();

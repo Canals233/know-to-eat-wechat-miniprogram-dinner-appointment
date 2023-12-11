@@ -4,7 +4,7 @@
   <view>
       <view>
         <image src="../../static/minihead.png" class="avatar "></image>
-        <text class=" nickname">识食开发团队</text>
+        <text class=" userName">识食开发团队</text>
       </view>
       <view class="left-msg">
         <text style="white-space:pre-wrap;text-align: left;">
@@ -21,7 +21,7 @@
     <view wx:if="{{item.state==state}}" class="rightone">
       
         <view>
-          <image src="{{myprofile.avatarUrl}}" class="avatar "></image>
+          <image src="{{myprofile.userImg}}" class="avatar "></image>
         </view>
         <view class="right-msg">
         <text user-select="true" style="white-space:pre-wrap;text-align: left;">{{item.content}}</text>
@@ -31,8 +31,8 @@
     </view>
     <view wx:else>
       <view>
-        <image src="{{friendprofile.avatarUrl}}" class="avatar "></image>
-        <text class=" nickname">{{friendprofile.nickName}}</text>
+        <image src="{{friendprofile.userImg}}" class="avatar "></image>
+        <text class=" userName">{{friendprofile.userName}}</text>
       </view>
       <view class="left-msg">
         <text user-select="true" style="white-space:pre-wrap;text-align: left;">{{item.content}}</text>

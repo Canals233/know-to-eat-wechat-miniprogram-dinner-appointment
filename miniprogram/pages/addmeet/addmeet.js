@@ -15,7 +15,7 @@ Page({
         mylocation: null,
         showadd: false,
         labelInput: '',
-        labels: [],
+        partyType: [],
         needNumInput: null,
         costInput: null,
         promisedDate: "未选择",
@@ -43,8 +43,8 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        const myopenid = wx.getStorageSync('useropenid')
-        if (!myopenid) {
+        const myAuthorization = wx.getStorageSync('Authorization')
+        if (!myAuthorization) {
             wx.showModal({
                 cancelColor: 'cancelColor',
                 title: "您还未登录",
@@ -83,7 +83,7 @@ Page({
     },
 
     addLabel() {
-        if (this.data.labels.length >= 5) {
+        if (this.data.partyType.length >= 5) {
             return
         }
         this.setData({
@@ -92,9 +92,9 @@ Page({
     },
 
     DelLabel(e) {
-        this.data.labels.splice(e.currentTarget.dataset.index, 1);
+        this.data.partyType.splice(e.currentTarget.dataset.index, 1);
         this.setData({
-            labels: this.data.labels
+            partyType: this.data.partyType
         })
     },
 
@@ -215,7 +215,7 @@ Page({
         console.log(newlabel)
         if (newlabel) {
             this.setData({
-                labels: this.data.labels.concat(newlabel),
+                partyType: this.data.partyType.concat(newlabel),
             })
         }
         this.setData({
@@ -243,11 +243,11 @@ Page({
     //点击发布按钮事件
     publishBt: function () {
 
-        const myopenid = wx.getStorageSync("useropenid");
+        const myAuthorization = wx.getStorageSync("Authorization");
         const self = this
         const mytitle = this.data.textInput
         const mycontent = this.data.textareaInput
-        const mylabels = this.data.labels
+        const mypartyType = this.data.partyType
         const mydatetime = timeUtil.formatTime(new Date());
         const theDate = this.data.promisedDate
         const theTime = this.data.promisedTime
@@ -364,21 +364,21 @@ Page({
                     commentNum: 0,
                     datetime: mydatetime,
                     content: mycontent,
-                    openid: myopenid,
+                    Authorization: myAuthorization,
                     picture: resImgList,
                     title: mytitle,
-                    labels: mylabels,
-                    shopname: mylocation.name,
-                    needNum: myneedNum,
-                    cost: mycost,
-                    nowNum: 1,
+                    partyType: mypartyType,
+                    partyShopName: mylocation.name,
+                    partyMaxUserNum: myneedNum,
+                    partyCost: mycost,
+                    userNum: 1,
                     DateTime: promisedDateTime,
-                    longitude: mylocation.longitude,
-                    latitude: mylocation.latitude,
-                    address: mylocation.address,
-                    province: mylocation.province,
-                    city: mylocation.city,
-                    district: mylocation.district,
+                    partyLongitude: mylocation.longitude,
+                    partyLatitude: mylocation.latitude,
+                    partyAddress: mylocation.address,
+                    partyProvince: mylocation.province,
+                    partyCity: mylocation.city,
+                    partyDistrict: mylocation.district,
                     costomerList: []
                 }
             }).then(res => {
@@ -434,7 +434,7 @@ Page({
             mylocation: null,
             showadd: false,
             labelInput: '',
-            labels: []
+            partyType: []
         })
         this.onUnload()
         this.onShow()

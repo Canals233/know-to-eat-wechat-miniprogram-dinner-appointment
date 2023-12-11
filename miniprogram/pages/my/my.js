@@ -5,14 +5,14 @@ Page({
 	data: {
 		isLogin: true, // 默认显示登录表单
 		userInfo: {
-			avatarUrl: null,
-			nickName: "登录失败",
+			userImg: null,
+			userName: "登录失败",
 		},
 		hasUserInfo: false,
 		authored: false,
 		meetNum: 0,
 		articleNum: 0,
-		useropenid: null,
+		
 	},
 	//事件处理函数
 
@@ -22,22 +22,7 @@ Page({
 	onLoad: function () {
 		self = this;
 		// 已授权则在本地缓存获取数据
-		wx.getSetting({
-			success: (res) => {
-				if (res.authSetting["scope.userInfo"]) {
-					wx.getStorage({
-						key: "lcuserInfo",
-						success: (res) => {
-							self.setData({
-								hasUserInfo: true,
-								authored: true,
-								userInfo: res.data,
-							});
-						},
-					});
-				}
-			},
-		});
+		
 
 		this.getUserProfile();
 	},
@@ -56,39 +41,7 @@ Page({
 					authored: true,
 				});
 				console.log(res);
-				wx.setStorage({
-					key: "lcuserInfo",
-					data: res.userInfo,
-				});
-				//在本地添加useropenid存储
-				wx.cloud.callFunction({
-					name: "login",
-					success: (res) => {
-						wx.setStorage({
-							key: "useropenid",
-							data: res.result.openid,
-						});
-						this.setData(
-							{
-								useropenid: res.result.openid,
-							},
-							() => {
-								this.getNum();
-							}
-						);
-					},
-				});
-				//云端添加数据库user中记录
-				wx.cloud.callFunction({
-					name: "addUser",
-					data: {
-						avatarUrl: res.userInfo.avatarUrl,
-						nickName: res.userInfo.nickName,
-					},
-					success: function (res) {
-						console.log(res);
-					},
-				});
+                localStorage.setItem("userInfo", JSON.stringify(res.userInfo));
 			},
 		});
 	},
@@ -100,19 +53,7 @@ Page({
 	},
 
 	getNum() {
-		wx.cloud.callFunction({
-			name: "getUserInfoNum",
-			data: {
-				openid: this.data.useropenid,
-			},
-			success: (res) => {
-				console.log(res);
-				this.setData({
-					meetNum: res.result.articleNum,
-					articleNum: res.result.meetNum,
-				});
-			},
-		});
+		
 	},
 
 	mycollect: function (event) {
@@ -150,9 +91,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		if (this.data.hasUserInfo) {
-			this.getNum();
-		}
+		
 	},
 
 	/**

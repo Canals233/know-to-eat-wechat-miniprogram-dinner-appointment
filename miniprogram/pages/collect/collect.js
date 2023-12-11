@@ -7,7 +7,7 @@ Page({
   data: {
     articleinfo: [],
     userinfo: [],
-    myopenid:wx.getStorageSync('useropenid')
+    myAuthorization:wx.getStorageSync('Authorization')
   },
 
   /**
@@ -18,7 +18,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getMyCollectList',
       data: {
-        openid: self.data.myopenid
+        Authorization: self.data.myAuthorization
       },
       success: function(res) {
         wx.stopPullDownRefresh()
@@ -94,7 +94,7 @@ Page({
       name: 'onCollect',
       data: {
         articleid: articledata._id,
-        openid: self.data.myopenid
+        Authorization: self.data.myAuthorization
       },
       success: function(res) {
         console.log(res)

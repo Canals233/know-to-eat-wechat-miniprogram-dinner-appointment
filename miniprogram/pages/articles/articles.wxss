@@ -1,73 +1,81 @@
 /* pages/comments.wxss */
-.icons{
-  margin: 20rpx;
-  position: fixed;
-  right: 20rpx;
-  bottom: 15rpx;
-  padding: 20rpx;
-  border: 1px solid #ccc;
-  border-radius: 100rpx;
-  background-color: #fff
+.icons {
+    margin: 20rpx;
+    position: fixed;
+    right: 20rpx;
+    bottom: 15rpx;
+    padding: 20rpx;
+    border: 1px solid #ccc;
+    border-radius: 100rpx;
+    background-color: #fff
 }
-.img{
-  width: 70rpx;
-  height: 70rpx;
-  margin-right: 20rpx;
-  vertical-align: -20rpx;
+
+.img {
+    width: 70rpx;
+    height: 70rpx;
+    margin-right: 20rpx;
+    vertical-align: -20rpx;
 }
-.iconNum{
- 
-  font-size: 20px;
-  margin-right: 10rpx;
+
+.iconNum {
+
+    font-size: 20px;
+    margin-right: 10rpx;
 }
-.SW{
-  text-align: center;
-  height: 400rpx;
-  background-color: white;
-  
+
+.SW {
+    text-align: center;
+    height: 400rpx;
+    background-color: white;
+
 }
-.main{
-  margin: 20rpx;
+
+.main {
+    margin: 20rpx;
 }
-.tit{
-  height: 100rpx;
-  line-height: 100rpx;
-  font-weight: bold;
-  text-align: center;
+
+.tit {
+
+    font-weight: bold;
+    text-align: center;
 }
-.shop{
-  height: 100rpx;
-  line-height: 100rpx;
-  font-weight: bold;
-  font-size: 12px;
-  margin-left: 20rpx;
+
+.shop {
+
+    font-weight: bold;
+    font-size: 12px;
 }
-.cet{
-  width: 90%;
-  margin: 40rpx 0 60rpx -10rpx;
-  text-indent: 1rem;
-  
-  padding: 20rpx;
-  line-height:40rpx;
-  font-size: 13px;
-  margin-bottom: 150rpx;
+
+.cet {
+
+    
+    text-indent: 1rem;
+
+    padding: 20rpx;
+
+    font-size: 13px;
+    margin: 20px 10px 0 10px;
 }
-.avatarimg{
-  width: 60rpx;
-  height: 60rpx;
-  border-radius: 50%;
-  margin: 0 10rpx 10rpx 10rpx;
-  vertical-align: middle;
+
+.avatarimg {
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+    margin: 0 10rpx 10rpx 10rpx;
+    vertical-align: middle;
 }
-.nickname{
- height: 40rpx;
- line-height: 40rpx;
- font-weight: bold;
- font-size: 14px;
+
+.userName {
+    height: 40rpx;
+    line-height: 40rpx;
+    font-weight: bold;
+    font-size: 14px;
 }
-.userinfo{
-  margin-left: 10rpx;
+
+.userinfo {
+    margin-left: 10rpx;
 }
-page{
-  background-color: #fff;
+
+page {
+    background-color: #fff;
 }
