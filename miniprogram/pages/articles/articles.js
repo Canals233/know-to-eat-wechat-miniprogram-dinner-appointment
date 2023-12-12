@@ -15,7 +15,7 @@ Page({
 		isLike: false,
 		myAuthorization: wx.getStorageSync("Authorization"),
 		commentDatas: [],
-        commentText: "",
+		commentText: "",
 	},
 
 	//页面加载
@@ -339,81 +339,140 @@ Page({
 		});
 	},
 
-    onInputComment: function (e) {
-      
-        this.setData({
-            commentText: e.detail.value,
-        });
-    },
+	onInputComment: function (e) {
+		this.setData({
+			commentText: e.detail.value,
+		});
+	},
 
-    onPublishComment: function (e) {
-        if (!this.data.myAuthorization) {
-            wx.showModal({
-                cancelColor: "cancelColor",
-                title: "您还未登录",
-                content: "是否前往个人页面登录",
-                success: function (res) {
-                    if (res.confirm) {
-                        wx.reLaunch({
-                            url: "/pages/my/my",
+	onPublishComment: function (e) {
+		if (!this.data.myAuthorization) {
+			wx.showModal({
+				cancelColor: "cancelColor",
+				title: "您还未登录",
+				content: "是否前往个人页面登录",
+				success: function (res) {
+					if (res.confirm) {
+						wx.reLaunch({
+							url: "/pages/my/my",
+						});
+					} else {
+						wx.showToast({
+							icon: "none",
+							title: "您可以前往“我识”界面自行登录",
+						});
+					}
+				},
+			});
+			return;
+		}
+		const comment = this.data.commentText;
+		console.log("comment", comment);
+		if (!comment) {
+			wx.showToast({
+				title: "评论内容不能为空",
+				icon: "none",
+				duration: 2000,
+			});
+			return;
+		}
+		const url = "https://gpt.leafqycc.top:6660/comment/CommentNote";
+        wx.showLoading({
+            title: '评论中',
+        })
+		wx.request({
+			url: url,
+			method: "POST",
+			header: {
+				"Content-Type": "application/json",
+				Authorization: wx.getStorageSync("Authorization"),
+			},
+			data: {
+				noteId: this.data.noteId,
+				fatherId: 0,
+				commentText: comment,
+				commentTime: new Date().toISOString(),
+			},
+			success: (res) => {
+				console.log("评论成功:", res);
+				if (res.data.code) {
+					wx.showToast({
+						title: "评论成功",
+						icon: "success",
+						duration: 2000,
+					});
+					this.queryComment(this.data.noteId);
+				} else {
+					wx.showToast({
+						title: "评论失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: (error) => {
+				console.error("评论 failed:", error);
+			},
+            complete:()=>{
+
+                wx.hideLoading();
+                this.setData({
+                    commentText: "",
+                })
+            }
+		});
+	},
+
+	showDeleteTip(event) {
+		const commentId = event.currentTarget.dataset.id;
+        console.log("commentId", commentId);
+		// 判断是否可以删除
+		
+			wx.showModal({
+				title: "提示",
+				content: "确定删除该评论吗？",
+				success: (res) => {
+					if (res.confirm) {
+						// 用户点击确定执行删除操作
+                        wx.request({
+                            url: "https://gpt.leafqycc.top:6660/comment/DeleteComment",
+                            method: "DELETE",
+                            header: {
+                                "Content-Type": "application/json",
+                                Authorization: wx.getStorageSync("Authorization"),
+                            },
+                            data: {
+                                noteId: +this.data.noteId,
+                                fatherId:0,
+                                commentId:commentId
+                            },
+                            success: (res) => {
+                                console.log("删评:", res);
+                                if (res.data.data) {
+                                    this.queryComment(this.data.noteId);
+                                    wx.showToast({
+                                        title: "删除成功",
+                                        icon: "success",
+                                        duration: 2000,
+                                    });
+                                }else{
+                                    wx.showToast({
+                                        title: "删除失败",
+                                        icon: "none",
+                                        duration: 2000,
+                                    });
+                                }
+                            },
+                            fail: (error) => {
+                                console.error("删评 failed:", error);
+                            },
+                            
                         });
-                    } else {
-                        wx.showToast({
-                            icon: "none",
-                            title: "您可以前往“我识”界面自行登录",
-                        });
-                    }
-                },
-            });
-            return;
-        }
-        const comment = this.data.commentText;
-        console.log("comment", comment);
-        if (!comment) {
-            wx.showToast({
-                title: "评论内容不能为空",
-                icon: "none",
-                duration: 2000,
-            });
-            return;
-        }
-        const url = "https://gpt.leafqycc.top:6660/comment/CommentNote";
-        wx.request({
-            url: url,
-            method: "POST",
-            header: {
-                "Content-Type": "application/json",
-                Authorization: wx.getStorageSync("Authorization"),
-            },
-            data: {
-                noteId: this.data.noteId,
-                fatherId: 0,
-                commentText: comment,
-                commentTime: new Date().toISOString(),
-            },
-            success: (res) => {
-                console.log("评论成功:", res);
-                if (res.data.code) {
-                    wx.showToast({
-                        title: "评论成功",
-                        icon: "success",
-                        duration: 2000,
-                    });
-                    this.queryComment(this.data.noteId);
-                } else {
-                    wx.showToast({
-                        title: "评论失败",
-                        icon: "none",
-                        duration: 2000,
-                    });
-                }
-            },
-            fail: (error) => {
-                console.error("评论 failed:", error);
-            },
-        });
-    },
-    
+					}
+				},
+			});
+		
+	},
 
 
 	//点击图片会发生的事情

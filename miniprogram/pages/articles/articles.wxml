@@ -23,8 +23,8 @@
         <text>评论列表</text>
         <!-- comments.wxml -->
         <view class="comment-list">
-            <block wx:for="{{commentDatas}}" wx:key="commentId">
-                <view class="comment-item">
+            <block wx:for="{{commentDatas}}" wx:key="commentId" >
+                <view class="comment-item" bindlongpress="showDeleteTip" data-id="{{item.commentId}}">
                     <!-- 头像 -->
                     <image src="{{item.userImg}}" class="avatar"></image>
                     <!-- 评论内容和时间 -->
@@ -60,7 +60,7 @@
 <view class="bottom-container">
   <!-- 左侧输入框和发布按钮 -->
   <view class="input-container">
-    <textarea class="input" placeholder="输入评论" bindinput="onInputComment"></textarea>
+    <textarea class="input" placeholder="输入评论" bindinput="onInputComment" value="{{commentText}}"></textarea>
     <button class="publish-btn" bindtap="onPublishComment">发布</button>
   </view>
 
