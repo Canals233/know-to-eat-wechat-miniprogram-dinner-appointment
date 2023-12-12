@@ -4,7 +4,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		articleinfo: [],
+		noteList: [],
 	},
 
 	/**
@@ -25,28 +25,41 @@ Page({
 
 	getMylist() {
 		self = this;
-		wx.cloud.callFunction({
-			name: "getMyArticleList",
-			data: {
-				dbname: "articles",
+		wx.request({
+			url: "https://gpt.leafqycc.top:6660/note/QuerySelfNote",
+			method: "POST",
+			header: {
 				Authorization: wx.getStorageSync("Authorization"),
+				"Content-Type": "application/json",
 			},
+			data: {},
 			success: function (res) {
-				wx.stopPullDownRefresh();
-				wx.hideLoading({
-					success: (res) => {},
-				});
-				self.setData({
-					articleinfo: res.result.myarticleinfo.data,
-				});
-				console.log(self.data.articleinfo);
+				console.log("请求:", res.data);
+				// 处理请求成功的逻辑
+				if (res.data.code) {
+					const noteData = res.data.data;
+                    noteData.forEach((element) => {
+                        element.noteTime = element.noteTime.substring(0, 20).replace(
+							"T",
+							" "
+						);
+                    });
+					self.setData({
+						noteList: noteData,
+					});
+				} else {
+					wx.showToast({
+						title: "获取数据失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
 			},
-			fail: function (res) {
-				wx.showToast({
-					title: "糟糕，获取失败了",
-				});
-				wx.stopPullDownRefresh();
-				console.log(res.errMsg);
+			fail: function (error) {
+				console.error("请求失败:", error);
+			},
+			complete: function () {
+				wx.hideLoading();
 			},
 		});
 	},
@@ -89,11 +102,11 @@ Page({
 	 */
 	onShareAppMessage: function () {},
 	viewItem: function (event) {
-		let item = event.currentTarget.dataset.item;
-		let id = item._id;
+		let id = event.currentTarget.dataset.id;
+		
 
 		wx.navigateTo({
-			url: "../articles/articles?id=" + id,
+			url: "../articles/articles?noteId=" + id,
 		});
 	},
 	publish: function (event) {

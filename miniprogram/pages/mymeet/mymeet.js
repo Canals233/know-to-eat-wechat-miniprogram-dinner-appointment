@@ -37,7 +37,7 @@ Page({
 	getMylist() {
 		self = this;
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/party/QuerySelfParty",
+			url: "https://gpt.leafqycc.top:6660/party/QuerySelfCreateParty",
 			method: "POST",
 			header: {
 				Authorization: wx.getStorageSync("Authorization"),

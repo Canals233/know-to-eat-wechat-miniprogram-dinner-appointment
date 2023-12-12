@@ -64,7 +64,7 @@
   </view>
   <view class="TPleft" bindtap="mypublish">
    <image src="../../static/mypublish.png"></image>
-   <view class="TP-title">我发表的评论
+   <view class="TP-title">我发表的笔记
    </view>
   </view>
 </view>

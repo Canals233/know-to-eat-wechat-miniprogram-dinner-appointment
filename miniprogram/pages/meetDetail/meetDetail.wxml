@@ -1,6 +1,6 @@
 <!-- pages/meetDetail/meetDetail.wxml -->
 <view class="SW">
-    <image src="{{partyDetailData.partyImg}}" mode="aspectFit" style='height: 360rpx;' bindtap="ViewImage"></image>
+    <image src="{{partyDetailData.partyImg}}" mode="aspectFit" style='height: 360rpx;' bindtap="ViewImage" data-url="{{partyDetailData.partyImg}}"></image>
 </view>
 <view class="body_container">
     <view class="tit">

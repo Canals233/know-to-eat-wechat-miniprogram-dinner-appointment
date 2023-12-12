@@ -17,7 +17,7 @@ exports.main = async(event, context) => {
     
     await db.collection('articles').doc(myarticleid).update({
       data: {
-        collectNum: _.inc(1)
+        collectionNum: _.inc(1)
       }
     })
     await db.collection('collect').add({
@@ -39,7 +39,7 @@ exports.main = async(event, context) => {
 
     await db.collection('articles').doc(myarticleid).update({
       data: {
-        collectNum: _.inc(-1)
+        collectionNum: _.inc(-1)
       }
     })
     return{

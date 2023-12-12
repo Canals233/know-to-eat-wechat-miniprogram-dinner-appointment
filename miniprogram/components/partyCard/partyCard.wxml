@@ -1,4 +1,4 @@
-<view class="item" data-id="{{item.partyId}}" data-userid="{{item.userId}}" bindtap="toMeetDetail">
+<view class="item" data-id="{{item.partyId}}" data-already="{{item.userInParty}}" data-userid="{{item.userId}}" bindtap="toMeetDetail">
     <view class="img-container">
         <image src="{{item.partyImg}}" class="item-img" mode="aspectFit"></image>
         

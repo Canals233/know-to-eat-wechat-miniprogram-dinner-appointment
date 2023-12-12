@@ -4,7 +4,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		meetList: [],
+		partyList: [],
 		userList: [],
 		myAuthorization: wx.getStorageSync("Authorization"),
 	},
@@ -34,27 +34,47 @@ Page({
 	},
 
 	getMeet() {
-		wx.cloud.callFunction({
-			name: "getMyJoin",
-			data: {
-				Authorization: this.data.myAuthorization,
+		wx.request({
+			url: "https://gpt.leafqycc.top:6660/party/QuerySelfParty",
+			method: "POST",
+			header: {
+				Authorization: wx.getStorageSync("Authorization"),
+				"Content-Type": "application/json",
 			},
-			success: (res) => {
-				wx.stopPullDownRefresh();
-				wx.hideLoading({
-					success: (res) => {},
-				});
-				this.setData({
-					meetList: res.result.meetList.data,
-					userList: res.result.meetUserList.data,
-				});
+			data: {},
+			success: function (res) {
+				console.log("请求:", res.data);
+				// 处理请求成功的逻辑
+				if (res.data.code) {
+					const partyData = res.data.data;
+                    partyData.forEach((element) => {
+                        element.partyTime = element.partyTime.substring(0, 20).replace(
+							"T",
+							" "
+						);
+                        element.partyType=element.partyType.split(",")
+                        element.partyOverdue = element.partyOverdue.replace(
+                            "T",
+                            " "
+                        );
+                    });
+                    
+					self.setData({
+						partyList: partyData,
+					});
+				} else {
+					wx.showToast({
+						title: "获取数据失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
 			},
-			fail: (res) => {
-				wx.showToast({
-					title: "糟糕，获取失败了",
-				});
-				wx.stopPullDownRefresh();
-				console.log(res.errMsg);
+			fail: function (error) {
+				console.error("请求失败:", error);
+			},
+			complete: function () {
+				wx.hideLoading();
 			},
 		});
 	},

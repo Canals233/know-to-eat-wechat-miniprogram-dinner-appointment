@@ -1,44 +1,17 @@
-<view class="cu-bar bg-white" wx:if="{{meetList.length==0}}">
-  <view class="action">
-    <text class="cuIcon-title text-orange"></text> 暂无通信
-  </view>
-</view>
-<view class="cu-bar bg-white" wx:if="{{meetList.length!=0}}">
-  <view class="action">
-    <text class="cuIcon-title text-orange"></text> 点击进入通信界面,长按进入约饭界面
-  </view>
-</view>
-
-<view class="item-container">
-  <view wx:for="{{meetList}}" wx:key="key" wx:for-index="index" wx:for-item="item">
-    <view class="item" data-id="{{item._id}}" data-masterid="{{item.Authorization}}" data-title="{{item.title}}" data-costomerlist="{{item.costomerList}}" bindtap="toTalk" bindlongtap="toDetail">
-      <view class="img-user">
-        <image src="{{item.picture[0]}}" class="item-img" mode="aspectFit" data-urls="{{item.picture}}" catchtap="ViewImage"></image>
-        <view class="user">
-          <image src="{{userList[index].userImg}}" class="user-img"></image>
-          <text style="font-size: 12px; font-weight: bold;">{{userList[index].userName}}</text>
-        </view>
-      </view>
-      <view class="item-dec">
-        <view class="title">{{item.title}}</view>
-        <text wx:for="{{item.partyType}}" wx:key="id">
-          <text class="label">{{item}}</text>
-        </text>
-        <view class="item-shop">
-          {{item.partyShopName}}
-        </view>
-        <view class="item-content">
-          {{item.content}}
-        </view>
-        <view class="item-time">
-          预约时间：<text>{{item.DateTime}} </text>
-        </view>
-        <view class="item-info">
-          <text>预计人均：￥{{item.partyCost}} </text>
-          <text> 人数：{{item.userNum}}/{{item.partyMaxUserNum}}</text>
-        </view>
-      </view>
-
+<view class="cu-bar bg-white" wx:if="{{partyList.length==0}}">
+    <view class="action">
+        <text class="cuIcon-title text-orange"></text>
+        暂无通信
     </view>
-  </view>
+</view>
+<view class="cu-bar bg-white" wx:if="{{partyList.length!=0}}">
+    <view class="action">
+        <text class="cuIcon-title text-orange"></text>
+        点击进入通信界面,长按进入约饭界面
+    </view>
+</view>
+<view class="item-container">
+    <view wx:for="{{partyList}}" wx:key="key" wx:for-index="index" wx:for-item="item">
+         <partyCard item="{{item}}" showUser="{{true}}"></partyCard>
+    </view>
 </view>

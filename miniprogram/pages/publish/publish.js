@@ -243,14 +243,14 @@ Page({
     }
     db.collection('articles').add({
       data: {
-        collectNum: 0,
+        collectionNum: 0,
         commentNum: 0,
         datetime: mydatetime,
         content: mycontent,
         Authorization: myAuthorization,
         picture: resImgList,
         title: mytitle,
-        shopname:myshop,
+        noteShopName:myshop,
         likeNum:0
       }
     }).then(res=>{

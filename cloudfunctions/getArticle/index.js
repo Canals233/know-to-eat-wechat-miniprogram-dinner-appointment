@@ -35,7 +35,7 @@ exports.main = async(event, context) => {
             }),
           },
           {//描述
-            shopname: db.RegExp({
+            noteShopName: db.RegExp({
               regexp: filter,
               options: 'i',
             }),
@@ -46,16 +46,16 @@ exports.main = async(event, context) => {
     }
     tasks.push(promise)
   }
-  const articleList = (await Promise.all(tasks)).reduce((acc, cur) => {
+  const noteList = (await Promise.all(tasks)).reduce((acc, cur) => {
     return {
       data: acc.data.concat(cur.data),
       errMsg: acc.errMsg,
     }
   })
   const tasks2 = []
-  for (let i = 0; i < articleList.data.length; i++) {
+  for (let i = 0; i < noteList.data.length; i++) {
     const promise2 = await db.collection('user').where({
-      openid: articleList.data[i]._openid
+      openid: noteList.data[i]._openid
     }).get()
     tasks2.push(promise2)
   }
@@ -68,7 +68,7 @@ exports.main = async(event, context) => {
 
   // 等待所有
   return {
-    articleList,
+    noteList,
     userList
   }
 }

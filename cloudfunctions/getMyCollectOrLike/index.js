@@ -39,7 +39,7 @@ exports.main = async(event, context) => {
     }).get()
     tasks2.push(promise2)
   }
-  const articleList = (await Promise.all(tasks2)).reduce((acc, cur) => {
+  const noteList = (await Promise.all(tasks2)).reduce((acc, cur) => {
     return {
       data: acc.data.concat(cur.data),
       errMsg: acc.errMsg,
@@ -48,9 +48,9 @@ exports.main = async(event, context) => {
 
 
   const tasks3 = []
-  for (let i = 0; i < articleList.data.length; i++) {
+  for (let i = 0; i < noteList.data.length; i++) {
     const promise3 = await db.collection('user').where({
-      openid: articleList.data[i].openid
+      openid: noteList.data[i].openid
     }).get()
     tasks3.push(promise3)
   }
@@ -62,7 +62,7 @@ exports.main = async(event, context) => {
   })
 
   return {
-    articleList,
+    noteList,
     userList
   }
 }
@@ -94,7 +94,7 @@ else{
     }).get()
     tasks2.push(promise2)
   }
-  const articleList = (await Promise.all(tasks2)).reduce((acc, cur) => {
+  const noteList = (await Promise.all(tasks2)).reduce((acc, cur) => {
     return {
       data: acc.data.concat(cur.data),
       errMsg: acc.errMsg,
@@ -103,9 +103,9 @@ else{
 
 
   const tasks3 = []
-  for (let i = 0; i < articleList.data.length; i++) {
+  for (let i = 0; i < noteList.data.length; i++) {
     const promise3 = await db.collection('user').where({
-      openid: articleList.data[i].openid
+      openid: noteList.data[i].openid
     }).get()
     tasks3.push(promise3)
   }
@@ -117,7 +117,7 @@ else{
   })
 
   return {
-    articleList,
+    noteList,
     userList
   }
 }

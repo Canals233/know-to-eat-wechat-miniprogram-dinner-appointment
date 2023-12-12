@@ -1,9 +1,9 @@
-<view class="cu-bar bg-white" wx:if="{{articleinfo.length==0}}">
+<view class="cu-bar bg-white" wx:if="{{noteList.length==0}}">
   <view class="action">
     <text class="cuIcon-title text-orange"></text> 暂无讨论
   </view>
 </view>
-<view class="cu-bar bg-white" wx:if="{{articleinfo.length!=0}}">
+<view class="cu-bar bg-white" wx:if="{{noteList.length!=0}}">
   <view class="action">
     <text class="cuIcon-title text-orange"></text> 我的讨论(长按删除)
   </view>
@@ -11,32 +11,26 @@
 
 <scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight-50+'px':'auto'}}">
 
-<view class="card" wx:for="{{articleinfo}}" wx:key="key" wx:for-index="index" wx:for-item="item">
+<view class="card" wx:for="{{noteList}}" wx:key="key" wx:for-index="index" wx:for-item="item">
   <view class="solid-bottom"></view>
   <view class="cu-card case no-card">
-    <view class="cu-item shadow" bindtap="viewItem" data-item="{{item}}" data-index="{{index}}" data-user="{{userinfo[index]}}" bindlongtap='onDeleteArticle' bindtap="viewItem">
-      <swiper indicator-dots="true" circular="true">
-        <block wx:for="{{item.picture}}" wx:key="id" wx:for-item="pic">
-          <swiper-item>
-            <view class="image">
-              <image src="{{pic}}" mode="aspectFit" style='height: 288rpx;'></image>
+    <view class="cu-item shadow" bindtap="viewItem" data-id="{{item.noteId}}" data-index="{{index}}" data-user="{{userinfo[index]}}" bindlongtap='onDeleteArticle' bindtap="viewItem">
+       <view class="image">
+              <image src="{{noteImg}}" mode="aspectFit" style='height: 288rpx;'></image>
             </view>
-          </swiper-item>
-        </block>
-      </swiper>
      
       <view class="cu-list menu-avatar">
         <view class="cu-item">
          
           <view class="flex-sub">
             <view class="articleTitle">
-                <text>{{item.title}}</text>
+                <text>{{item.noteTitle}}</text>
       </view>
             <view class="text-gray text-sm flex justify-between" style="margin-left: 20rpx;">
-              {{item.datetime}}
+              {{item.noteTime}}
               <view class="text-gray text-sm">
                 <text class="cuIcon-likefill margin-lr-xs"></text> {{item.likeNum}}
-                <text class="cuIcon-favorfill margin-lr-xs"></text> {{item.collectNum}}
+                <text class="cuIcon-favorfill margin-lr-xs"></text> {{item.collectionNum}}
               </view>
             </view>
           </view>

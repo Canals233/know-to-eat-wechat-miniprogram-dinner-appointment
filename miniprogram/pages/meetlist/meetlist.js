@@ -70,8 +70,6 @@ Page({
 			},
 			data: params,
 			success: (res) => {
-				
-
 				if (res.data.code) {
 					const partyData = res.data.data;
 					console.log("查询成功:", partyData);
@@ -123,8 +121,6 @@ Page({
 			url: `plugin://citySelector/index?key=${key}&referer=${referer}&hotCitys=${hotCitys}`,
 		});
 	},
-
-	
 
 	onSearch(e) {
 		console.log("search", e.detail.value);

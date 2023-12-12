@@ -18,7 +18,7 @@
 
     </view>
     <view class="shop">
-        <text user-select="true">{{articleData.shopname}}</text>
+        <text user-select="true">{{articleData.noteShopName}}</text>
         <text style="float: right; margin-right: 20rpx;">{{articleData.datetime}}</text>
     </view>
 
@@ -31,5 +31,5 @@
     <image class="img" bindtap="onLike" src="{{isLike ? '/static/like-fill.png' : '/static/like.png'}}"></image>
     <text class="iconNum">{{articleData.likeNum}}</text>
     <image class="img" bindtap="onCollect" src="{{isCollect ? '/static/star-fill.png' : '/static/star.png'}}"></image>
-    <text class="iconNum">{{articleData.collectNum}}</text>
+    <text class="iconNum">{{articleData.collectionNum}}</text>
 </view>

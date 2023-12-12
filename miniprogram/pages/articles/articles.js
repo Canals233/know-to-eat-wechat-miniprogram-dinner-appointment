@@ -112,12 +112,12 @@ Page({
     return
    }
    let collectState=this.data.isCollect
-   let collectNum=this.data.articleData.collectNum
+   let collectionNum=this.data.articleData.collectionNum
    
     console.log("original state",collectState)
     this.setData({
       isCollect:!collectState,
-      'articleData.collectNum':collectState?collectNum-1:collectNum+1
+      'articleData.collectionNum':collectState?collectionNum-1:collectionNum+1
     })
     //取消收藏
     wx.cloud.callFunction({

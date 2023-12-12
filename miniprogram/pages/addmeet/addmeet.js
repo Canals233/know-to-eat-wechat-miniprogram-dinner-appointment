@@ -360,7 +360,7 @@ Page({
             }
             db.collection('eatmeet').add({
                 data: {
-                    collectNum: 0,
+                    collectionNum: 0,
                     commentNum: 0,
                     datetime: mydatetime,
                     content: mycontent,

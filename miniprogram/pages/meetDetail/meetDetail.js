@@ -1,8 +1,5 @@
 // pages/meetDetail/meetDetail.js
-var timeUtil = require("../../utils/timeUtils");
-const db = wx.cloud.database();
-const _ = db.command;
-const str = "partyDetailData.userNum";
+
 Page({
 	/**
 	 * 页面的初始数据
@@ -26,10 +23,11 @@ Page({
 	onLoad: function (options) {
 		const partyId = options.id;
 		const userId = options.userId;
-
+		const alreadyIn = options.alreadyIn;
 		this.setData({
 			partyId: partyId,
 			userId,
+			alreadyIn: alreadyIn == "1",
 		});
 		this.queryParty(partyId);
 		this.queryUser(userId);
@@ -38,7 +36,6 @@ Page({
 
 	queryParty(partyId) {
 		const url = "https://gpt.leafqycc.top:6660/party/QueryOneParty";
-
 		wx.request({
 			url: url,
 			method: "POST",
@@ -83,13 +80,7 @@ Page({
 					// 将修改后的数据设置到 data 中
 					this.setData({
 						partyDetailData: partyDetailData,
-						alreadyIn: partyDetailData.userInParty,
 						outdate: outdate,
-					});
-
-					this.setData({
-						partyDetailData: partyDetailData,
-						alreadyIn: partyDetailData.userInParty,
 					});
 				} else {
 					wx.showToast({
@@ -152,7 +143,7 @@ Page({
 				if (res.data && res.data.code === 1) {
 					// 查询成功，检查是否包含目标 partyId
 					const hasTargetParty = res.data.data.some(
-						(party) => party.partyId === targetPartyId
+						(party) => party.partyId == targetPartyId //不要比较类型
 					);
 					this.setData({
 						master: hasTargetParty,
@@ -229,10 +220,10 @@ Page({
 									"加入饭局失败:",
 									res.data ? res.data.msg : "未知错误"
 								);
-                                wx.showToast({
-                                    icon: "error",
-                                    title: "加入失败"+res.data.msg,
-                                });
+								wx.showToast({
+									icon: "error",
+									title: "加入失败" + res.data.msg,
+								});
 							}
 						},
 						fail: (error) => {
@@ -247,41 +238,45 @@ Page({
 	leaveMeet() {
 		wx.showModal({
 			cancelColor: "cancelColor",
-			title: "确定离开吗,如果您是发起者将解散该约饭",
+			title: "确定离开吗",
 
 			success: (res) => {
 				if (res.confirm) {
 					wx.showLoading({
 						title: "正在退出约饭",
 					});
-					wx.cloud.callFunction({
-						name: "costomerAndTalk",
+					wx.request({
+						url: "https://gpt.leafqycc.top:6660/party/ExitParty",
+						method: "POST",
+						header: {
+							"Content-Type": "application/json",
+							Authorization: this.data.myAuthorization,
+						},
 						data: {
-							id: this.data.partyId,
-							costomerAuthorization: this.data.myAuthorization,
-							state: "leave",
-							masterAuthorization:
-								this.data.partyDetailData.Authorization,
+							partyId: this.data.partyId,
 						},
 						success: (res) => {
-							console.log("调用", res);
-							wx.hideLoading();
-							wx.showToast({
-								title: "退出成功",
-							});
-
-							this.setData({
-								alreadyIn: false,
-								[str]: this.data.partyDetailData.userNum - 1,
-								full: false,
-							});
+							if (res.data && res.data.code === 1) {
+								wx.hideLoading();
+								wx.showToast({
+									title: "退出成功",
+								});
+								this.setData({
+									alreadyIn: false,
+								});
+							} else {
+								console.error(
+									"退出饭局失败:",
+									res.data ? res.data.msg : "未知错误"
+								);
+								wx.showToast({
+									icon: "error",
+									title: "退出失败" + res.data.msg,
+								});
+							}
 						},
 						fail: (error) => {
-							console.log("调用错", error);
-							wx.showToast({
-								icon: "error",
-								title: "退出失败",
-							});
+							console.error("网络请求失败:", error);
 						},
 					});
 				}
@@ -298,31 +293,39 @@ Page({
 					wx.showLoading({
 						title: "正在解散约饭",
 					});
-					wx.cloud.callFunction({
-						name: "costomerAndTalk",
+					wx.request({
+						url: "https://gpt.leafqycc.top:6660/party/DeleteParty",
+						method: "POST",
+						header: {
+							"Content-Type": "application/json",
+							Authorization: this.data.myAuthorization,
+						},
 						data: {
-							id: this.data.partyId,
-							costomerAuthorization: this.data.myAuthorization,
-							state: "delete",
-							masterAuthorization:
-								this.data.partyDetailData.Authorization,
+							partyId: this.data.partyId,
+							userId: this.data.userId,
 						},
 						success: (res) => {
-							console.log("调用", res);
-							wx.hideLoading();
-							wx.showToast({
-								title: "解散成功",
-							});
-							wx.navigateBack({
-								delta: 1,
-							});
+							if (res.data && res.data.code === 1) {
+								wx.hideLoading();
+								wx.showToast({
+									title: "解散成功",
+								});
+								this.setData({
+									alreadyIn: false,
+								});
+							} else {
+								console.error(
+									"解散饭局失败:",
+									res.data ? res.data.msg : "未知错误"
+								);
+								wx.showToast({
+									icon: "error",
+									title: "解散失败" + res.data.msg,
+								});
+							}
 						},
 						fail: (error) => {
-							console.log("调用错", error);
-							wx.showToast({
-								icon: "error",
-								title: "解散失败",
-							});
+							console.error("网络请求失败:", error);
 						},
 					});
 				}
@@ -349,7 +352,7 @@ Page({
 	ViewImage(e) {
 		console.log(e);
 		wx.previewImage({
-			urls: this.data.partyDetailData.picture,
+			urls: [this.data.partyDetailData.partyImg],
 			current: e.currentTarget.dataset.url,
 		});
 	},

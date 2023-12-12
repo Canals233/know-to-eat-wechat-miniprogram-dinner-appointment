@@ -20,13 +20,18 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.info{
+    display: flex;
 
+}
+.count{
+    margin-top: 48px;
+}
 
 .item-where{
   margin: 5px;
   font-size: 10px;
-  width: 70%;
-  float: left;
+  
 }
 
 
@@ -41,7 +46,7 @@
   width: 100%;
   margin-bottom: 20rpx;
 }
-.item-title{
+.item-noteTitle{
   font-weight: bold;
    font-size: small;
    margin: 0 0 10rpx 10rpx;
@@ -80,3 +85,11 @@
 }
 
 
+.collection-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10rpx 10rpx 10rpx;
+    font-size: 10px;
+}
