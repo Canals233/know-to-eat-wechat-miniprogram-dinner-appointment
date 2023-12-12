@@ -10,6 +10,10 @@
     background-color: #fff
 }
 
+.main {
+    margin: 20rpx;
+}
+
 .img {
     width: 70rpx;
     height: 70rpx;
@@ -27,36 +31,32 @@
     text-align: center;
     height: 400rpx;
     background-color: white;
-
+    padding-top: 10px;
 }
 
-.main {
-    margin: 20rpx;
-}
 
 .tit {
-
     font-weight: bold;
     text-align: center;
 }
-
+.content{
+    padding: 0 10px;
+    
+}
 .shop {
-
     font-weight: bold;
     font-size: 12px;
 }
+.cet{
+    border: 1px solid #ccc;
 
-.cet {
+    border-radius: 20rpx;
+    box-shadow: 0 0 15rpx #ccc;
+    text-indent: 0;
+    padding: 10px;
+    margin: 10px 0 ;
 
-    
-    text-indent: 1rem;
-
-    padding: 20rpx;
-
-    font-size: 13px;
-    margin: 20px 10px 0 10px;
 }
-
 .avatarimg {
     width: 60rpx;
     height: 60rpx;

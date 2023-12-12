@@ -1,56 +1,64 @@
 /* pages/addmeet/addmeet.wxss */
 .cu-form-group .title {
-  min-width: calc(4em + 30rpx);
+    min-width: calc(4em + 30rpx);
 }
+
 .detail-page {
-  width: 100%;
-  
-  min-height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  font-weight: bold;
-}
-.labelText{
-  margin-right: 20rpx;
-}
-.labelInput{
-  width: 40%;
-  height: 60rpx;
-  line-height: 60rpx;
-  padding-left: 10rpx;
-  border: 1px solid #ccc;
-}
-.buttoms{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-}
-.sure,.nope{
- 
-  margin: 0rpx 40rpx 20rpx 40rpx ;
-  width: 30%;
+    width: 100%;
+
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-weight: bold;
 }
 
-.labelCtn{
-  width: 100%;
- 
-}
-.labelitem{
-  float: left;
-  background-color: rgba(0, 0, 0, 0.2);
-  padding: 6rpx;
-
-  border-radius: 40%;
-  margin-right: 20rpx;
-}
-.labelcount{
-  float: right;
+.labelText {
+    margin-right: 20rpx;
 }
 
-.smalltitle{
-  font-size: 13px;
-  margin-right:5px;
+.labelInput {
+    width: 40%;
+    height: 60rpx;
+    line-height: 60rpx;
+    padding-left: 10rpx;
+    border: 1px solid #ccc;
+}
+
+.buttoms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.sure,
+.nope {
+
+    margin: 0rpx 40rpx 20rpx 40rpx;
+    width: 30%;
+}
+
+.labelCtn {
+    width: 100%;
+
+}
+
+.labelitem {
+    float: left;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 4rpx 10rpx;
+
+    border-radius: 5%;
+    margin-right: 20rpx;
+}
+
+.labelcount {
+    float: right;
+}
+
+.smalltitle {
+    font-size: 13px;
+    margin-right: 5px;
 }

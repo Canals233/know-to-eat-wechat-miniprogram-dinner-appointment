@@ -1,95 +1,73 @@
 <form>
-  <view class="cu-form-group">
-    <view class="title">标题</view>
-    <input placeholder="您本次约饭的标题，最多16字哦" bindblur="textInput" value="{{textInput}}" maxlength="16"></input>
-  </view>
-
-  <view class="cu-form-group">
-    <view class="smalltitle">人数</view>
-    <input placeholder="预计人数" bindblur="needNumInput" value="{{needNumInput}}" style="font-size: 12px;" type="number" maxlength="2"></input>
-    <view class="smalltitle">预计人均</view>
-    <input placeholder="预计人均" bindblur="costInput" value="{{costInput}}" style="font-size: 12px;" type="number"></input>
-    
-  </view>
-
-  <view class="cu-form-group">
-    <view class="smalltitle" style="width: 106rpx; font-size: 11px;">预定日期(至多一月)</view>
-    <picker mode="date" bindchange="dateChange" start="{{today}}" end="{{nextMonthDay}}">
-    {{promisedDate}}
-    </picker>
-    <view class="smalltitle" >预定时间</view>
-    <picker mode="time" bindchange="timeChange" start="00:00" end="23:59" value="12:00">
-    {{promisedTime}}
-    </picker>
-  </view>
-
-  <view class="cu-form-group margin-top" bindtap="addLabel">
-    <view class="title">偏好标签</view>
-    <view  wx:if="{{!partyType.length}}">点击输入本次约饭偏好标签，长按标签删除</view>
-<view wx:if="{{partyType.length}}" class="labelCtn">
-  <view wx:if="{{partyType.length}}">
-      <view wx:for="{{partyType}}" class="labelitem" wx:key="index" catchlongpress="DelLabel"  data-index="{{index}}">{{item}}</view>
-      
+    <view class="cu-form-group">
+        <view class="title">标题</view>
+        <input placeholder="您本次约饭的标题，最多16字哦" bindblur="textInput" value="{{textInput}}" maxlength="16"></input>
     </view>
-    <view class="labelcount" wx:if="{{partyType.length<5}}">{{partyType.length}}/5</view>
-</view>
-    
-  </view>
-
-
-
-  <view class="cu-form-group margin-top" bindtap="chooseLocation">
-    <view class="title">店名</view>
-    <text style="color: gray; font-size: 16px;">  {{mylocation?mylocation.name:'点击在地图上选择'}}</text>
-
-  </view>
-  <view class="cu-form-group margin-top">
-    <view class="title">地址</view>
-    <view>{{mylocation?mylocation.partyAddress:"地址将在您选择店名后自动显示"}}</view>
-
-  </view>
-
-  <view class="cu-form-group margin-top">
-    <textarea maxlength="-1" bindblur="textareaInput" placeholder="输入内容" value="{{textareaInput}}"></textarea>
-  </view>
-
-  <view class="cu-bar bg-white margin-top">
-    <view class="action">
-      图片上传
+    <view class="cu-form-group">
+        <view class="smalltitle">人数</view>
+        <input placeholder="预计人数" bindblur="needNumInput" value="{{needNumInput}}" style="font-size: 12px;" type="number" maxlength="2"></input>
+        <view class="smalltitle">预计人均</view>
+        <input placeholder="预计人均" bindblur="costInput" value="{{costInput}}" style="font-size: 12px;" type="number"></input>
     </view>
-    <view class="action">
-      {{imgList.length}}/9
+    <view class="cu-form-group">
+        <view class="smalltitle" style="width: 106rpx; font-size: 11px;">预定日期(至多一月)</view>
+        <picker mode="date" bindchange="dateChange" start="{{today}}" end="{{nextMonthDay}}">
+            {{promisedDate}}
+        </picker>
+        <view class="smalltitle">预定时间</view>
+        <picker mode="time" bindchange="timeChange" start="00:00" end="23:59" value="12:00">
+            {{promisedTime}}
+        </picker>
     </view>
-  </view>
-  <view class="cu-form-group">
-    <view class="grid col-4 grid-square flex-sub">
-      <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
-        <image src='{{imgList[index]}}' mode='aspectFill'></image>
-        <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
-          <text class="cuIcon-close"></text>
+    <view class="cu-form-group margin-top" bindtap="addLabel">
+        <view class="title">偏好标签</view>
+        <view wx:if="{{!partyType.length}}">点击输入本次约饭偏好标签，长按标签删除</view>
+        <view wx:if="{{partyType.length}}" class="labelCtn">
+            <view wx:if="{{partyType.length}}">
+                <view wx:for="{{partyType}}" class="labelitem" wx:key="index" catchlongpress="DelLabel" data-index="{{index}}">
+                    {{item}}
+                </view>
+            </view>
+            <view class="labelcount" wx:if="{{partyType.length<5}}">{{partyType.length}}/5</view>
         </view>
-      </view>
-      <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<9}}">
-        <text class="cuIcon-cameraadd"></text>
-      </view>
     </view>
-  </view>
-
+    <view class="cu-form-group margin-top" bindtap="chooseLocation">
+        <view class="title">店名</view>
+        <text style="color: gray; font-size: 16px;">{{mylocation?mylocation.name:'点击在地图上选择'}}</text>
+    </view>
+    <view class="cu-form-group margin-top">
+        <view class="title">地址</view>
+        <view>{{mylocation?mylocation.partyAddress:"地址将在您选择店名后自动显示"}}</view>
+    </view>
+    <view class="cu-form-group margin-top">
+        <textarea maxlength="-1" bindblur="textareaInput" placeholder="输入内容" value="{{textareaInput}}"></textarea>
+    </view>
+    <view class="cu-bar bg-white margin-top">
+        <view class="action">图片上传</view>
+        <view class="action">{{imgList.length}}/9</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="grid col-4 grid-square flex-sub">
+            <view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
+                <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+                    <text class="cuIcon-close"></text>
+                </view>
+            </view>
+            <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<9}}">
+                <text class="cuIcon-cameraadd"></text>
+            </view>
+        </view>
+    </view>
 </form>
-<button class="cu-btn block bg-blue margin-tb-sm margin-lr-sm lg"  bindtap="publishBt">发布</button>
-
-
-<page-container position="top" round="r" show="{{showadd}}" overlay="{{true}}" overlay-style="background-color: rgba(0, 0, 0, 0.6)" bind:leave="justLeave" >
-  <view class="detail-page">
-    <view class="labelText">请输入标签：</view>
-    <input class="labelInput" placeholder="最多输入5个字" maxlength="5" bindinput="labelInput" value="{{labelInput}}" focus="{{true}}"></input>
-  
-  </view>
-  <view class="buttoms">
-    <button bindtap="justLeave" type="warn" class="nope" size="mini" >取消</button>
-    <button bindtap="leaveAdd" type="primary" class="sure" size="mini" >确认</button>
+<button class="cu-btn block bg-blue margin-tb-sm margin-lr-sm lg" bindtap="publishBt">发布</button>
+<page-container position="top" round="r" show="{{showadd}}" overlay="{{true}}" overlay-style="background-color: rgba(0, 0, 0, 0.6)" bind:leave="justLeave">
+    <view class="detail-page">
+        <view class="labelText">请输入标签：</view>
+        <input class="labelInput" placeholder="最多输入5个字" maxlength="5" bindinput="labelInput" value="{{labelInput}}" focus="{{true}}"></input>
     </view>
-  
-  
-
+    <view class="buttoms">
+        <button bindtap="justLeave" type="warn" class="nope" size="mini">取消</button>
+        <button bindtap="leaveAdd" type="primary" class="sure" size="mini">确认</button>
+    </view>
 </page-container>

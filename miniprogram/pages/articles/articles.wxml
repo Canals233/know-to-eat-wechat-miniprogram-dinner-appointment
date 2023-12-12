@@ -1,35 +1,32 @@
 <!-- 文章内容详情 -->
 <block class="main">
-    <swiper indicator-dots="true" circular="true" class="SW">
-        <block wx:for="{{articleData.picture}}" wx:key="id" wx:for-item="pic">
-            <swiper-item>
-                <view>
-                    <image src="{{pic}}" mode="aspectFit" style='height: 360rpx;' bindtap="ViewImage" data-url="{{pic}}"></image>
-                </view>
-            </swiper-item>
-        </block>
-    </swiper>
+    <view class="SW">
+        <image src="{{noteDetailData.noteImg}}" mode="aspectFit" style='height: 360rpx;' bindtap="ViewImage" data-url="{{[noteDetailData.noteImg]}}"></image>
+    </view>
     <!-- 文章标题、描述、内容 -->
     <!-- <view><text  class="right">{{articleDetail.description}}</text></view> -->
-    <view class="tit"><text user-select="true">{{articleData.title}}</text></view>
+    <view class="tit">
+        <text user-select="true">{{noteDetailData.noteTitle}}</text>
+    </view>
     <view class="userinfo">
         <image src="{{userData.userImg}}" class="avatarimg"></image>
         <text class="userName">{{userData.userName}}</text>
-
     </view>
-    <view class="shop">
-        <text user-select="true">{{articleData.noteShopName}}</text>
-        <text style="float: right; margin-right: 20rpx;">{{articleData.datetime}}</text>
+    <view class="content" >
+        <view class="shop">
+        <text user-select="true">{{noteDetailData.noteShopName}}</text>
+        <text style="float: right; margin-right: 20rpx;">{{noteDetailData.noteTime}}</text>
     </view>
-
-    <view class="cet"><text user-select="true">{{articleData.content}}</text></view>
+    <view class="cet">
+        <text user-select="true">{{noteDetailData.noteText}}</text>
+    </view>
+    <text>评论列表</text>
+    </view>
 </block>
-
-<!-- 点赞 收藏-->
+<!-- 点赞 收藏 -->
 <view class="icons">
-
     <image class="img" bindtap="onLike" src="{{isLike ? '/static/like-fill.png' : '/static/like.png'}}"></image>
-    <text class="iconNum">{{articleData.likeNum}}</text>
+    <text class="iconNum">{{noteDetailData.likeNum}}</text>
     <image class="img" bindtap="onCollect" src="{{isCollect ? '/static/star-fill.png' : '/static/star.png'}}"></image>
-    <text class="iconNum">{{articleData.collectionNum}}</text>
+    <text class="iconNum">{{noteDetailData.collectionNum}}</text>
 </view>

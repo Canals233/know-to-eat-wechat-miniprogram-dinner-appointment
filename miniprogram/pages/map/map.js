@@ -39,7 +39,6 @@ Page({
 		});
 		this.mapCtx = wx.createMapContext("map");
 
-		this.getmap();
 		//记得改成按城市来获取地图，默认加载成都
 	},
 

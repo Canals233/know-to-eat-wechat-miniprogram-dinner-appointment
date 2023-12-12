@@ -3,8 +3,8 @@
     <view class="waterfall-column" style="width: 330rpx">
         <view class="left-container" id="left">
             <block wx:for="{{leftList}}" wx:key="id">
-                <view class="item" style="height: auto" data-id="{{item[0]._id}}" bindtap="goArticleDetail">
-                    <image src="{{item[0].picture[0]}}" lazy-load="true" mode="widthFix" class="item-img"></image>
+                <view class="item" style="height: auto" data-id="{{item[0].noteId}}" data-user="{{item[0].userId}}" bindtap="goArticleDetail">
+                    <image src="{{item[0].noteImg}}" lazy-load="true" mode="widthFix" class="item-img"></image>
                     <view class="item-noteTitle">{{item[0].noteTitle}}</view>
                     <view class="info">
                         <view class="item-where">{{item[0].noteShopName}}</view>
@@ -21,11 +21,11 @@
             </block>
         </view>
     </view>
-    <view class="waterfall-column" style="width: 340rpx">
+    <view class="waterfall-column" style="width: 330rpx">
         <view class="right-container" id="right">
             <block wx:for="{{rightList}}" wx:key="id">
-                 <view class="item" style="height: auto" data-id="{{item[0]._id}}" bindtap="goArticleDetail">
-                    <image src="{{item[0].picture[0]}}" lazy-load="true" mode="widthFix" class="item-img"></image>
+                <view class="item" style="height: auto" data-id="{{item[0].noteId}}" data-user="{{item[0].userId}}" bindtap="goArticleDetail">
+                    <image src="{{item[0].noteImg}}" lazy-load="true" mode="widthFix" class="item-img"></image>
                     <view class="item-noteTitle">{{item[0].noteTitle}}</view>
                     <view class="info">
                         <view class="item-where">{{item[0].noteShopName}}</view>

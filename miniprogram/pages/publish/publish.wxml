@@ -1,13 +1,26 @@
 <form>
   <view class="cu-form-group">
     <view class="title">标题</view>
-    <input placeholder="输入标题，最多16字哦" bindblur="textInput" maxlength="16"></input>
+    <input placeholder="输入标题,最多16字哦" bindblur="textInput" maxlength="16"></input>
   </view>
 
   <view class="cu-form-group margin-top">
     <view class="title">店名</view>
-    <input placeholder="输入店名，最多16字哦" bindblur="shopInput" value="{{shopInput}}" maxlength="16"></input >
+    <input placeholder="输入店名,最多16字哦" bindblur="shopInput" value="{{shopInput}}" maxlength="16"></input >
   </view>
+
+   <view class="cu-form-group margin-top" bindtap="addLabel">
+        <view class="title">偏好标签</view>
+        <view wx:if="{{!noteType.length}}">点击输入标签，长按标签删除</view>
+        <view wx:if="{{noteType.length}}" class="labelCtn">
+            <view wx:if="{{noteType.length}}">
+                <view wx:for="{{noteType}}" class="labelitem" wx:key="index" catchlongpress="DelLabel" data-index="{{index}}">
+                    {{item}}
+                </view>
+            </view>
+            <view class="labelcount" wx:if="{{noteType.length<5}}">{{noteType.length}}/5</view>
+        </view>
+    </view>
 
   <view class="cu-form-group margin-top">
     <textarea maxlength="-1" bindblur="textareaInput" placeholder="输入内容"></textarea>
@@ -18,7 +31,7 @@
       图片上传
     </view>
     <view class="action">
-      {{imgList.length}}/9
+      {{imgList.length}}/1
     </view>
   </view>
   <view class="cu-form-group">
@@ -29,7 +42,7 @@
           <text class="cuIcon-close"></text>
         </view>
       </view>
-      <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<9}}">
+      <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
         <text class="cuIcon-cameraadd"></text>
       </view>
     </view>
@@ -37,3 +50,13 @@
 
 </form>
 <button class="cu-btn block bg-blue margin-tb-sm margin-lr-sm lg" bindtap="publishBt">发布</button>
+<page-container position="top" round="r" show="{{showadd}}" overlay="{{true}}" overlay-style="background-color: rgba(0, 0, 0, 0.6)" bind:leave="justLeave">
+    <view class="detail-page">
+        <view class="labelText">请输入标签：</view>
+        <input class="labelInput" placeholder="最多输入5个字" maxlength="5" bindinput="labelInput" value="{{labelInput}}" focus="{{true}}"></input>
+    </view>
+    <view class="buttoms">
+        <button bindtap="justLeave" type="warn" class="nope" size="mini">取消</button>
+        <button bindtap="leaveAdd" type="primary" class="sure" size="mini">确认</button>
+    </view>
+</page-container>

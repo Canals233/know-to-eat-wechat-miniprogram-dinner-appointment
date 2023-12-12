@@ -1,244 +1,255 @@
 // pages/comments.js
 
-
-
 Page({
+	/**
+	 * 页面的初始数据
+	 */
+	data: {
+		CollectImgUrl: "/static/star.png",
+		likeImgUrl: "/static/like.png",
+		//自定义变量，存储详情信息
+		noteDetailData: {},
+		userData: {},
+		noteId: "",
+		isCollect: false,
+		isLike: false,
+		myAuthorization: wx.getStorageSync("Authorization"),
+	},
 
-  /**
-   * 页面的初始数据
-   */
-  data:{
-    CollectImgUrl:"/static/star.png",
-    likeImgUrl:"/static/like.png",
-    //自定义变量，存储详情信息
-    articleData:{},
-    userData:{},
-    _id:"",
-    isCollect:false,
-    isLike:false,
-    myAuthorization: wx.getStorageSync('Authorization')
-  },
+	//页面加载
+	onLoad(options) {
+		var self = this;
+		let noteId = options.noteId;
+        let userId  = options.userId;
+		self.setData({
+			noteId,
+            userId
+		});
 
-  //页面加载
-  onLoad(options){
-  var self=this
-   let theid=options.id
-   self.setData({
-   _id:theid,
-  })
+		this.queryNote(noteId);
+        this.queryUser(userId);
+	},
+
+	queryNote(noteId) {
+		const url = "https://gpt.leafqycc.top:6660/note/QueryOneNote";
+		wx.request({
+			url: url,
+			method: "POST",
+			header: {
+				"Content-Type": "application/json",
+				Authorization: wx.getStorageSync("Authorization"),
+			},
+			data: {
+				noteId: noteId,
+			},
+			success: (res) => {
+				if (res.data.code) {
+					const noteDetailData = res.data.data;
+					console.log("查询成功:", noteDetailData);
+
+					// 修改 noteType 字符串
+					if (noteDetailData.noteType) {
+						noteDetailData.noteType =
+							noteDetailData.noteType.split(",");
+					}
+					if (noteDetailData.noteTime) {
+						noteDetailData.noteTime =
+							noteDetailData.noteTime.slice(0,19).replace("T", " "); // 将 'T' 替换为空格
+					}
+			
 
 
-  const db=wx.cloud.database()
-  db.collection('articles').where({
-    _id:this.data._id
-  }).get().then(
-    res=>{
-      console.log(res)
-      let getarticleData=res.data[0]
-      self.setData({
-        articleData:getarticleData
-      })
-      this.getUser(getarticleData)
-      
-      this.isCollectAndLike()
-    }
-  )
-  
+					// 将修改后的数据设置到 data 中
+					this.setData({
+						noteDetailData: noteDetailData,
+					});
+				} else {
+					wx.showToast({
+						title: "请求失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: (error) => {
+				console.error("Request failed:", error);
+			},
+		});
+	},
 
+	queryUser(userId) {
+		const url = "https://gpt.leafqycc.top:6660/user/QueryUser";
 
-  
-  
-  },
+		wx.request({
+			url: url,
+			method: "POST",
+			data: {
+				userId: userId,
+			},
+			// 可根据需要添加 Authorization 头部信息
+			header: {
+				Authorization: wx.getStorageSync("Authorization"),
+			},
+			success: (res) => {
+				if (res.data.code) {
+					const userData = res.data.data;
+					console.log("查询user成功:", userData);
+					this.setData({
+						userData: userData,
+					});
+				} else {
+					wx.showToast({
+						title: "请求失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: (error) => {
+				console.error("Request user failed:", error);
+			},
+		});
+	},
+	//获取收藏状态
+	isCollectAndLike() {
+		
+	},
 
-  getUser(e){
-    var self=this
-    const db=wx.cloud.database()
-    db.collection('user').where({
-      Authorization:e.Authorization
-    }).get().then(
-      res=>{
-        console.log(res)
-        self.setData({
-          userData:res.data[0]
-        })
-      }
-    )
-  },
-  //获取收藏状态
-  isCollectAndLike(){
-    self=this
-    console.log(self.data.myAuthorization,self.data.articleData)
-    wx.cloud.callFunction({
-      name: 'isCollectAndLike',
-      data: {
-        articleid: self.data.articleData._id,
-        Authorization: self.data.myAuthorization
-      },
-      success: function(res) {
-        
-        self.setData({
-          isCollect: res.result.isCollect,
-          isLike: res.result.isLike
-        })
-        
-      },
-      fail: function(res) {
-        console.log(res)
-      }
-    })
-  },
+	//点击收藏功能
+	onCollect: function () {
+		if (!this.data.myAuthorization) {
+			wx.showModal({
+				cancelColor: "cancelColor",
+				title: "您还未登录",
+				content: "是否前往个人页面登录",
+				success: function (res) {
+					if (res.confirm) {
+						wx.reLaunch({
+							url: "/pages/my/my",
+						});
+					} else {
+						wx.showToast({
+							icon: "none",
+							title: "您可以前往“我识”界面自行登录",
+						});
+					}
+				},
+			});
+			return;
+		}
+		let collectState = this.data.isCollect;
+		let collectionNum = this.data.noteDetailData.collectionNum;
 
-  //点击收藏功能
-  onCollect: function() {
-   if(!this.data.myAuthorization){
-    wx.showModal({
-      cancelColor: 'cancelColor',
-      title: "您还未登录",
-      content:"是否前往个人页面登录",
-      success: function (res) {
-        if (res.confirm) {
-         wx.reLaunch({
-           url: '/pages/my/my',
-         })
-        } else {
-          
-          wx.showToast({
-            icon: 'none',
-            title: '您可以前往“我识”界面自行登录',
-          })
-        }
-      }
-    })
-    return
-   }
-   let collectState=this.data.isCollect
-   let collectionNum=this.data.articleData.collectionNum
-   
-    console.log("original state",collectState)
-    this.setData({
-      isCollect:!collectState,
-      'articleData.collectionNum':collectState?collectionNum-1:collectionNum+1
-    })
-    //取消收藏
-    wx.cloud.callFunction({
-      name:"onCollect",
-      data:{
-        articleid: this.data.articleData._id,
-          Authorization: this.data.myAuthorization
-      },
-      // success:function(res){
-      //   self.setData({
-      //     isCollect:res.result.isCollect
-      //   })
-      // },
-      fail:function(err){
-        console.log(err)
-      }
-    })
-    
-  },
+		console.log("original state", collectState);
+		this.setData({
+			isCollect: !collectState,
+			"noteDetailData.collectionNum": collectState
+				? collectionNum - 1
+				: collectionNum + 1,
+		});
+		//取消收藏
+		wx.cloud.callFunction({
+			name: "onCollect",
+			data: {
+				articleid: this.data.noteDetailData.noteId,
+				Authorization: this.data.myAuthorization,
+			},
+			// success:function(res){
+			//   self.setData({
+			//     isCollect:res.result.isCollect
+			//   })
+			// },
+			fail: function (err) {
+				console.log(err);
+			},
+		});
+	},
 
-  //点赞功能
-  onLike: function() {
-    if(!this.data.myAuthorization){
-      wx.showModal({
-        cancelColor: 'cancelColor',
-        title: "您还未登录",
-        content:"是否前往个人页面登录",
-        success: function (res) {
-          if (res.confirm) {
-           wx.reLaunch({
-             url: '/pages/my/my',
-           })
-          } else {
-            
-            wx.showToast({
-              icon: 'none',
-              title: '您可以前往“我识”界面自行登录',
-            })
-          }
-        }
-      })
-      return
-     }
-    let likeState=this.data.isLike
-   let likeNum=this.data.articleData.likeNum
-    console.log("original state",this.data.isLike)
-    this.setData({
-      isLike:!this.data.isLike,
-      'articleData.likeNum':likeState?likeNum-1:likeNum+1
-    })
-    wx.cloud.callFunction({
-      name:"onLike",
-      data:{
-        articleid: this.data.articleData._id,
-          Authorization: this.data.myAuthorization
-      },
-      // success:function(res){
-      //   console.log(res)
-        
-      // },
-      fail:function(err){
-        console.log(err)
-      }
-    })
-    
-  },
+	//点赞功能
+	onLike: function () {
+		if (!this.data.myAuthorization) {
+			wx.showModal({
+				cancelColor: "cancelColor",
+				title: "您还未登录",
+				content: "是否前往个人页面登录",
+				success: function (res) {
+					if (res.confirm) {
+						wx.reLaunch({
+							url: "/pages/my/my",
+						});
+					} else {
+						wx.showToast({
+							icon: "none",
+							title: "您可以前往“我识”界面自行登录",
+						});
+					}
+				},
+			});
+			return;
+		}
+		let likeState = this.data.isLike;
+		let likeNum = this.data.noteDetailData.likeNum;
+		console.log("original state", this.data.isLike);
+		this.setData({
+			isLike: !this.data.isLike,
+			"noteDetailData.likeNum": likeState ? likeNum - 1 : likeNum + 1,
+		});
+		wx.cloud.callFunction({
+			name: "onLike",
+			data: {
+				articleid: this.data.noteDetailData.noteId,
+				Authorization: this.data.myAuthorization,
+			},
+			// success:function(res){
+			//   console.log(res)
 
-  //点击图片会发生的事情
-  ViewImage(e) {
-    console.log(e)
-    wx.previewImage({
-      urls: this.data.articleData.picture,
-      current: e.currentTarget.dataset.url
-    });
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+			// },
+			fail: function (err) {
+				console.log(err);
+			},
+		});
+	},
 
-  },
+	//点击图片会发生的事情
+	ViewImage(e) {
+		console.log(e);
+		wx.previewImage({
+			urls: this.data.noteDetailData.picture,
+			current: e.currentTarget.dataset.url,
+		});
+	},
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {},
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+	/**
+	 * 生命周期函数--监听页面显示
+	 */
+	onShow: function () {},
 
-  },
+	/**
+	 * 生命周期函数--监听页面隐藏
+	 */
+	onHide: function () {},
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+	/**
+	 * 生命周期函数--监听页面卸载
+	 */
+	onUnload: function () {},
 
-  },
+	/**
+	 * 页面相关事件处理函数--监听用户下拉动作
+	 */
+	onPullDownRefresh: function () {},
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+	/**
+	 * 页面上拉触底事件的处理函数
+	 */
+	onReachBottom: function () {},
 
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
-})
+	/**
+	 * 用户点击右上角分享
+	 */
+	onShareAppMessage: function () {},
+});

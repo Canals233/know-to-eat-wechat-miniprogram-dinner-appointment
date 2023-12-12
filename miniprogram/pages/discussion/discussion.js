@@ -16,12 +16,10 @@ Page({
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
-	onLoad: function (options) {
+	onLoad: function () {
 		//一开始先得到文章们
 		self = this;
-		wx.showLoading({
-			title: "加载中",
-		});
+	
 		this.setData({
 			filter: "",
 		});
@@ -103,14 +101,11 @@ Page({
 		// 启动新的定时器
 
 		this.data.timer = setTimeout(() => {
-			// 取出搜索的值
-			let options = {
-				filter: "",
-			};
-
-			options.filter = e.detail.value;
-			// 取出数据源
-			this.onLoad(options);
+			filter = e.detail.value;
+			this.setData({
+                filter: filter,
+            })
+            this.queryNote();
 		}, 800);
 	},
 
