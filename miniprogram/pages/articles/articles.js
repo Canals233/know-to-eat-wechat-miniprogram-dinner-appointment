@@ -14,7 +14,8 @@ Page({
 		isCollect: false,
 		isLike: false,
 		myAuthorization: wx.getStorageSync("Authorization"),
-        commentData:{},
+		commentDatas: [],
+        commentText: "",
 	},
 
 	//页面加载
@@ -29,7 +30,8 @@ Page({
 
 		this.queryNote(noteId);
 		this.queryUser(userId);
-        this.queryComment(noteId);
+		this.queryComment(noteId);
+		this.isCollectAndLike(noteId);
 	},
 
 	queryNote(noteId) {
@@ -123,23 +125,44 @@ Page({
 			},
 			data: {
 				noteId: noteId,
-                commentId:0
+				commentId: 0,
 			},
 			success: (res) => {
 				if (res.data.code) {
-					const commentData = res.data.data;
-					console.log("查询成功:", commentData);
+					const commentDatas = res.data.data;
+					console.log("查询评论成功:", commentDatas);
 
-				
-					if (commentData.noteTime) {
-						commentData.noteTime = commentData.noteTime
-						
-							.replace("T", " "); // 将 'T' 替换为空格
-					}
+					commentDatas.forEach((commentData) => {
+						if (commentData.commentTime) {
+							commentData.commentTime =
+								commentData.commentTime.replace("T", " "); // 将 'T' 替换为空格
+						}
+						if (commentData.fatherId === 0) {
+							commentData.children = [];
+						}
+					});
+					const fatherComments = [];
+					commentDatas.forEach((commentData) => {
+						if (commentData.fatherId !== 0) {
+							// 如果有父评论，则找到父评论对象，将当前评论添加到父评论的 children 数组中
+							const fatherComment = commentDatas.find(
+								(item) =>
+									item.commentId === commentData.fatherId
+							);
+							if (fatherComment) {
+								fatherComment.children.push(commentData);
+							}
+						} else {
+							// 如果没有父评论，则将当前评论添加到 fatherComments 数组中
+							fatherComments.push(commentData);
+						}
+					});
+
+					console.log("commentDatas", fatherComments);
 
 					// 将修改后的数据设置到 data 中
 					this.setData({
-						commentData: commentData,
+						commentDatas: fatherComments,
 					});
 				} else {
 					wx.showToast({
@@ -155,7 +178,52 @@ Page({
 		});
 	},
 	//获取收藏状态
-	isCollectAndLike() {},
+	isCollectAndLike(noteId) {
+		wx.request({
+			url: "https://gpt.leafqycc.top:6660/note/GetLike",
+			method: "POST",
+			header: {
+				"Content-Type": "application/json",
+				Authorization: wx.getStorageSync("Authorization"),
+			},
+			data: {
+				noteId: noteId,
+			},
+			success: (res) => {
+				console.log("查点赞:", res);
+				if (res.data.data) {
+					this.setData({
+						isLike: true,
+					});
+				}
+			},
+			fail: (error) => {
+				console.error("查点赞 failed:", error);
+			},
+		});
+		wx.request({
+			url: "https://gpt.leafqycc.top:6660/note/GetCollection",
+			method: "POST",
+			header: {
+				"Content-Type": "application/json",
+				Authorization: wx.getStorageSync("Authorization"),
+			},
+			data: {
+				noteId: noteId,
+			},
+			success: (res) => {
+				console.log("查收藏:", res);
+				if (res.data.data) {
+					this.setData({
+						isCollect: true,
+					});
+				}
+			},
+			fail: (error) => {
+				console.error("查收藏 failed:", error);
+			},
+		});
+	},
 
 	//点击收藏功能
 	onCollect: function () {
@@ -190,19 +258,28 @@ Page({
 				: collectionNum + 1,
 		});
 		//取消收藏
-		wx.cloud.callFunction({
-			name: "onCollect",
-			data: {
-				articleid: this.data.noteDetailData.noteId,
-				Authorization: this.data.myAuthorization,
+		function getColURL() {
+			if (collectState) {
+				return "https://gpt.leafqycc.top:6660/note/UncollectNote";
+			} else {
+				return "https://gpt.leafqycc.top:6660/note/CollectionNote";
+			}
+		}
+		wx.request({
+			url: getColURL(),
+			method: collectState ? "DELETE" : "POST",
+			header: {
+				"Content-Type": "application/json",
+				Authorization: wx.getStorageSync("Authorization"),
 			},
-			// success:function(res){
-			//   self.setData({
-			//     isCollect:res.result.isCollect
-			//   })
-			// },
-			fail: function (err) {
-				console.log(err);
+			data: {
+				noteId: this.data.noteId,
+			},
+			success: (res) => {
+				console.log("收藏:", res.data.data);
+			},
+			fail: (error) => {
+				console.error("收藏 failed:", error);
 			},
 		});
 	},
@@ -236,21 +313,108 @@ Page({
 			isLike: !this.data.isLike,
 			"noteDetailData.likeNum": likeState ? likeNum - 1 : likeNum + 1,
 		});
-		wx.cloud.callFunction({
-			name: "onLike",
-			data: {
-				articleid: this.data.noteDetailData.noteId,
-				Authorization: this.data.myAuthorization,
+		function getColURL() {
+			if (likeState) {
+				return "https://gpt.leafqycc.top:6660/note/UnlikeNote";
+			} else {
+				return "https://gpt.leafqycc.top:6660/note/LikeNote";
+			}
+		}
+		wx.request({
+			url: getColURL(),
+			method: likeState ? "DELETE" : "POST",
+			header: {
+				"Content-Type": "application/json",
+				Authorization: wx.getStorageSync("Authorization"),
 			},
-			// success:function(res){
-			//   console.log(res)
-
-			// },
-			fail: function (err) {
-				console.log(err);
+			data: {
+				noteId: this.data.noteId,
+			},
+			success: (res) => {
+				console.log("点赞:", res.data.data);
+			},
+			fail: (error) => {
+				console.error("点赞 failed:", error);
 			},
 		});
 	},
+
+    onInputComment: function (e) {
+      
+        this.setData({
+            commentText: e.detail.value,
+        });
+    },
+
+    onPublishComment: function (e) {
+        if (!this.data.myAuthorization) {
+            wx.showModal({
+                cancelColor: "cancelColor",
+                title: "您还未登录",
+                content: "是否前往个人页面登录",
+                success: function (res) {
+                    if (res.confirm) {
+                        wx.reLaunch({
+                            url: "/pages/my/my",
+                        });
+                    } else {
+                        wx.showToast({
+                            icon: "none",
+                            title: "您可以前往“我识”界面自行登录",
+                        });
+                    }
+                },
+            });
+            return;
+        }
+        const comment = this.data.commentText;
+        console.log("comment", comment);
+        if (!comment) {
+            wx.showToast({
+                title: "评论内容不能为空",
+                icon: "none",
+                duration: 2000,
+            });
+            return;
+        }
+        const url = "https://gpt.leafqycc.top:6660/comment/CommentNote";
+        wx.request({
+            url: url,
+            method: "POST",
+            header: {
+                "Content-Type": "application/json",
+                Authorization: wx.getStorageSync("Authorization"),
+            },
+            data: {
+                noteId: this.data.noteId,
+                fatherId: 0,
+                commentText: comment,
+                commentTime: new Date().toISOString(),
+            },
+            success: (res) => {
+                console.log("评论成功:", res);
+                if (res.data.code) {
+                    wx.showToast({
+                        title: "评论成功",
+                        icon: "success",
+                        duration: 2000,
+                    });
+                    this.queryComment(this.data.noteId);
+                } else {
+                    wx.showToast({
+                        title: "评论失败",
+                        icon: "none",
+                        duration: 2000,
+                    });
+                }
+            },
+            fail: (error) => {
+                console.error("评论 failed:", error);
+            },
+        });
+    },
+    
+
 
 	//点击图片会发生的事情
 	ViewImage(e) {

@@ -12,22 +12,63 @@
         <image src="{{userData.userImg}}" class="avatarimg"></image>
         <text class="userName">{{userData.userName}}</text>
     </view>
-    <view class="content" >
+    <view class="content">
         <view class="shop">
-        <text user-select="true">{{noteDetailData.noteShopName}}</text>
-        <text style="float: right; margin-right: 20rpx;">{{noteDetailData.noteTime}}</text>
-    </view>
-    <view class="cet">
-        <text user-select="true">{{noteDetailData.noteText}}</text>
-    </view>
-    <text>评论列表</text>
-    
+            <text user-select="true">{{noteDetailData.noteShopName}}</text>
+            <text style="float: right; margin-right: 20rpx;">{{noteDetailData.noteTime}}</text>
+        </view>
+        <view class="cet">
+            <text user-select="true">{{noteDetailData.noteText}}</text>
+        </view>
+        <text>评论列表</text>
+        <!-- comments.wxml -->
+        <view class="comment-list">
+            <block wx:for="{{commentDatas}}" wx:key="commentId">
+                <view class="comment-item">
+                    <!-- 头像 -->
+                    <image src="{{item.userImg}}" class="avatar"></image>
+                    <!-- 评论内容和时间 -->
+                    <view class="comment-content">
+                        <text class="username">{{item.userName}}</text>
+                        <text class="text">{{item.commentText}}</text>
+                        <text class="time">{{item.commentTime}}</text>
+                    </view>
+                </view>
+                <!-- 子评论列表 -->
+                <block wx:if="{{item.childNum > 0}}">
+                    <view class="child-comments">
+                        <block wx:for="{{item.children}}"  wx:for-item="childItem" wx:key="commentId">
+                            <view class="comment-item child-comment">
+                                <!-- 头像 -->
+                                <image src="{{childItem.userImg}}" class="avatar"></image>
+                                <!-- 评论内容和时间 -->
+                                <view class="comment-content">
+                                    <text class="username">{{childItem.userName}}</text>
+                                    <text class="text">{{childItem.commentText}}</text>
+                                    <text class="time">{{childItem.commentTime}}</text>
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                </block>
+            </block>
+        </view>
+        <view style="height:20px" ></view>
     </view>
 </block>
 <!-- 点赞 收藏 -->
-<view class="icons">
+<view class="bottom-container">
+  <!-- 左侧输入框和发布按钮 -->
+  <view class="input-container">
+    <textarea class="input" placeholder="输入评论" bindinput="onInputComment"></textarea>
+    <button class="publish-btn" bindtap="onPublishComment">发布</button>
+  </view>
+
+  <!-- 右侧点赞和收藏按钮 -->
+  <view class="icons">
     <image class="img" bindtap="onLike" src="{{isLike ? '/static/like-fill.png' : '/static/like.png'}}"></image>
     <text class="iconNum">{{noteDetailData.likeNum}}</text>
     <image class="img" bindtap="onCollect" src="{{isCollect ? '/static/star-fill.png' : '/static/star.png'}}"></image>
     <text class="iconNum">{{noteDetailData.collectionNum}}</text>
+  </view>
 </view>

@@ -1,15 +1,3 @@
-/* pages/comments.wxss */
-.icons {
-    margin: 20rpx;
-    position: fixed;
-    right: 20rpx;
-    bottom: 15rpx;
-    padding: 20rpx;
-    border: 1px solid #ccc;
-    border-radius: 100rpx;
-    background-color: #fff
-}
-
 .main {
     margin: 20rpx;
 }
@@ -39,24 +27,28 @@
     font-weight: bold;
     text-align: center;
 }
-.content{
+
+.content {
     padding: 0 10px;
-    
+
 }
+
 .shop {
     font-weight: bold;
     font-size: 12px;
 }
-.cet{
+
+.cet {
     border: 1px solid #ccc;
 
     border-radius: 20rpx;
     box-shadow: 0 0 15rpx #ccc;
     text-indent: 0;
     padding: 10px;
-    margin: 10px 0 ;
+    margin: 10px 0;
 
 }
+
 .avatarimg {
     width: 60rpx;
     height: 60rpx;
@@ -78,4 +70,99 @@
 
 page {
     background-color: #fff;
+}
+
+/* comments.wxss */
+.comment-list {
+    
+    margin-bottom: 100rpx;
+}
+
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10rpx;
+}
+
+.avatar {
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 50%;
+    margin-right: 10rpx;
+}
+
+.comment-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.username,
+.text,
+.time {
+    margin-bottom: 5px;
+    /* 添加一些底部间距，调整垂直排列时的间距 */
+}
+
+.child-comments {
+    margin-left: 60rpx;
+    /* 缩进子评论 */
+}
+
+.child-comment {
+    margin-top: 10rpx;
+    /* 子评论之间的间距 */
+}
+
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    /* 适当的内边距，根据实际情况调整 */
+    background-color: #fff;
+    /* 可选，根据实际情况调整 */
+    border-top: 1px solid #ccc;
+    /* 可选，根据实际情况调整 */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    width: 65%;
+}
+
+.input {
+    flex: 1;
+    height: 30px;
+    /* 根据实际需要调整 */
+    border: 1px solid #ccc;
+    /* 根据实际需要调整 */
+
+}
+
+.publish-btn {
+    height: 30px;
+    /* 根据实际需要调整 */
+    font-size: 12px;
+    margin-left: 10px;
+    /* 根据实际需要调整 */
+    width: 25%;
+
+}
+
+.icons {
+
+    align-items: center;
+}
+
+.img,
+.iconNum {
+    margin-right: 10px;
+    /* 根据实际需要调整 */
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
 }
