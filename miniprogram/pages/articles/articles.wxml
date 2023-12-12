@@ -21,6 +21,7 @@
         <text user-select="true">{{noteDetailData.noteText}}</text>
     </view>
     <text>评论列表</text>
+    
     </view>
 </block>
 <!-- 点赞 收藏 -->

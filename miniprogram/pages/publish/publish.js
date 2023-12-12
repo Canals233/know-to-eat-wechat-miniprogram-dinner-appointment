@@ -12,7 +12,7 @@ Page({
 		shopInput: "",
 		noteType: [],
 		from: "",
-        Authorization:wx.getStorageSync("Authorization")
+		Authorization: wx.getStorageSync("Authorization"),
 	},
 
 	/**
@@ -93,7 +93,7 @@ Page({
 			sizeType: ["compressed"],
 			sourceType: ["album"],
 			success: (res) => {
-                console.log(res,'choice res')
+				console.log(res, "choice res");
 				this.setData({
 					imgList: [res.tempFiles[0].tempFilePath],
 				});
@@ -238,54 +238,54 @@ Page({
 			noteType: NoteType,
 			noteShopName: shop,
 		};
-        console.log(params,'params')
+		console.log(params, "params");
 
 		wx.showLoading({
 			title: "发布中",
 		});
-        const url = "https://gpt.leafqycc.top:6660/note/PublishNote";
-        wx.uploadFile({
-            url: url,
-            filePath: ImgList,
-            name: 'noteImg',
-            header: {
-                Authorization: this.data.Authorization,
-            },
-            formData: params,
-            success: (res) => {
-               
-                const   JSONres = JSON.parse(res.data);
-                console.log(JSONres,'jsonres')
-                if (JSONres.code) {
-                    wx.showToast({
-                        title: "发布成功",
-                        icon: "success",
-                        duration: 2000,
-                    });
-                    setTimeout(() => {
-                        wx.navigateBack({
-                            delta: 1,
-                        });
-                    }, 2000);
-                } else {
-                    wx.showToast({
-                        title: "发布失败",
-                        icon: "none",
-                        duration: 2000,
-                    });
-                }
-            },
-            fail: (res) => {
-                wx.showToast({
-                    title: "发布失败",
-                    icon: "none",
-                    duration: 2000,
-                });
-            },
-            complete: () => {
-                wx.hideLoading();
-            },
-        });
-	
+		const url = "https://gpt.leafqycc.top:6660/note/PublishNote";
+		wx.uploadFile({
+			url: url,
+			filePath: ImgList, //现在情况就是一个图片的url
+			name: "name",
+			header: {
+				Authorization: this.data.Authorization,
+			},
+			formData: {
+				formData: JSON.stringify(params),
+			},
+			success: (res) => {
+				const JSONres = JSON.parse(res.data);
+				console.log(JSONres, "jsonres");
+				if (JSONres.code) {
+					wx.showToast({
+						title: "发布成功",
+						icon: "success",
+						duration: 2000,
+					});
+					setTimeout(() => {
+						wx.navigateBack({
+							delta: 1,
+						});
+					}, 2000);
+				} else {
+					wx.showToast({
+						title: "发布失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: (res) => {
+				wx.showToast({
+					title: "发布失败",
+					icon: "none",
+					duration: 2000,
+				});
+			},
+			complete: () => {
+				wx.hideLoading();
+			},
+		});
 	},
 });

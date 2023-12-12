@@ -14,20 +14,22 @@ Page({
 		isCollect: false,
 		isLike: false,
 		myAuthorization: wx.getStorageSync("Authorization"),
+        commentData:{},
 	},
 
 	//页面加载
 	onLoad(options) {
 		var self = this;
 		let noteId = options.noteId;
-        let userId  = options.userId;
+		let userId = options.userId;
 		self.setData({
 			noteId,
-            userId
+			userId,
 		});
 
 		this.queryNote(noteId);
-        this.queryUser(userId);
+		this.queryUser(userId);
+        this.queryComment(noteId);
 	},
 
 	queryNote(noteId) {
@@ -53,11 +55,10 @@ Page({
 							noteDetailData.noteType.split(",");
 					}
 					if (noteDetailData.noteTime) {
-						noteDetailData.noteTime =
-							noteDetailData.noteTime.slice(0,19).replace("T", " "); // 将 'T' 替换为空格
+						noteDetailData.noteTime = noteDetailData.noteTime
+							.slice(0, 19)
+							.replace("T", " "); // 将 'T' 替换为空格
 					}
-			
-
 
 					// 将修改后的数据设置到 data 中
 					this.setData({
@@ -110,10 +111,51 @@ Page({
 			},
 		});
 	},
-	//获取收藏状态
-	isCollectAndLike() {
-		
+
+	queryComment(noteId) {
+		const url = "https://gpt.leafqycc.top:6660/comment/QueryComment";
+		wx.request({
+			url: url,
+			method: "POST",
+			header: {
+				"Content-Type": "application/json",
+				Authorization: wx.getStorageSync("Authorization"),
+			},
+			data: {
+				noteId: noteId,
+                commentId:0
+			},
+			success: (res) => {
+				if (res.data.code) {
+					const commentData = res.data.data;
+					console.log("查询成功:", commentData);
+
+				
+					if (commentData.noteTime) {
+						commentData.noteTime = commentData.noteTime
+						
+							.replace("T", " "); // 将 'T' 替换为空格
+					}
+
+					// 将修改后的数据设置到 data 中
+					this.setData({
+						commentData: commentData,
+					});
+				} else {
+					wx.showToast({
+						title: "请求失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: (error) => {
+				console.error("Request failed:", error);
+			},
+		});
 	},
+	//获取收藏状态
+	isCollectAndLike() {},
 
 	//点击收藏功能
 	onCollect: function () {
