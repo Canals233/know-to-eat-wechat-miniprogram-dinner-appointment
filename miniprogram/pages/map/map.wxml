@@ -55,7 +55,7 @@
             <!-- 循环输出结果 -->
             <block wx:for="{{search}}" wx:key="index">
                 <cover-view class="searchres" bindtap="tapRes" data-item="{{item}}">
-                    {{item.title}}：{{item["菜名"]}}
+                    {{item.partyTitle}}：{{item.partyShopName}}
                 </cover-view>
             </block>
         </view>

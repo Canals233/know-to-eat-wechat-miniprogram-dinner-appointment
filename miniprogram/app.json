@@ -1,85 +1,79 @@
 {
-  "usingComponents": {
-    "partyCard": "/components/partyCard/partyCard",
-    "van-tag": "@vant/weapp/tag/index",
-    "van-button": "@vant/weapp/button/index",
-    "van-field": "@vant/weapp/field/index",
-    "van-cell": "@vant/weapp/cell/index",
-    "van-cell-group": "@vant/weapp/cell-group/index",
-    "van-image": "@vant/weapp/image/index"
-  },
-  "pages": [
-    "pages/map/map",
-    "pages/discussion/discussion",
-    "pages/my/my",
-    "pages/articles/articles",
-    "pages/collect/collect",
-    "pages/publish/publish",
-    "pages/mypublish/mypublish",
-    "pages/addmeet/addmeet",
-    "pages/meetlist/meetlist",
-    "pages/mymeet/mymeet",
-    "pages/meetDetail/meetDetail",
-    "pages/mylike-star/mylike-star",
-    "pages/talklist/talklist",
-    "pages/talkDetail/talkDetail",
-    "pages/secondtalk/secondtalk",
-    "pages/shouldknow/shouldknow"
-  ],
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序定位"
-    }
-  },
-  "plugins": {
-    "chooseLocation": {
-      "version": "1.0.10",
-      "provider": "wx76a9a06e5b4e693e"
+    "usingComponents": {
+        "partyCard": "/components/partyCard/partyCard"
     },
-    "citySelector": {
-      "version": "1.0.1",
-      "provider": "wx63ffb7b7894e99ae"
-    }
-  },
-  "subPackages": [],
-  "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "识食",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#f6f6f6"
-  },
-  "tabBar": {
-    "backgroundColor": "#fff",
-    "selectedColor": "1E90FF",
-    "list": [{
-        "pagePath": "pages/discussion/discussion",
-        "iconPath": "static/taolun.png",
-        "selectedIconPath": "static/taolun-active.png",
-        "text": "食研社"
-      },
-      {
-        "pagePath": "pages/meetlist/meetlist",
-        "iconPath": "static/group.png",
-        "selectedIconPath": "static/group-active.png",
-        "text": "饭会"
-      },
-      {
-        "pagePath": "pages/map/map",
-        "iconPath": "static/map.png",
-        "selectedIconPath": "static/map-active.png",
-        "text": "识食地图"
-      },
-      {
-        "pagePath": "pages/my/my",
-        "iconPath": "static/my.png",
-        "selectedIconPath": "static/my-active.png",
-        "text": "我识"
-      }
-
-    ]
-  },
-
-  "cloud": true,
-  "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents"
+    "pages": [
+        "pages/map/map",
+        "pages/discussion/discussion",
+        "pages/my/my",
+        "pages/articles/articles",
+        "pages/collect/collect",
+        "pages/publish/publish",
+        "pages/mypublish/mypublish",
+        "pages/addmeet/addmeet",
+        "pages/meetlist/meetlist",
+        "pages/mymeet/mymeet",
+        "pages/meetDetail/meetDetail",
+        "pages/mylike-star/mylike-star",
+        "pages/talklist/talklist",
+        "pages/talkDetail/talkDetail",
+        "pages/secondtalk/secondtalk",
+        "pages/shouldknow/shouldknow",
+        "pages/updateInfo/updateInfo"
+    ],
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于小程序定位"
+        }
+    },
+    "plugins": {
+        "chooseLocation": {
+            "version": "1.0.10",
+            "provider": "wx76a9a06e5b4e693e"
+        },
+        "citySelector": {
+            "version": "1.0.1",
+            "provider": "wx63ffb7b7894e99ae"
+        }
+    },
+    "subPackages": [],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "识食",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#f6f6f6"
+    },
+    "tabBar": {
+        "backgroundColor": "#fff",
+        "selectedColor": "1E90FF",
+        "list": [
+            {
+                "pagePath": "pages/discussion/discussion",
+                "iconPath": "static/taolun.png",
+                "selectedIconPath": "static/taolun-active.png",
+                "text": "食研社"
+            },
+            {
+                "pagePath": "pages/meetlist/meetlist",
+                "iconPath": "static/group.png",
+                "selectedIconPath": "static/group-active.png",
+                "text": "饭会"
+            },
+            {
+                "pagePath": "pages/map/map",
+                "iconPath": "static/map.png",
+                "selectedIconPath": "static/map-active.png",
+                "text": "识食地图"
+            },
+            {
+                "pagePath": "pages/my/my",
+                "iconPath": "static/my.png",
+                "selectedIconPath": "static/my-active.png",
+                "text": "我识"
+            }
+        ]
+    },
+    "cloud": true,
+    "sitemapLocation": "sitemap.json",
+    "lazyCodeLoading": "requiredComponents"
 }

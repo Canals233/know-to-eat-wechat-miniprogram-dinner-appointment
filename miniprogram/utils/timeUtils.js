@@ -23,9 +23,9 @@ const getToday=function(date){
 }
 
 const getMonthLater=function(date){
-  const year = date.getFullYear()
-  const month = date.getMonth() + 2
-  const day = date.getDate()
+  let year = date.getFullYear()
+  let month = date.getMonth() + 2
+  let day = date.getDate()
   if(month>12){
     year+=1;
     month=1;

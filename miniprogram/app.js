@@ -11,10 +11,7 @@ App({
 		wx.cloud.init({
 			env: "know-to-eat-1guke3lkd453d421",
 		});
-		
-       
 
-		
 		wx.login({
 			success: (res) => {
 				console.log(res, "login code");
@@ -34,11 +31,21 @@ App({
 							code: res.code, // 直接使用 res.code 作为 userWechat 发送到后端
 						},
 						success: (res) => {
-							wx.setStorageSync(
-								"Authorization",
-								"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsImV4cCI6MTcwMzU2NTc3Nn0.ib1INnTf426mRBGNGc50nZxuT807zOc0H_VrTUpwRCs"
-							);
-							console.log("登录成功:", res.data);
+							console.log("登录:", res.data);
+							if (res.data.code) {
+								let userInfo = res.data.data;
+								wx.setStorageSync(
+									"Authorization",
+									userInfo.JWT
+								);
+								wx.setStorageSync("userId", userInfo.userId);
+							} else {
+								wx.showToast({
+									title: res.data.msg,
+									icon: "none",
+									duration: 2000,
+								});
+							}
 						},
 						fail: (error) => {
 							console.error("登录失败:", error);

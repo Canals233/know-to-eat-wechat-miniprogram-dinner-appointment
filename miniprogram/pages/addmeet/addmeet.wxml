@@ -37,14 +37,14 @@
     </view>
     <view class="cu-form-group margin-top">
         <view class="title">地址</view>
-        <view>{{mylocation?mylocation.partyAddress:"地址将在您选择店名后自动显示"}}</view>
+        <view>{{mylocation?mylocation.address:"地址将在您选择店名后自动显示"}}</view>
     </view>
     <view class="cu-form-group margin-top">
         <textarea maxlength="-1" bindblur="textareaInput" placeholder="输入内容" value="{{textareaInput}}"></textarea>
     </view>
     <view class="cu-bar bg-white margin-top">
         <view class="action">图片上传</view>
-        <view class="action">{{imgList.length}}/9</view>
+        <view class="action">{{imgList.length}}/1</view>
     </view>
     <view class="cu-form-group">
         <view class="grid col-4 grid-square flex-sub">
@@ -54,7 +54,7 @@
                     <text class="cuIcon-close"></text>
                 </view>
             </view>
-            <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<9}}">
+            <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
                 <text class="cuIcon-cameraadd"></text>
             </view>
         </view>

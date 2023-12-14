@@ -6,13 +6,10 @@ Page({
 		isLogin: true, // 默认显示登录表单
 		userInfo: {
 			userImg: null,
-			userName: "登录失败",
+			userName: "",
 		},
 		hasUserInfo: false,
-		authored: false,
-		meetNum: 0,
-		articleNum: 0,
-		
+        authored:true,
 	},
 	//事件处理函数
 
@@ -22,26 +19,50 @@ Page({
 	onLoad: function () {
 		self = this;
 		// 已授权则在本地缓存获取数据
-		
 
 		this.getUserProfile();
 	},
 	getUserProfile(e) {
-		if (this.data.hasUserInfo) {
+        let userInfo  = wx.getStorageSync("userInfo");
+        
+		if (userInfo) {
+			this.setData({
+				hasUserInfo: true,
+                userInfo: userInfo,
+			});
 			return;
 		}
 
-		// 没有就发起请求并设置本地缓存
-		wx.getUserProfile({
-			desc: "仅获取您的微信头像和昵称",
+		const url = "https://gpt.leafqycc.top:6660/user/QueryUser";
+
+		wx.request({
+			url: url,
+			method: "POST",
+			data: {
+				userId: wx.getStorageSync("userId"),
+			},
+			// 可根据需要添加 Authorization 头部信息
+			header: {
+				Authorization: wx.getStorageSync("Authorization"),
+			},
 			success: (res) => {
-				this.setData({
-					userInfo: res.userInfo,
-					hasUserInfo: true,
-					authored: true,
-				});
-				console.log(res);
-                localStorage.setItem("userInfo", JSON.stringify(res.userInfo));
+				if (res.data.code) {
+					const userInfo = res.data.data;
+					console.log("查询自己user成功:", userInfo);
+					this.setData({
+						userInfo: userInfo,
+					});
+					wx.setStorageSync("userInfo", userInfo);
+				} else {
+					wx.showToast({
+						title: "请求失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: (error) => {
+				console.error("Request user failed:", error);
 			},
 		});
 	},
@@ -52,9 +73,13 @@ Page({
 		});
 	},
 
-	getNum() {
-		
-	},
+    jumpUpdate(){
+        console.log('try jump')
+        wx.navigateTo({
+            url: "/pages/updateInfo/updateInfo",
+        });
+    },
+
 
 	mycollect: function (event) {
 		wx.navigateTo({
@@ -90,9 +115,7 @@ Page({
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
-	onShow: function () {
-		
-	},
+	onShow: function () {},
 
 	/**
 	 * 生命周期函数--监听页面隐藏

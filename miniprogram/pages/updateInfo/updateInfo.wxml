@@ -1,0 +1,13 @@
+<view class="container">
+  <view >
+    <image class="avatar" src="{{avatar}}" bindtap="ChooseImage" mode='aspectFit' />
+  </view>
+  <view class="username">
+    <input type="text" placeholder="用户名" value="{{username}}" bindinput="usernameInput" />
+  </view>
+  <view class="signature">
+    <input type="text" placeholder="用户简介" value="{{signature}}" bindinput="signatureInput" />
+  </view>
+  <button class="submit" type="primary" bindtap="submit" disabled="{{!contentChanged}}" >确定修改</button>
+</view>
+n

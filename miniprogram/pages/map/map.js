@@ -356,7 +356,7 @@ Page({
 						let searchKey = {};
 						searchKey.partyShopName =
 							modifiedPartyData[e].partyShopName;
-						searchKey.title = modifiedPartyData[e].title;
+						searchKey.partyTitle = modifiedPartyData[e].partyTitle;
 						sourse.push(searchKey);
 					}
 
@@ -367,11 +367,7 @@ Page({
 						searchSourse: sourse,
 					});
 				} else {
-					wx.showToast({
-						title: "请求失败",
-						icon: "none",
-						duration: 2000,
-					});
+					console.log("查询失败:", res.data.msg);
 				}
 			},
 			fail: (error) => {
@@ -445,6 +441,7 @@ Page({
 			//  console.log("搜索结果",res)
 			// 将结果刷新至视图层
 			this.setData({ search: res });
+
 		}, 800);
 	},
 

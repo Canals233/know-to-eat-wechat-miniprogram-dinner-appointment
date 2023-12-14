@@ -1,72 +1,29 @@
 
-<view wx:if="{{!hasUserInfo}}" >
-  <!-- <van-cell-group wx:if="{{isLogin}}">
-    <van-field label="邮箱" placeholder="请输入邮箱" />
-    <van-field label="密码" placeholder="请输入密码" type="password" />
-  </van-cell-group>
-
-
-  <van-cell-group wx:else>
-
-    <van-cell>
-      <view slot="title">头像</view>
-     
-    </van-cell>
-    
-    <van-field label="昵称" placeholder="请输入昵称" />
-    <van-field label="邮箱" placeholder="请输入邮箱" />
-    <van-field label="密码" placeholder="请输入密码" type="password" />
-    <van-field label="确认密码" placeholder="请再次输入密码" type="password" />
-  </van-cell-group>
-
- 
-  <van-button bindtap="toggleForm">{{isLogin ? '切换到注册' : '切换到登录'}}</van-button>
- -->
- <button bindtap="getUserProfile"> 获取头像昵称 </button>
-</view>
-
-
-<view wx:else class="infoPage">
-  <view class="UCenter-bg">
-
-<button mode="widthFix" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar" style="background-image: url({{userInfo.userImg}})"></button>
-
-
-<view class="userName">
-{{userInfo.userName}}
-</view>
-
-
-
-</view>
-
-<view class="TPcontainer">
-  <view class="TPleft" bindtap="mymeet">
-   <image src="../../static/eatmeet.png"></image>
-   <view class="TP-title">我发起的约饭
-   </view>
-  </view>
-  <view class="TPright" bindtap="mytalk">
-   <image src="../../static/talk.png" class="talk"></image>
-   <view class="TP-title">约饭通信
-   </view>
-  </view>
-  
-  <view class="TPleft" bindtap="mylike">
-   <image src="../../static/like.png"></image>
-   <view class="TP-title">我的喜欢
-   </view>
-  </view>
-  <view class="TPright" bindtap="mycollect">
-   <image src="../../static/star.png"></image>
-   <view class="TP-title">我的收藏
-   </view>
-  </view>
-  <view class="TPleft" bindtap="mypublish">
-   <image src="../../static/mypublish.png"></image>
-   <view class="TP-title">我发表的笔记
-   </view>
-  </view>
-</view>
-
+<view class="infoPage">
+    <view class="UCenter-bg" bindtap="jumpUpdate">
+        <image src="{{userData.userImg}}" class="userinfo-avatar"></image>
+        <view class="userName">{{userInfo.userName}}</view>
+    </view>
+    <view class="TPcontainer">
+        <view class="TPleft" bindtap="mymeet">
+            <image src="../../static/eatmeet.png"></image>
+            <view class="TP-title">我发起的约饭</view>
+        </view>
+        <view class="TPright" bindtap="mytalk">
+            <image src="../../static/talk.png" class="talk"></image>
+            <view class="TP-title">约饭通信</view>
+        </view>
+        <view class="TPleft" bindtap="mylike">
+            <image src="../../static/like.png"></image>
+            <view class="TP-title">我的喜欢</view>
+        </view>
+        <view class="TPright" bindtap="mycollect">
+            <image src="../../static/star.png"></image>
+            <view class="TP-title">我的收藏</view>
+        </view>
+        <view class="TPleft" bindtap="mypublish">
+            <image src="../../static/mypublish.png"></image>
+            <view class="TP-title">我发表的笔记</view>
+        </view>
+    </view>
 </view>

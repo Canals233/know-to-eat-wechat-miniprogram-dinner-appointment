@@ -24,6 +24,7 @@ Page({
 		const partyId = options.id;
 		const userId = options.userId;
 		const alreadyIn = options.alreadyIn;
+        // console.log(options,'op')
 		this.setData({
 			partyId: partyId,
 			userId,
@@ -214,6 +215,7 @@ Page({
 								});
 								this.setData({
 									alreadyIn: true,
+                                    "partyDetailData.userNum":this.data.partyDetailData.userNum+1,
 								});
 							} else {
 								console.error(
@@ -263,6 +265,7 @@ Page({
 								});
 								this.setData({
 									alreadyIn: false,
+                                    "partyDetailData.userNum":this.data.partyDetailData.userNum-1,
 								});
 							} else {
 								console.error(
@@ -295,7 +298,7 @@ Page({
 					});
 					wx.request({
 						url: "https://gpt.leafqycc.top:6660/party/DeleteParty",
-						method: "POST",
+						method: "DELETE",
 						header: {
 							"Content-Type": "application/json",
 							Authorization: this.data.myAuthorization,

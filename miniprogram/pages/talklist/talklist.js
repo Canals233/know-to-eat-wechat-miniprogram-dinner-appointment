@@ -17,8 +17,6 @@ Page({
 		wx.showLoading({
 			title: "加载中",
 		});
-
-		this.getMeet();
 	},
 
 	/**
@@ -47,18 +45,16 @@ Page({
 				// 处理请求成功的逻辑
 				if (res.data.code) {
 					const partyData = res.data.data;
-                    partyData.forEach((element) => {
-                        element.partyTime = element.partyTime.substring(0, 20).replace(
+					partyData.forEach((element) => {
+						element.partyTime = element.partyTime
+							.substring(0, 20)
+							.replace("T", " ");
+						element.partyType = element.partyType.split(",");
+						element.partyOverdue = element.partyOverdue.replace(
 							"T",
 							" "
 						);
-                        element.partyType=element.partyType.split(",")
-                        element.partyOverdue = element.partyOverdue.replace(
-                            "T",
-                            " "
-                        );
-                    });
-                    
+					});
 					self.setData({
 						partyList: partyData,
 					});
@@ -88,35 +84,10 @@ Page({
 	},
 
 	toTalk(e) {
-		console.log(e);
-		const masterid = e.currentTarget.dataset.masterid;
-		const costomerList = JSON.stringify(
-			e.currentTarget.dataset.costomerlist
-		);
-		console.log(costomerList);
-		if (masterid == this.data.myAuthorization) {
-			wx.navigateTo({
-				url:
-					"/pages/secondtalk/secondtalk?id=" +
-					e.currentTarget.dataset.id +
-					"&costomerList=" +
-					costomerList +
-					"&title=" +
-					e.currentTarget.dataset.title,
-			});
-		} else {
-			wx.navigateTo({
-				url:
-					"/pages/talkDetail/talkDetail?id=" +
-					e.currentTarget.dataset.id +
-					"&masterid=" +
-					masterid +
-					"&title=" +
-					e.currentTarget.dataset.title +
-					"&costomerid=" +
-					this.data.myAuthorization,
-			});
-		}
+		wx.navigateTo({
+			url:
+				"/pages/talkDetail/talkDetail?id=" + e.currentTarget.dataset.id,
+		});
 	},
 
 	/**
@@ -132,9 +103,7 @@ Page({
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
-	onPullDownRefresh: function () {
-		this.onLoad();
-	},
+	onPullDownRefresh: function () {},
 
 	/**
 	 * 页面上拉触底事件的处理函数
