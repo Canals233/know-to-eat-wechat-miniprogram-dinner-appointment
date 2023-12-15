@@ -11,7 +11,7 @@
     </view>
 </view>
 <view class="item-container">
-    <view wx:for="{{partyList}}" wx:key="key" wx:for-index="index" wx:for-item="item" bindtap="toTalk" data-id="{{item.partyId}}">
-         <partyCard item="{{item}}" showUser="{{true}}"></partyCard>
+    <view wx:for="{{partyList}}" wx:key="key" wx:for-index="index" wx:for-item="item" catchtap="toTalk" bindlongtap="toDetail" data-id="{{item.partyId}}">
+         <partyCard item="{{item}}" showUser="{{true}}"  fobbidenTap="{{true}}"></partyCard>
     </view>
 </view>

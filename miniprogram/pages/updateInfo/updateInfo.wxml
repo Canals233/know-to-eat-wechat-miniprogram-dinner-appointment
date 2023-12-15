@@ -10,4 +10,3 @@
   </view>
   <button class="submit" type="primary" bindtap="submit" disabled="{{!contentChanged}}" >确定修改</button>
 </view>
-n

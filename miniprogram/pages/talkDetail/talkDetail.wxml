@@ -1,4 +1,4 @@
-<!--pages/talkDetail/talkDetail.wxml-->
+<!--pages/chatDetail/chatDetail.wxml-->
 
 <scroll-view scroll-y="{{true}}" style="height: {{clientHeight?clientHeight*2-120+'rpx':'auto'}};" class="SW" scroll-into-view="{{flag}}" scroll-with-animation="true" >
   <view>
@@ -15,27 +15,27 @@
         <view><text  style="color: blue;" bindtap="gotoShouldKnow">《约饭须知》</text></view>
       </view>
     </view>
-  <view class="msgbox" wx:for="{{talklist}}" wx:key="id" id="{{'item'+index}}">
+  <view class="msgbox" wx:for="{{chatlist}}" wx:key="id" id="{{'item'+index}}">
     
       
-    <view wx:if="{{item.state==state}}" class="rightone">
+    <view wx:if="{{item.userId==userId}}" class="rightone">
       
         <view>
-          <image src="{{myprofile.userImg}}" class="avatar "></image>
+          <image src="{{item.userImg}}" class="avatar "></image>
         </view>
         <view class="right-msg">
-        <text user-select="true" style="white-space:pre-wrap;text-align: left;">{{item.content}}</text>
+        <text user-select="true" style="white-space:pre-wrap;text-align: left;">{{item.chatText}}</text>
           
         </view>
       
     </view>
     <view wx:else>
       <view>
-        <image src="{{friendprofile.userImg}}" class="avatar "></image>
-        <text class=" userName">{{friendprofile.userName}}</text>
+        <image src="{{item.userImg}}" class="avatar "></image>
+        <text class=" userName">{{item.userName}}</text>
       </view>
       <view class="left-msg">
-        <text user-select="true" style="white-space:pre-wrap;text-align: left;">{{item.content}}</text>
+        <text user-select="true" style="white-space:pre-wrap;text-align: left;">{{item.chatText}}</text>
       </view>
     </view>
   </view>
@@ -47,5 +47,5 @@
 <view class="bottom-box">
 
   <textarea bindinput="onInput" class="input" maxlength="-1" auto-height="true" value="{{textInput}}"></textarea>
-  <view class="send" bindtap="sendTalk">发送</view>
+  <view class="send" bindtap="sendChat">发送</view>
 </view>

@@ -36,8 +36,8 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		const Authorization = this.data.Authorization;
-		if (!Authorization) {
+		const myauthored = wx.getStorageSync("authored");
+		if (!myauthored) {
 			wx.showModal({
 				cancelColor: "cancelColor",
 				title: "您还未登录",

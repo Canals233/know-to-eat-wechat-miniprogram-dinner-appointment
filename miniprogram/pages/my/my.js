@@ -8,30 +8,28 @@ Page({
 			userImg: null,
 			userName: "",
 		},
-		hasUserInfo: false,
-        authored:true,
+
+		authored: true,
 	},
 	//事件处理函数
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
-	onLoad: function () {
-		self = this;
-		// 已授权则在本地缓存获取数据
-
-		this.getUserProfile();
-	},
+	onLoad: function () {},
 	getUserProfile(e) {
-        let userInfo  = wx.getStorageSync("userInfo");
-        
-		if (userInfo) {
-			this.setData({
-				hasUserInfo: true,
-                userInfo: userInfo,
-			});
-			return;
-		}
+		
+		
+
+		// if (userInfo) {
+		// 	this.setData({
+		// 		userInfo: userInfo,
+		// 		// authored: userInfo.userEmail ? true : false,
+		// 	});
+		// 	// wx.setStorageSync("authored", userInfo.userEmail ? true : false);
+		//     wx.setStorageSync("authored", true);
+		// 	return;
+		// }
 
 		const url = "https://gpt.leafqycc.top:6660/user/QueryUser";
 
@@ -49,10 +47,13 @@ Page({
 				if (res.data.code) {
 					const userInfo = res.data.data;
 					console.log("查询自己user成功:", userInfo);
+					const authored = true;
 					this.setData({
 						userInfo: userInfo,
+						authored: authored,
 					});
 					wx.setStorageSync("userInfo", userInfo);
+					wx.setStorageSync("authored", authored);
 				} else {
 					wx.showToast({
 						title: "请求失败",
@@ -67,19 +68,31 @@ Page({
 		});
 	},
 
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {},
+
+	/**
+	 * 生命周期函数--监听页面显示
+	 */
+	onShow: function () {
+		console.log("on my  Show");
+		this.getUserProfile();
+	},
+
 	toggleForm() {
 		this.setData({
 			isLogin: !this.data.isLogin,
 		});
 	},
 
-    jumpUpdate(){
-        console.log('try jump')
-        wx.navigateTo({
-            url: "/pages/updateInfo/updateInfo",
-        });
-    },
-
+	jumpUpdate() {
+		console.log("try jump");
+		wx.navigateTo({
+			url: "/pages/updateInfo/updateInfo",
+		});
+	},
 
 	mycollect: function (event) {
 		wx.navigateTo({
@@ -106,21 +119,18 @@ Page({
 			url: "/pages/talklist/talklist",
 		});
 	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {},
-
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {},
+	mySetting() {
+		wx.navigateTo({
+			url: "/pages/updateInfo/updateInfo",
+		});
+	},
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
-	onHide: function () {},
+	onHide: function () {
+        console.log("on my  Hide");
+    },
 
 	/**
 	 * 生命周期函数--监听页面卸载

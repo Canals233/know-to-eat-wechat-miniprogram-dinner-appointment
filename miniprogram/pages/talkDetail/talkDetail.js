@@ -1,227 +1,179 @@
-// pages/talkDetail/talkDetail.js
-const db = wx.cloud.database()
-const _ = db.command
+// pages/chatDetail/chatDetail.js
+
 Page({
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    myAuthorization: wx.getStorageSync('Authorization'),
-    
-    meetid: null,
-    masterid: null,
-    costomerid: null,
-    state: null,
-    title: null,
-    talklist: [],
-    clientHeight: null,
-    friendprofile: null,
-    textInput: '',
-    flag:""
-  },
+	/**
+	 * 页面的初始数据
+	 */
+	data: {
+		myAuthorization: wx.getStorageSync("Authorization"),
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-    const self =this
-    const myAuthorization = this.data.myAuthorization
-    
-    console.log(options)
-    this.setData({
-      meetid: options.id,
-      masterid: options.masterid,
-      costomerid: options.costomerid,
-      title: options.title,
-      
-    })
-    wx.getSystemInfo({
-      success: res => {
-        this.setData({
-          clientHeight: res.windowHeight
-        });
-      }
-    })
-    if (options.masterid == myAuthorization) {
-      this.setData({
-        state: 'master'
-      })
-      db.collection('user').where(
-        {
-          Authorization: options.costomerid,
-        }
-      ).get().then(
-        res => {
-          this.setData({
-            friendprofile: res.data[0]
-          })
-        }
-      )
-    }
-    else {
-      this.setData({
-        state: 'costomer'
-      })
-      db.collection('user').where(
-        {
-          Authorization: options.masterid,
-        }
-      ).get().then(
-        res => {
-          this.setData({
-            friendprofile: res.data[0]
-          })
-        }
-      )
-    }
-    
-   
-      this.getNewTalk()
+		
+	
+		title: null,
+		chatlist: [],
+        userId:wx.getStorageSync("userId"),
+		clientHeight: null,
+		
+		textInput: "",
+		
+		partyId: null,
+	},
 
-   
+	/**
+	 * 生命周期函数--监听页面加载
+	 */
+	onLoad(options) {
+	
+		this.setData({
+			partyId: options.id,
+		});
+		wx.getSystemInfo({
+			success: (res) => {
+				this.setData({
+					clientHeight: res.windowHeight,
+				});
+			},
+		});
 
+		this.getNewChat();
+	},
 
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady() {},
 
+	/**
+	 * 生命周期函数--监听页面显示
+	 */
+	onShow() {},
 
-  },
+	getNewChat() {
+        self=this
+		wx.request({
+			url: "https://gpt.leafqycc.top:6660/chat/QueryChat",
+			method: "POST",
+			header: {
+				Authorization: wx.getStorageSync("Authorization"),
+				"Content-Type": "application/json",
+			},
+			data: {
+				partyId: this.data.partyId,
+				chatId: 0,
+			},
+			success: function (res) {
+				console.log("请求:", res.data);
+				// 处理请求成功的逻辑
+				if (res.data.code) {
+					
+                    self.setData({
+                        chatlist:res.data.data
+                    })
+				} else {
+					wx.showToast({
+						title: "获取数据失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: function (error) {
+				console.error("请求失败:", error);
+			},
+			complete: function () {
+				wx.hideLoading();
+			},
+		});
+	},
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
+	onInput(e) {
+		if (this.data.textInput == e.detail.value) {
+			return;
+		}
+		this.setData({
+			textInput: e.detail.value,
+		});
+	},
 
-  },
+	sendChat() {
+		const msg = this.data.textInput;
+        self=this
+		if (msg == "") {
+			wx.showToast({
+				icon: "none",
+				title: "请输入内容",
+			});
+			return;
+		}
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-    
-  },
+		wx.request({
+			url: "https://gpt.leafqycc.top:6660/chat/PublicChat",
+			method: "POST",
+			header: {
+				Authorization: wx.getStorageSync("Authorization"),
+				"Content-Type": "application/json",
+			},
+			data: {
+				partyId: this.data.partyId,
+				chatText: msg,
+				chatTime: new Date().toISOString()
+			},
+			success: function (res) {
+				console.log("发布:", res.data);
+				// 处理发布成功的逻辑
+				if (res.data.code) {
+					console.log("发布成功", res.data.data);
+                    self.setData({
+                        textInput:''
+                    })
+				} else {
+					wx.showToast({
+						title: "获取数据失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: function (error) {
+				console.error("发布失败:", error);
+			},
+			complete: function () {
+				wx.hideLoading();
+                self.getNewChat();
+			},
+		});
+	},
 
-  getNewTalk() {
-    console.log(this.data)
-    db.collection('talklist').where(
-      {
-        masterid: this.data.masterid,
-        costomerid: this.data.costomerid,
-        meetid: this.data.meetid
-      }
-    ).get().then(
-      res => {
-        console.log(res)
-        this.setData({
-          talklist: res.data[0].talklist,
-          flag:`item${res.data[0].talklist.length-1}`
-        })
-        wx.stopPullDownRefresh({
-          success: (res) => { },
-        })
-       
-      }
-    )
-  },
+	gotoShouldKnow() {
+		wx.navigateTo({
+			url: "/pages/shouldknow/shouldknow",
+		});
+	},
 
-  onInput(e) {
-    if (this.data.textInput == e.detail.value) {
-      return
-    }
-    this.setData({
-      textInput: e.detail.value
-    })
-  },
+	/**
+	 * 生命周期函数--监听页面隐藏
+	 */
+	onHide() {},
 
-  sendTalk() {
+	/**
+	 * 生命周期函数--监听页面卸载
+	 */
+	onUnload() {},
 
-    const state = this.data.state
-    const msg = this.data.textInput
+	/**
+	 * 页面相关事件处理函数--监听用户下拉动作
+	 */
+	onPullDownRefresh() {
+		this.getNewChat();
+	},
 
-    if (msg == '') {
-      wx.showToast({
-        icon: 'none',
-        title: '请输入内容',
-      })
-      return
-    }
-    const obj = {
-      state: state,
-      content: msg
-    }
-    console.log(obj)
+	/**
+	 * 页面上拉触底事件的处理函数
+	 */
+	onReachBottom() {},
 
-    db.collection('talklist').where({
-      masterid: this.data.masterid,
-      costomerid: this.data.costomerid,
-      meetid: this.data.meetid
-    }).update({
-      data: {
-        talklist: _.push(obj)
-      }
-    }).then(res => {
-      console.log(res)
-      wx.showToast({
-        title: '发送留言成功',
-      })
-      this.setData({
-        textInput: null
-      })
-      this.getNewTalk()
-      
-    }).catch(
-      res => {
-        wx.showToast({
-          icon: 'error',
-          title: '发送失败',
-        })
-      }
-    )
-  },
-
-
-  gotoShouldKnow() {
-
-    wx.navigateTo({
-      url: '/pages/shouldknow/shouldknow',
-    })
-  },
-
-  
-
-
-
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-    this.getNewTalk()
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
-})
+	/**
+	 * 用户点击右上角分享
+	 */
+	onShareAppMessage() {},
+});

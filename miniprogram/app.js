@@ -14,7 +14,7 @@ App({
 
 		wx.login({
 			success: (res) => {
-				console.log(res, "login code");
+			
 				if (res.code) {
 					// 如果成功获取到 code，可以将 code 发送到后端进行登录或其他操作
 					// 构造请求 URL

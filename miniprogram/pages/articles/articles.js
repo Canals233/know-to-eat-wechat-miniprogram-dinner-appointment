@@ -13,9 +13,16 @@ Page({
 		noteId: "",
 		isCollect: false,
 		isLike: false,
-		myAuthorization: wx.getStorageSync("Authorization"),
+		myauthored: wx.getStorageSync("authored"),
 		commentDatas: [],
 		commentText: "",
+		userId: "",
+		MyuserId: wx.getStorageSync("userId"),
+		showDelete: false,
+		showCommentDialog: false,
+        showReplyDialog: false,
+        replyCommentText: "",
+        replyComment:{},
 	},
 
 	//页面加载
@@ -227,7 +234,7 @@ Page({
 
 	//点击收藏功能
 	onCollect: function () {
-		if (!this.data.myAuthorization) {
+		if (!this.data.myauthored) {
 			wx.showModal({
 				cancelColor: "cancelColor",
 				title: "您还未登录",
@@ -286,7 +293,7 @@ Page({
 
 	//点赞功能
 	onLike: function () {
-		if (!this.data.myAuthorization) {
+		if (!this.data.myauthored) {
 			wx.showModal({
 				cancelColor: "cancelColor",
 				title: "您还未登录",
@@ -346,7 +353,7 @@ Page({
 	},
 
 	onPublishComment: function (e) {
-		if (!this.data.myAuthorization) {
+		if (!this.data.myauthored) {
 			wx.showModal({
 				cancelColor: "cancelColor",
 				title: "您还未登录",
@@ -377,9 +384,9 @@ Page({
 			return;
 		}
 		const url = "https://gpt.leafqycc.top:6660/comment/CommentNote";
-        wx.showLoading({
-            title: '评论中',
-        })
+		wx.showLoading({
+			title: "评论中",
+		});
 		wx.request({
 			url: url,
 			method: "POST",
@@ -413,76 +420,182 @@ Page({
 			fail: (error) => {
 				console.error("评论 failed:", error);
 			},
-            complete:()=>{
+			complete: () => {
+				wx.hideLoading();
+				this.setData({
+					commentText: "",
+				});
+			},
+		});
+	},
 
-                wx.hideLoading();
-                this.setData({
-                    commentText: "",
-                })
-            }
+	showCommentDialog(e) {
+        
+		let showDelete = false;
+        let currentComment = e.currentTarget.dataset.comment;
+		if (
+			currentComment.userId == this.data.MyuserId ||
+			this.userData?.userId == this.data.MyuserId
+		) {
+			showDelete = true;
+		}
+
+		// 创建二级弹窗
+		this.setData({
+			showDelete: showDelete,
+			showCommentDialog: true,
+            replyComment: currentComment,
+		});
+	},
+
+	closeCommentDialog() {
+		this.setData({
+			showCommentDialog: false,
+            
 		});
 	},
 
 	showDeleteTip(event) {
+		self = this;
 		const commentId = event.currentTarget.dataset.id;
-        console.log("commentId", commentId);
+		console.log("commentId", commentId);
 		// 判断是否可以删除
-		
-			wx.showModal({
-				title: "提示",
-				content: "确定删除该评论吗？",
-				success: (res) => {
-					if (res.confirm) {
-						// 用户点击确定执行删除操作
-                        wx.request({
-                            url: "https://gpt.leafqycc.top:6660/comment/DeleteComment",
-                            method: "DELETE",
-                            header: {
-                                "Content-Type": "application/json",
-                                Authorization: wx.getStorageSync("Authorization"),
-                            },
-                            data: {
-                                noteId: +this.data.noteId,
-                                fatherId:0,
-                                commentId:commentId
-                            },
-                            success: (res) => {
-                                console.log("删评:", res);
-                                if (res.data.data) {
-                                    this.queryComment(this.data.noteId);
-                                    wx.showToast({
-                                        title: "删除成功",
-                                        icon: "success",
-                                        duration: 2000,
-                                    });
-                                }else{
-                                    wx.showToast({
-                                        title: "删除失败",
-                                        icon: "none",
-                                        duration: 2000,
-                                    });
-                                }
-                            },
-                            fail: (error) => {
-                                console.error("删评 failed:", error);
-                            },
-                            
-                        });
-					}
-				},
-			});
-		
-	},
 
+		wx.showModal({
+			title: "提示",
+			content: "确定删除该评论吗？",
+			success: (res) => {
+				self.setData({
+					showCommentDialog: false,
+				});
+				if (res.confirm) {
+					// 用户点击确定执行删除操作
+					wx.request({
+						url: "https://gpt.leafqycc.top:6660/comment/DeleteComment",
+						method: "DELETE",
+						header: {
+							"Content-Type": "application/json",
+							Authorization: wx.getStorageSync("Authorization"),
+						},
+						data: {
+							noteId: +this.data.noteId,
+							fatherId: 0,
+							commentId: commentId,
+						},
+						success: (res) => {
+							console.log("删评:", res);
+							if (res.data.data) {
+								this.queryComment(this.data.noteId);
+								wx.showToast({
+									title: "删除成功",
+									icon: "success",
+									duration: 2000,
+								});
+							} else {
+								wx.showToast({
+									title: "删除失败",
+									icon: "none",
+									duration: 2000,
+								});
+							}
+						},
+						fail: (error) => {
+							console.error("删评 failed:", error);
+						},
+					});
+				}
+			},
+		});
+	},
+    showReplyDialog(event) {
+   
+        this.setData({
+            showReplyDialog: true,
+           
+        });
+    },
+    onReplyInput(e){
+        this.setData({
+            replyCommentText: e.detail.value,
+        });
+    },
+
+    onCancelReply(){
+        this.setData({
+            showReplyDialog: false,
+            showCommentDialog: false,
+        });
+    },
+    onReplySubmit(){
+        const replyText = this.data.replyCommentText;
+        if(!replyText){
+            wx.showToast({
+                title: "回复内容不能为空",
+                icon: "none",
+                duration: 2000,
+            });
+            return;
+        }
+        console.log(this.data.replyComment);
+        let fatherId = this.data.replyComment.fatherId?this.data.replyComment.fatherId:this.data.replyComment.commentId;
+        self=this
+        wx.showLoading({
+            title: "回复中",
+        });
+		wx.request({
+			url: "https://gpt.leafqycc.top:6660/comment/CommentNote",
+			method: "POST",
+			header: {
+				Authorization: wx.getStorageSync("Authorization"),
+				"Content-Type": "application/json",
+			},
+			data: {
+				noteId: this.data.noteId,
+                fatherId: fatherId,
+                commentText: replyText,
+                commentTime: new Date().toISOString(),
+            
+			},
+			success: function (res) {
+				console.log("回复评论:", res.data);
+				// 处理回复评论成功的逻辑
+				if (res.data.code) {
+					
+                    
+				} else {
+					wx.showToast({
+						title: "获取数据失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: function (error) {
+				console.error("回复评论失败:", error);
+			},
+			complete: function () {
+				wx.hideLoading();
+                self.setData({
+                    showReplyDialog: false,
+                    showCommentDialog: false,
+                    replyCommentText: "",
+                });
+			},
+		});
+    
+    },
 
 	//点击图片会发生的事情
 	ViewImage(e) {
 		console.log(e);
 		wx.previewImage({
-			urls: this.data.noteDetailData.picture,
-			current: e.currentTarget.dataset.url,
+			urls: e.currentTarget.dataset.url,
+			
 		});
 	},
+
+    
+    
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */

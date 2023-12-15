@@ -8,6 +8,10 @@ Component({
 			type: Object,
 			value: {},
 		},
+        fobbidenTap:{
+            type:Boolean,
+            value:false
+        }
 	},
 
 	/**
@@ -20,7 +24,9 @@ Component({
 	 */
 	methods: {
 		toMeetDetail: function (event) {
- 
+            if(this.data.fobbidenTap){
+                return;
+            }
 			let id = event.currentTarget.dataset.id;
 			let userId = event.currentTarget.dataset.userid; //这里获取会变成小写
             let alreadyIn = event.currentTarget.dataset.already;

@@ -38,8 +38,8 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		const myAuthorization = wx.getStorageSync("Authorization");
-		if (!myAuthorization) {
+		const myauthored = wx.getStorageSync("authored");
+		if (!myauthored) {
 			wx.showModal({
 				cancelColor: "cancelColor",
 				title: "您还未登录",
@@ -137,7 +137,7 @@ Page({
 	ViewImage(e) {
 		wx.previewImage({
 			urls: this.data.imgList,
-			current: e.currentTarget.dataset.url,
+			
 		});
 	},
 

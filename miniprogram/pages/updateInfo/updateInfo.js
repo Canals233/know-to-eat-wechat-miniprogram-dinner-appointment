@@ -67,13 +67,62 @@ Page({
 
 	submit: function () {
 		// 将输入框的内容存储到数据中
-		const data = {
+		const params = {
 			avatar: this.data.avatar,
-			username: this.data.username,
-			signature: this.data.signature,
+			userName: this.data.username,
+			userTxt: this.data.signature,
 		};
-        console.log(data)
+
+        wx.showLoading({
+            title: "正在修改信息",
+            mask: true,
+        });
         
+        const url = "https://gpt.leafqycc.top:6660/user/Update";
+    
+		wx.uploadFile({
+			url: url,
+			filePath: this.data.avatar, //现在情况就是一个图片的url
+			name: "name",
+			header: {
+				Authorization: wx.getStorageSync("Authorization"),
+			},
+			formData: {
+				formData: JSON.stringify(params),
+			},
+			success: (res) => {
+				const JSONres = JSON.parse(res.data);
+				console.log(JSONres, "jsonres");
+				if (JSONres.code) {
+					wx.showToast({
+						title: "修改信息成功",
+						icon: "success",
+						duration: 2000,
+					});
+					setTimeout(() => {
+						wx.navigateBack({
+							delta: 1,
+						});
+					}, 2000);
+				} else {
+					wx.showToast({
+						title: "修改信息失败",
+						icon: "none",
+						duration: 2000,
+					});
+				}
+			},
+			fail: (res) => {
+				wx.showToast({
+					title: "完全修改信息失败",
+					icon: "none",
+					duration: 2000,
+				});
+			},
+			complete: () => {
+				wx.hideLoading();
+			},
+		});
 	},
 
 	/**

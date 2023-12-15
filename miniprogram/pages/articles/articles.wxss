@@ -166,3 +166,72 @@ page {
     width: 30px;
     line-height: 30px;
 }
+
+.getLocate,.reply-container {
+    position: fixed;
+    bottom: 50%;
+    right: 50%;
+    transform: translateX(50%) translateY(50%);
+    width: 40%;
+    background-color: #fff;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 10rpx;
+    font-weight: bold;
+    box-shadow: 0rpx 1rpx 20rpx #ccc;
+    z-index: 90;
+}
+.reply-container{
+    min-height: 220px;
+    padding: 10px;
+    width: 70%;
+    text-align: left;
+    line-height: normal;
+    /* overflow-y: scroll; */
+}
+.reply-content{
+    font-style: italic;
+    font-size: 12px;
+    color: gray;
+}
+.reply-input-area{
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 10rpx;
+    padding: 10px;
+    margin: 10px 0;
+}
+.my-button-area{
+    display: flex;
+    justify-content: space-between;
+}
+.reply-button,.cancel-button{
+    width: 45%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 10rpx;
+    font-size: normal;
+    box-shadow: 0rpx 1rpx 20rpx #ccc;
+    z-index: 90;
+    background-color: #fff;
+    margin: 10px 0;
+}
+.reply-button{
+    background-color: green;
+    color: #fff;
+}
+
+
+  
+
+.maskall {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9;
+    position: fixed;
+    top: 0;
+}
+
+

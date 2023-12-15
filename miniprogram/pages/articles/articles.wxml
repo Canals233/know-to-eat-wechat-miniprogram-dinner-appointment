@@ -1,4 +1,25 @@
 <!-- 文章内容详情 -->
+<cover-view wx:if="{{showCommentDialog}}" class="getLocate">
+    <view wx:if="{{showDelete}}" bindtap="showDeleteTip">删除</view>
+    <view bindtap='showReplyDialog'>回复</view>
+    <view bindtap="closeCommentDialog">取消</view>
+</cover-view>
+<view class="reply-container" wx:if="{{showReplyDialog}}">
+    <view class="my-dialog">
+        <view class="my-title">回复{{replyComment.userName}}</view>
+        <view class="reply-content">
+            <text>{{replyComment.commentText}}</text>
+        </view>
+        <view class="reply-input-area">
+            <input placeholder="请输入回复内容"value="{{replyCommentText}}" bindinput="onReplyInput" />
+        </view>
+        <view class="my-button-area">
+            <view class="cancel-button" type="default" bindtap="onCancelReply">取消</view>
+            <view class="reply-button"  type="primary" bindtap="onReplySubmit">回复</view>
+        </view>
+    </view>
+</view>
+<cover-view wx:if="{{showCommentDialog}}" class="maskall"></cover-view>
 <block class="main">
     <view class="SW">
         <image src="{{noteDetailData.noteImg}}" mode="aspectFit" style='height: 360rpx;' bindtap="ViewImage" data-url="{{[noteDetailData.noteImg]}}"></image>
@@ -23,8 +44,8 @@
         <text>评论列表</text>
         <!-- comments.wxml -->
         <view class="comment-list">
-            <block wx:for="{{commentDatas}}" wx:key="commentId" >
-                <view class="comment-item" bindlongpress="showDeleteTip" data-id="{{item.commentId}}">
+            <block wx:for="{{commentDatas}}" wx:key="commentId">
+                <view class="comment-item" bindlongpress="showCommentDialog" data-comment="{{item}}" data-user="{{item.userId}}" data-id="{{item.commentId}}">
                     <!-- 头像 -->
                     <image src="{{item.userImg}}" class="avatar"></image>
                     <!-- 评论内容和时间 -->
@@ -37,8 +58,8 @@
                 <!-- 子评论列表 -->
                 <block wx:if="{{item.childNum > 0}}">
                     <view class="child-comments">
-                        <block wx:for="{{item.children}}"  wx:for-item="childItem" wx:key="commentId">
-                            <view class="comment-item child-comment">
+                        <block wx:for="{{item.children}}" wx:for-item="childItem" wx:key="commentId">
+                            <view class="comment-item child-comment" bindlongpress="showCommentDialog" data-comment="{{childItem}}" data-user="{{childItem.userId}}" data-id="{{childItem.commentId}}">
                                 <!-- 头像 -->
                                 <image src="{{childItem.userImg}}" class="avatar"></image>
                                 <!-- 评论内容和时间 -->
@@ -53,22 +74,21 @@
                 </block>
             </block>
         </view>
-        <view style="height:20px" ></view>
+        <view style="height:20px"></view>
     </view>
 </block>
 <!-- 点赞 收藏 -->
 <view class="bottom-container">
-  <!-- 左侧输入框和发布按钮 -->
-  <view class="input-container">
-    <textarea class="input" placeholder="输入评论" bindinput="onInputComment" value="{{commentText}}"></textarea>
-    <button class="publish-btn" bindtap="onPublishComment">发布</button>
-  </view>
-
-  <!-- 右侧点赞和收藏按钮 -->
-  <view class="icons">
-    <image class="img" bindtap="onLike" src="{{isLike ? '/static/like-fill.png' : '/static/like.png'}}"></image>
-    <text class="iconNum">{{noteDetailData.likeNum}}</text>
-    <image class="img" bindtap="onCollect" src="{{isCollect ? '/static/star-fill.png' : '/static/star.png'}}"></image>
-    <text class="iconNum">{{noteDetailData.collectionNum}}</text>
-  </view>
+    <!-- 左侧输入框和发布按钮 -->
+    <view class="input-container">
+        <textarea class="input" placeholder="输入评论" bindinput="onInputComment" value="{{commentText}}"></textarea>
+        <button class="publish-btn" bindtap="onPublishComment">发布</button>
+    </view>
+    <!-- 右侧点赞和收藏按钮 -->
+    <view class="icons">
+        <image class="img" bindtap="onLike" src="{{isLike ? '/static/like-fill.png' : '/static/like.png'}}"></image>
+        <text class="iconNum">{{noteDetailData.likeNum}}</text>
+        <image class="img" bindtap="onCollect" src="{{isCollect ? '/static/star-fill.png' : '/static/star.png'}}"></image>
+        <text class="iconNum">{{noteDetailData.collectionNum}}</text>
+    </view>
 </view>

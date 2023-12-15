@@ -84,6 +84,7 @@ Page({
 	},
 
 	toTalk(e) {
+        console.log('to talk');
 		wx.navigateTo({
 			url:
 				"/pages/talkDetail/talkDetail?id=" + e.currentTarget.dataset.id,

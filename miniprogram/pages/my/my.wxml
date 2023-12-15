@@ -1,8 +1,22 @@
-
+<!-- <view wx:if="{{!authored}}">
+    <view class="container">
+        请先绑定邮箱
+        <view class="username">
+            <input type="text" placeholder="用户名" value="{{username}}" bindinput="usernameInput" />
+        </view>
+        <view class="signature">
+            <input type="text" placeholder="用户简介" value="{{signature}}" bindinput="signatureInput" />
+        </view>
+        <button class="submit" type="primary" bindtap="submit" disabled="{{!contentChanged}}">
+            确定修改
+        </button>
+    </view>
+</view> -->
 <view class="infoPage">
     <view class="UCenter-bg" bindtap="jumpUpdate">
-        <image src="{{userData.userImg}}" class="userinfo-avatar"></image>
+        <image src="{{userInfo.userImg}}" class="userinfo-avatar"></image>
         <view class="userName">{{userInfo.userName}}</view>
+        <view class="userTxt">{{userInfo.userTxt}}</view>
     </view>
     <view class="TPcontainer">
         <view class="TPleft" bindtap="mymeet">
@@ -24,6 +38,10 @@
         <view class="TPleft" bindtap="mypublish">
             <image src="../../static/mypublish.png"></image>
             <view class="TP-title">我发表的笔记</view>
+        </view>
+        <view class="TPright" bindtap="mySetting">
+            <image src="../../static/设置.png" style="width: 60px;height: 60px;margin-top: 6px;margin-bottom: 8px;"></image>
+            <view class="TP-title">个人设置</view>
         </view>
     </view>
 </view>

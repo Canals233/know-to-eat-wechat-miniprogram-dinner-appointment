@@ -9,6 +9,7 @@ Page({
 		userData: {},
 		partyId: "",
 		myAuthorization: wx.getStorageSync("Authorization"),
+        myauthored: wx.getStorageSync("authored"),
 		party: {},
 		checked: false,
 		alreadyIn: false,
@@ -160,7 +161,7 @@ Page({
 	},
 
 	joinMeet() {
-		if (!this.data.myAuthorization) {
+		if (!this.data.myauthored) {
 			wx.showModal({
 				cancelColor: "cancelColor",
 				title: "您还未登录",
@@ -356,7 +357,7 @@ Page({
 		console.log(e);
 		wx.previewImage({
 			urls: [this.data.partyDetailData.partyImg],
-			current: e.currentTarget.dataset.url,
+		
 		});
 	},
 
