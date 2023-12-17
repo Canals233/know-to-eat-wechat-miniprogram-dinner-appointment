@@ -116,13 +116,16 @@ Page({
 	},
 
 	foodLogin() {
+		var that = this;
 		wx.login({
 			success: (res) => {
 				if (res.code) {
 					// 如果成功获取到 code，可以将 code 发送到后端进行登录或其他操作
 					// 构造请求 URL
 					const url = "https://food.texasoct.tech/login/WeChat";
-
+					wx.showLoading({
+						title: "登录中",
+					});
 					// 发送 POST 请求到后端
 					wx.request({
 						url: url,
@@ -149,29 +152,64 @@ Page({
 									userInfo.JWT
 								);
 								wx.setStorageSync("userId", userInfo.userId);
-								wx.setStorageSync("userInfo", userInfo);
-								wx.setStorageSync("authored", authored);
-								if (!authored) {
-									wx.showModal({
-										title: "您需要绑定邮箱才能完整使用本小程序",
-										content: "请前往我识绑定邮箱",
-										success: function (res) {
-											// if (res.confirm) {
-											// 	wx.navigateTo({
-											// 		url: "/pages/my/my",
-											// 	});
-											// } else {
-											// 	wx.showToast({
-											// 		icon: "none",
-											// 		title: "您取消了登录授权",
-											// 	});
-											// }
-										},
-										fail: function (e) {
-											console.log(e);
-										},
-									});
-								}
+								wx.request({
+									url: "https://food.texasoct.tech/user/QueryUser",
+									method: "POST",
+									data: {
+										userId: wx.getStorageSync("userId"),
+									},
+									// 可根据需要添加 Authorization 头部信息
+									header: {
+										Authorization:
+											wx.getStorageSync("Authorization"),
+									},
+									success: (res) => {
+										if (res.data.code) {
+											const userInfo = res.data.data;
+											console.log(
+												"查询自己user成功:",
+												userInfo
+											);
+											const authored = userInfo?.userEmail
+												? true
+												: false;
+											that.setData({
+												authored: authored,
+											});
+											wx.setStorageSync(
+												"userInfo",
+												userInfo
+											);
+											wx.setStorageSync(
+												"authored",
+												authored
+											);
+											if (!authored) {
+												wx.showModal({
+													title: "请先在 '我识' 界面绑定邮箱",
+												});
+												return;
+											}
+											wx.showToast({
+												title: "登录成功",
+												icon: "success",
+												duration: 2000,
+											});
+										} else {
+											wx.showToast({
+												title: "请求失败",
+												icon: "none",
+												duration: 2000,
+											});
+										}
+									},
+									fail: (error) => {
+										console.error(
+											"Request user failed:",
+											error
+										);
+									},
+								});
 							} else {
 								wx.showToast({
 									title: res.data.msg,
@@ -182,6 +220,9 @@ Page({
 						},
 						fail: (error) => {
 							console.error("登录失败:", error);
+						},
+						complete: () => {
+							wx.hideLoading();
 						},
 					});
 				} else {
@@ -282,6 +323,9 @@ Page({
 			});
 			this.getmap();
 		}
+		this.setData({
+			authored: wx.getStorageSync("authored"),
+		});
 		this.getmap();
 	},
 

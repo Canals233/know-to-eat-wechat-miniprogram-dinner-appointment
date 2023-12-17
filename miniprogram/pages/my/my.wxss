@@ -111,28 +111,50 @@
   
 
   
-  .username {
+  .userEmail,.userCode {
     margin-top: 20px;
     width: 300px;
-    
+    height: 35px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
   
-  .signature {
-    margin-top: 20px;
-    width: 300px;
-    
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+
   
   .submit {
     margin-top: 20px;
     width: 100px;
-    
+    height: 35px;
+    line-height:35px;
     background-color: #000;
     color: #fff;
     border-radius: 5px;
+    font-size: 16px;
+  }
+  
+.userCode{
+    display: flex;
+}
+
+  .userCodeInput {
+    width: 70%;
+
+    border-radius: 4px;
+    padding: 0 10px;
+    font-size: 14px;
+   
+  }
+  
+  .userCodeButton {
+    width: 34%;
+   
+    border-radius: 4px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #0096ff;
+  }
+  
+  .userCodeButton:disabled {
+    background-color: #ccc;
   }
   

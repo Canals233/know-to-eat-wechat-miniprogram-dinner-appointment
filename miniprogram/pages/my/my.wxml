@@ -1,13 +1,16 @@
 <view wx:if="{{!authored}}">
     <view class="container">
         请先绑定邮箱
-        <view class="username">
-            <input type="text" placeholder="" value="{{username}}" bindinput="usernameInput" />
+        <view class="userEmail">
+            <input type="text" type="email" placeholder="请输入邮箱" value="{{userEmail}}" bindinput="userEmailInput" />
         </view>
-        <view class="signature">
-            <input type="text" placeholder="用户简介" value="{{signature}}" bindinput="signatureInput" />
+        <view class="userCode">
+            <input type="text" type="email" placeholder="请输入验证码" value="{{userCode}}" bindinput="userCodeInput" class="userCodeInput" />
+            <button type="primary" bindtap="getVerificationCode" class="userCodeButton" disabled="{{time>0 || userEmail.length==0}}">
+                {{time > 0 ? time : '获取验证码'}}
+            </button>
         </view>
-        <button class="submit" type="primary" bindtap="submit" disabled="{{!contentChanged}}">
+        <button class="submit" type="primary" bindtap="submitEmail" disabled="{{userCode.length===0  || userEmail.length==0}}">
             确定绑定
         </button>
     </view>
