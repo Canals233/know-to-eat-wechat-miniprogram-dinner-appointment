@@ -18,18 +18,16 @@ Page({
 	 */
 	onLoad: function () {},
 	getUserProfile(e) {
-		
-		
+        let userInfo = wx.getStorageSync("userInfo");
+		if (userInfo) {
+			this.setData({
+				userInfo: userInfo,
+				authored: userInfo?.userEmail ? true : false,
+			});
 
-		// if (userInfo) {
-		// 	this.setData({
-		// 		userInfo: userInfo,
-		// 		// authored: userInfo.userEmail ? true : false,
-		// 	});
-		// 	// wx.setStorageSync("authored", userInfo.userEmail ? true : false);
-		//     wx.setStorageSync("authored", true);
-		// 	return;
-		// }
+			wx.setStorageSync("authored", userInfo?.userEmail ? true : false);
+			return;
+		}
 
 		const url = "https://food.texasoct.tech/user/QueryUser";
 
@@ -47,7 +45,7 @@ Page({
 				if (res.data.code) {
 					const userInfo = res.data.data;
 					console.log("查询自己user成功:", userInfo);
-					const authored = true;
+					const authored = userInfo?.userEmail ? true : false;
 					this.setData({
 						userInfo: userInfo,
 						authored: authored,
@@ -129,8 +127,8 @@ Page({
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
-        console.log("on my  Hide");
-    },
+		console.log("on my  Hide");
+	},
 
 	/**
 	 * 生命周期函数--监听页面卸载

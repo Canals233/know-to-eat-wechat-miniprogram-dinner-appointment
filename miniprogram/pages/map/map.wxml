@@ -3,15 +3,18 @@
     <!-- 图片按钮群 -->
     <cover-image class="location" src="/static/city.png" bindtap="chooseCity"></cover-image>
     <cover-image class="search" src="/static/search.png" bindtap="tapSearchBtn"></cover-image>
-    <cover-view class="bottomBtn" wx:if="{{cityChose}}" bindtap="addmeet">
+    <view class="bottomBtn" wx:if="{{cityChose && authored}}" bindtap="addmeet">
         <cover-image class="eatimg" src="/static/letsEat.png"></cover-image>
         <cover-view class="eattext">发布约饭</cover-view>
-    </cover-view>
+    </view>
     <!-- 图片按钮群 -->
-    <cover-view wx:if="{{!cityChose}}" class="getLocate" bindtap="AuthorizeLocate">
+    <cover-view wx:if="{{!authored}}" class="getLocate" bindtap="AuthorizeLogin">
+        请先登录并绑定邮箱
+    </cover-view>
+    <cover-view wx:if="{{authored  && !cityChose}}" class="getLocate" bindtap="AuthorizeLocate">
         点击选择您的城市开始约饭
     </cover-view>
-    <cover-view wx:if="{{!cityChose}}" class="maskall"></cover-view>
+    <cover-view wx:if="{{!cityChose || !authored}}" class="maskall"></cover-view>
     <!-- mask -->
     <view class="decbody  {{viewshow?'mapshow':''}}">
         <view class="map-row-show">
@@ -36,7 +39,6 @@
                         <view>约饭时间：{{marker.content.partyOverdue}}</view>
                     </view>
                 </view>
-                
                 <view bindtap="goToMeet" data-marker="{{marker}}" class="teleport" style="color: #000;">
                     点击前往该次拼饭详情页
                 </view>

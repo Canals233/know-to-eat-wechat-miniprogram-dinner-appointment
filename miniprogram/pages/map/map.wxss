@@ -62,11 +62,13 @@ map {
     margin-top: 20rpx;
     width: 40rpx;
     height: 40rpx;
+   
 }
 
 .eattext {
     font-size: 12px;
     font-weight: 200;
+   
 }
 
 /* 底部按钮 */

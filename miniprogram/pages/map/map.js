@@ -10,7 +10,7 @@ Page({
 		scale: 9,
 		wh: "",
 		ww: "",
-
+		authored: wx.getStorageSync("authored"),
 		markers: [],
 		searchSourse: [],
 		search: [],
@@ -76,6 +76,120 @@ Page({
 						console.log(e);
 					},
 				});
+			},
+		});
+	},
+
+	AuthorizeLogin: function () {
+		var that = this;
+		wx.authorize({
+			scope: "scope.userInfo", //发起登录授权
+			success: function () {
+				console.log("有登录授权");
+				that.foodLogin();
+			},
+			fail() {
+				//如果用户拒绝授权，则要告诉用户不授权就不能使用，引导用户前往设置页面。
+				console.log("没有登录授权");
+				wx.showModal({
+					cancelColor: "cancelColor",
+					title: "没有授权无法完整使用本小程序",
+					content: "是否前往设置页面手动开启",
+					success: function (res) {
+						if (res.confirm) {
+							wx.openSetting({
+								withSubscriptions: true,
+							});
+						} else {
+							wx.showToast({
+								icon: "none",
+								title: "您取消了登录授权",
+							});
+						}
+					},
+					fail: function (e) {
+						console.log(e);
+					},
+				});
+			},
+		});
+	},
+
+	foodLogin() {
+		wx.login({
+			success: (res) => {
+				if (res.code) {
+					// 如果成功获取到 code，可以将 code 发送到后端进行登录或其他操作
+					// 构造请求 URL
+					const url = "https://food.texasoct.tech/login/WeChat";
+
+					// 发送 POST 请求到后端
+					wx.request({
+						url: url,
+						method: "POST",
+						header: {
+							"Content-Type": "application/json",
+						},
+						data: {
+							code: res.code, // 直接使用 res.code 作为 userWechat 发送到后端
+						},
+						success: (res) => {
+							console.log("登录:", res.data);
+							if (res.data.code) {
+								let userInfo = res.data.data;
+
+								const authored = userInfo.userEmail
+									? true
+									: false;
+								this.setData({
+									authored: authored,
+								});
+								wx.setStorageSync(
+									"Authorization",
+									userInfo.JWT
+								);
+								wx.setStorageSync("userId", userInfo.userId);
+								wx.setStorageSync("userInfo", userInfo);
+								wx.setStorageSync("authored", authored);
+								if (!authored) {
+									wx.showModal({
+										title: "您需要绑定邮箱才能完整使用本小程序",
+										content: "请前往我识绑定邮箱",
+										success: function (res) {
+											// if (res.confirm) {
+											// 	wx.navigateTo({
+											// 		url: "/pages/my/my",
+											// 	});
+											// } else {
+											// 	wx.showToast({
+											// 		icon: "none",
+											// 		title: "您取消了登录授权",
+											// 	});
+											// }
+										},
+										fail: function (e) {
+											console.log(e);
+										},
+									});
+								}
+							} else {
+								wx.showToast({
+									title: res.data.msg,
+									icon: "none",
+									duration: 2000,
+								});
+							}
+						},
+						fail: (error) => {
+							console.error("登录失败:", error);
+						},
+					});
+				} else {
+					console.error("wx.login 失败:", res.errMsg);
+				}
+			},
+			fail: (error) => {
+				console.error("wx.login 失败:", error);
 			},
 		});
 	},
@@ -441,7 +555,6 @@ Page({
 			//  console.log("搜索结果",res)
 			// 将结果刷新至视图层
 			this.setData({ search: res });
-
 		}, 800);
 	},
 

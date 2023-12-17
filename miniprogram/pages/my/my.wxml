@@ -1,18 +1,18 @@
-<!-- <view wx:if="{{!authored}}">
+<view wx:if="{{!authored}}">
     <view class="container">
         请先绑定邮箱
         <view class="username">
-            <input type="text" placeholder="用户名" value="{{username}}" bindinput="usernameInput" />
+            <input type="text" placeholder="" value="{{username}}" bindinput="usernameInput" />
         </view>
         <view class="signature">
             <input type="text" placeholder="用户简介" value="{{signature}}" bindinput="signatureInput" />
         </view>
         <button class="submit" type="primary" bindtap="submit" disabled="{{!contentChanged}}">
-            确定修改
+            确定绑定
         </button>
     </view>
-</view> -->
-<view class="infoPage">
+</view>
+<view wx:else class="infoPage">
     <view class="UCenter-bg" bindtap="jumpUpdate">
         <image src="{{userInfo.userImg}}" class="userinfo-avatar"></image>
         <view class="userName">{{userInfo.userName}}</view>
