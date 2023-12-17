@@ -45,7 +45,7 @@ Page({
 		};
 
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/note/QueryNote",
+			url: "https://food.texasoct.tech/note/QueryNote",
 			method: "POST",
 			header: {
 				"Content-Type": "application/json",

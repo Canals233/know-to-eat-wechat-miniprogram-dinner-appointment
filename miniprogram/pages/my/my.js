@@ -31,7 +31,7 @@ Page({
 		// 	return;
 		// }
 
-		const url = "https://gpt.leafqycc.top:6660/user/QueryUser";
+		const url = "https://food.texasoct.tech/user/QueryUser";
 
 		wx.request({
 			url: url,

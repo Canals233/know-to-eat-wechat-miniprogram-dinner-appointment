@@ -51,7 +51,7 @@ Page({
 	getNewChat() {
         self=this
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/chat/QueryChat",
+			url: "https://food.texasoct.tech/chat/QueryChat",
 			method: "POST",
 			header: {
 				Authorization: wx.getStorageSync("Authorization"),
@@ -107,7 +107,7 @@ Page({
 		}
 
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/chat/PublicChat",
+			url: "https://food.texasoct.tech/chat/PublicChat",
 			method: "POST",
 			header: {
 				Authorization: wx.getStorageSync("Authorization"),

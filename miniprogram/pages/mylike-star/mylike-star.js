@@ -47,7 +47,7 @@ Page({
 	},
 
 	getRequestUrl: function (state) {
-		let baseUrl = "https://gpt.leafqycc.top:6660";
+		let baseUrl = "https://food.texasoct.tech";
 		if (state === "like") {
 			return baseUrl + "/note/QueryLikeNote";
 		} else if (state === "collect") {

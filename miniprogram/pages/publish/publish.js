@@ -243,7 +243,7 @@ Page({
 		wx.showLoading({
 			title: "发布中",
 		});
-		const url = "https://gpt.leafqycc.top:6660/note/PublishNote";
+		const url = "https://food.texasoct.tech/note/PublishNote";
 		wx.uploadFile({
 			url: url,
 			filePath: ImgList, //现在情况就是一个图片的url

@@ -50,7 +50,7 @@ Page({
 	},
 
 	queryParty() {
-		const url = "https://gpt.leafqycc.top:6660/party/QueryParty";
+		const url = "https://food.texasoct.tech/party/QueryParty";
 
 		const options = this.data;
 

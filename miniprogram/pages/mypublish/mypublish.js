@@ -26,7 +26,7 @@ Page({
 	getMylist() {
 		self = this;
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/note/QuerySelfNote",
+			url: "https://food.texasoct.tech/note/QuerySelfNote",
 			method: "POST",
 			header: {
 				Authorization: wx.getStorageSync("Authorization"),
@@ -127,7 +127,7 @@ Page({
 						title: "加载中",
 					});
 					wx.request({
-						url: "https://gpt.leafqycc.top:6660/note/DeleteNote",
+						url: "https://food.texasoct.tech/note/DeleteNote",
 						method: "DELETE",
 						header: {
 							"Content-Type": "application/json",

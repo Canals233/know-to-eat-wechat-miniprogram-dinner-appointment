@@ -33,7 +33,7 @@ Page({
 
 	getMeet() {
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/party/QuerySelfParty",
+			url: "https://food.texasoct.tech/party/QuerySelfParty",
 			method: "POST",
 			header: {
 				Authorization: wx.getStorageSync("Authorization"),

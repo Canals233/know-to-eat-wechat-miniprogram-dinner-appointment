@@ -18,7 +18,7 @@ App({
 				if (res.code) {
 					// 如果成功获取到 code，可以将 code 发送到后端进行登录或其他操作
 					// 构造请求 URL
-					const url = "https://gpt.leafqycc.top:6660/login/WeChat";
+					const url = "https://food.texasoct.tech/login/WeChat";
 
 					// 发送 POST 请求到后端
 					wx.request({

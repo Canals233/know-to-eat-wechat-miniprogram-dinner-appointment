@@ -297,7 +297,7 @@ Page({
 		var mapresult;
 		var self = this;
 		var remarkers = [];
-		const url = "https://gpt.leafqycc.top:6660/party/QueryParty";
+		const url = "https://food.texasoct.tech/party/QueryParty";
 		this.closeshow();
 		//得到地图数据的index
 		const myCity = wx.getStorageSync("cityLocation");

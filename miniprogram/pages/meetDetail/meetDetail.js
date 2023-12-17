@@ -37,7 +37,7 @@ Page({
 	},
 
 	queryParty(partyId) {
-		const url = "https://gpt.leafqycc.top:6660/party/QueryOneParty";
+		const url = "https://food.texasoct.tech/party/QueryOneParty";
 		wx.request({
 			url: url,
 			method: "POST",
@@ -99,7 +99,7 @@ Page({
 	},
 
 	queryUser(userId) {
-		const url = "https://gpt.leafqycc.top:6660/user/QueryUser";
+		const url = "https://food.texasoct.tech/user/QueryUser";
 
 		wx.request({
 			url: url,
@@ -134,7 +134,7 @@ Page({
 
 	checkUserCreatedParty(targetPartyId) {
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/party/QuerySelfCreateParty",
+			url: "https://food.texasoct.tech/party/QuerySelfCreateParty",
 			method: "POST",
 			header: {
 				"Content-Type": "application/json",
@@ -199,7 +199,7 @@ Page({
 					});
 
 					wx.request({
-						url: "https://gpt.leafqycc.top:6660/party/JoinParty",
+						url: "https://food.texasoct.tech/party/JoinParty",
 						method: "POST",
 						header: {
 							"Content-Type": "application/json",
@@ -249,7 +249,7 @@ Page({
 						title: "正在退出约饭",
 					});
 					wx.request({
-						url: "https://gpt.leafqycc.top:6660/party/ExitParty",
+						url: "https://food.texasoct.tech/party/ExitParty",
 						method: "POST",
 						header: {
 							"Content-Type": "application/json",
@@ -298,7 +298,7 @@ Page({
 						title: "正在解散约饭",
 					});
 					wx.request({
-						url: "https://gpt.leafqycc.top:6660/party/DeleteParty",
+						url: "https://food.texasoct.tech/party/DeleteParty",
 						method: "DELETE",
 						header: {
 							"Content-Type": "application/json",

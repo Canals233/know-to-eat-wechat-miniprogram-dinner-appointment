@@ -78,7 +78,7 @@ Page({
             mask: true,
         });
         
-        const url = "https://gpt.leafqycc.top:6660/user/Update";
+        const url = "https://food.texasoct.tech/user/Update";
     
 		wx.uploadFile({
 			url: url,

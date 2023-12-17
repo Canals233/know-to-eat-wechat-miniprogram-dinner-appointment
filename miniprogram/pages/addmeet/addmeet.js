@@ -333,7 +333,7 @@ Page({
 			partyDistrict: mylocation.district,
 		};
 
-		const url = "https://gpt.leafqycc.top:6660/party/PublishParty";
+		const url = "https://food.texasoct.tech/party/PublishParty";
 		wx.uploadFile({
 			url: url,
 			filePath: this.data.imgList.join(','), //现在情况就是一个图片的url

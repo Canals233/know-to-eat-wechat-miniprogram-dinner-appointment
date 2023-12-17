@@ -42,7 +42,7 @@ Page({
 	},
 
 	queryNote(noteId) {
-		const url = "https://gpt.leafqycc.top:6660/note/QueryOneNote";
+		const url = "https://food.texasoct.tech/note/QueryOneNote";
 		wx.request({
 			url: url,
 			method: "POST",
@@ -88,7 +88,7 @@ Page({
 	},
 
 	queryUser(userId) {
-		const url = "https://gpt.leafqycc.top:6660/user/QueryUser";
+		const url = "https://food.texasoct.tech/user/QueryUser";
 
 		wx.request({
 			url: url,
@@ -122,7 +122,7 @@ Page({
 	},
 
 	queryComment(noteId) {
-		const url = "https://gpt.leafqycc.top:6660/comment/QueryComment";
+		const url = "https://food.texasoct.tech/comment/QueryComment";
 		wx.request({
 			url: url,
 			method: "POST",
@@ -187,7 +187,7 @@ Page({
 	//获取收藏状态
 	isCollectAndLike(noteId) {
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/note/GetLike",
+			url: "https://food.texasoct.tech/note/GetLike",
 			method: "POST",
 			header: {
 				"Content-Type": "application/json",
@@ -209,7 +209,7 @@ Page({
 			},
 		});
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/note/GetCollection",
+			url: "https://food.texasoct.tech/note/GetCollection",
 			method: "POST",
 			header: {
 				"Content-Type": "application/json",
@@ -267,9 +267,9 @@ Page({
 		//取消收藏
 		function getColURL() {
 			if (collectState) {
-				return "https://gpt.leafqycc.top:6660/note/UncollectNote";
+				return "https://food.texasoct.tech/note/UncollectNote";
 			} else {
-				return "https://gpt.leafqycc.top:6660/note/CollectionNote";
+				return "https://food.texasoct.tech/note/CollectionNote";
 			}
 		}
 		wx.request({
@@ -322,9 +322,9 @@ Page({
 		});
 		function getColURL() {
 			if (likeState) {
-				return "https://gpt.leafqycc.top:6660/note/UnlikeNote";
+				return "https://food.texasoct.tech/note/UnlikeNote";
 			} else {
-				return "https://gpt.leafqycc.top:6660/note/LikeNote";
+				return "https://food.texasoct.tech/note/LikeNote";
 			}
 		}
 		wx.request({
@@ -383,7 +383,7 @@ Page({
 			});
 			return;
 		}
-		const url = "https://gpt.leafqycc.top:6660/comment/CommentNote";
+		const url = "https://food.texasoct.tech/comment/CommentNote";
 		wx.showLoading({
 			title: "评论中",
 		});
@@ -471,7 +471,7 @@ Page({
 				if (res.confirm) {
 					// 用户点击确定执行删除操作
 					wx.request({
-						url: "https://gpt.leafqycc.top:6660/comment/DeleteComment",
+						url: "https://food.texasoct.tech/comment/DeleteComment",
 						method: "DELETE",
 						header: {
 							"Content-Type": "application/json",
@@ -543,7 +543,7 @@ Page({
             title: "回复中",
         });
 		wx.request({
-			url: "https://gpt.leafqycc.top:6660/comment/CommentNote",
+			url: "https://food.texasoct.tech/comment/CommentNote",
 			method: "POST",
 			header: {
 				Authorization: wx.getStorageSync("Authorization"),
