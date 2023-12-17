@@ -20,9 +20,9 @@ Page({
 		MyuserId: wx.getStorageSync("userId"),
 		showDelete: false,
 		showCommentDialog: false,
-        showReplyDialog: false,
-        replyCommentText: "",
-        replyComment:{},
+		showReplyDialog: false,
+		replyCommentText: "",
+		replyComment: {},
 	},
 
 	//页面加载
@@ -140,10 +140,17 @@ Page({
 					console.log("查询评论成功:", commentDatas);
 
 					commentDatas.forEach((commentData) => {
-						if (commentData.commentTime) {
-							commentData.commentTime =
-								commentData.commentTime.replace("T", " "); // 将 'T' 替换为空格
-						}
+						const commentDate = new Date(commentData.commentTime);
+
+						// 将 commentDate 的时间设置为 UTC 时间
+						commentDate.setUTCHours(commentDate.getHours() + 8);
+
+						// 将 commentDate 转换为字符串
+						commentData.commentTime = commentDate
+							.toISOString()
+							.replace("T", " ")
+							.slice(0, 19);
+
 						if (commentData.fatherId === 0) {
 							commentData.children = [];
 						}
@@ -152,6 +159,7 @@ Page({
 					commentDatas.forEach((commentData) => {
 						if (commentData.fatherId !== 0) {
 							// 如果有父评论，则找到父评论对象，将当前评论添加到父评论的 children 数组中
+
 							const fatherComment = commentDatas.find(
 								(item) =>
 									item.commentId === commentData.fatherId
@@ -430,9 +438,8 @@ Page({
 	},
 
 	showCommentDialog(e) {
-        
 		let showDelete = false;
-        let currentComment = e.currentTarget.dataset.comment;
+		let currentComment = e.currentTarget.dataset.comment;
 		if (
 			currentComment.userId == this.data.MyuserId ||
 			this.userData?.userId == this.data.MyuserId
@@ -444,14 +451,13 @@ Page({
 		this.setData({
 			showDelete: showDelete,
 			showCommentDialog: true,
-            replyComment: currentComment,
+			replyComment: currentComment,
 		});
 	},
 
 	closeCommentDialog() {
 		this.setData({
 			showCommentDialog: false,
-            
 		});
 	},
 
@@ -507,41 +513,41 @@ Page({
 			},
 		});
 	},
-    showReplyDialog(event) {
-   
-        this.setData({
-            showReplyDialog: true,
-           
-        });
-    },
-    onReplyInput(e){
-        this.setData({
-            replyCommentText: e.detail.value,
-        });
-    },
+	showReplyDialog(event) {
+		this.setData({
+			showReplyDialog: true,
+		});
+	},
+	onReplyInput(e) {
+		this.setData({
+			replyCommentText: e.detail.value,
+		});
+	},
 
-    onCancelReply(){
-        this.setData({
-            showReplyDialog: false,
-            showCommentDialog: false,
-        });
-    },
-    onReplySubmit(){
-        const replyText = this.data.replyCommentText;
-        if(!replyText){
-            wx.showToast({
-                title: "回复内容不能为空",
-                icon: "none",
-                duration: 2000,
-            });
-            return;
-        }
-        console.log(this.data.replyComment);
-        let fatherId = this.data.replyComment.fatherId?this.data.replyComment.fatherId:this.data.replyComment.commentId;
-        self=this
-        wx.showLoading({
-            title: "回复中",
-        });
+	onCancelReply() {
+		this.setData({
+			showReplyDialog: false,
+			showCommentDialog: false,
+		});
+	},
+	onReplySubmit() {
+		const replyText = this.data.replyCommentText;
+		if (!replyText) {
+			wx.showToast({
+				title: "回复内容不能为空",
+				icon: "none",
+				duration: 2000,
+			});
+			return;
+		}
+		console.log(this.data.replyComment);
+		let fatherId = this.data.replyComment.fatherId
+			? this.data.replyComment.fatherId
+			: this.data.replyComment.commentId;
+		self = this;
+		wx.showLoading({
+			title: "回复中",
+		});
 		wx.request({
 			url: "https://food.texasoct.tech/comment/CommentNote",
 			method: "POST",
@@ -551,17 +557,20 @@ Page({
 			},
 			data: {
 				noteId: this.data.noteId,
-                fatherId: fatherId,
-                commentText: replyText,
-                commentTime: new Date().toISOString(),
-            
+				fatherId: fatherId,
+				commentText: replyText,
+				commentTime: new Date().toISOString(),
 			},
 			success: function (res) {
 				console.log("回复评论:", res.data);
 				// 处理回复评论成功的逻辑
 				if (res.data.code) {
-					
-                    
+                    wx.showToast({
+                        title: "回复成功",
+                        icon: "success",
+                        duration: 2000,
+                    });
+                    self.queryComment(self.data.noteId);
 				} else {
 					wx.showToast({
 						title: "获取数据失败",
@@ -575,27 +584,23 @@ Page({
 			},
 			complete: function () {
 				wx.hideLoading();
-                self.setData({
-                    showReplyDialog: false,
-                    showCommentDialog: false,
-                    replyCommentText: "",
-                });
+				self.setData({
+					showReplyDialog: false,
+					showCommentDialog: false,
+					replyCommentText: "",
+				});
 			},
 		});
-    
-    },
+	},
 
 	//点击图片会发生的事情
 	ViewImage(e) {
 		console.log(e);
 		wx.previewImage({
 			urls: e.currentTarget.dataset.url,
-			
 		});
 	},
 
-    
-    
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
