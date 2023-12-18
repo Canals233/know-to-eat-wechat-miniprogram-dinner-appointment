@@ -22,7 +22,7 @@ Page({
         this.setData({
             avatar:userInfo.userImg,
             username:userInfo.userName,
-            signature:userInfo.userSignature
+            signature:userInfo.userTxt
         })
     },
 
@@ -99,6 +99,7 @@ Page({
 						icon: "success",
 						duration: 2000,
 					});
+                    wx.setStorageSync("userChanged",true);
 					setTimeout(() => {
 						wx.navigateBack({
 							delta: 1,

@@ -45,13 +45,17 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+        console.log("onShow");
+        this.getCity();
 		this.queryParty();
-		this.getCity();
+		
 	},
 
 	queryParty() {
 		const url = "https://food.texasoct.tech/party/QueryParty";
-
+        const selectedCityLocation = citySelector.getCity();
+        const city = (selectedCityLocation && selectedCityLocation.fullname) || (wx.getStorageSync("cityLocation") && wx.getStorageSync("cityLocation").fullname) || "";
+        console.log("city", city)
 		const options = this.data;
 
 		const params = {
@@ -60,6 +64,11 @@ Page({
 			partyType: options?.filter ?? "",
 			partyCity: options?.city ?? "",
 		};
+
+        wx.showLoading({
+            title: "加载中",
+            
+        })
 
 		wx.request({
 			url: url,
@@ -120,6 +129,7 @@ Page({
 		wx.navigateTo({
 			url: `plugin://citySelector/index?key=${key}&referer=${referer}&hotCitys=${hotCitys}`,
 		});
+        
 	},
 
 	onSearch(e) {
@@ -153,13 +163,16 @@ Page({
 	showInput: function () {
 		this.setData({
 			inputShowed: true, //设置文本框可以输入内容
+            filter: "",
 		});
 	},
 	// 取消搜索
 	hideInput: function () {
 		this.setData({
 			inputShowed: false,
+            filter: "",
 		});
+        this.queryParty();
 	},
 
 	/**

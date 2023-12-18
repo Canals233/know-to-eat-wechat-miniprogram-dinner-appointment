@@ -317,6 +317,11 @@ Page({
 								this.setData({
 									alreadyIn: false,
 								});
+                                setTimeout(() => {
+                                    wx.navigateBack({
+                                        delta: 1,
+                                    });
+                                }, 2000);
 							} else {
 								console.error(
 									"解散饭局失败:",

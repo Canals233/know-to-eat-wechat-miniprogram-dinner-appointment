@@ -5,7 +5,7 @@
     
         <view class="weui-search-bar__box">
             <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-            <input type="text" class="weui-search-bar__input" auto-focus="{{true}}" placeholder="搜索" bindconfirm="onSearch" />
+            <input type="text" class="weui-search-bar__input" value="{{filter}}" auto-focus="{{true}}" placeholder="搜索" bindconfirm="onSearch" />
         </view>
      <!-- 最初始时的搜索框 -->
         <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput" >

@@ -222,7 +222,7 @@ Page({
 
 	foodLogin() {
 		var that = this;
-        if(wx.getStorageSync("authored")){
+        if(wx.getStorageSync("authored") && !wx.getStorageSync("userChanged")){
             this.setData({
                 authored: wx.getStorageSync("authored"),
                 userInfo: wx.getStorageSync("userInfo"),

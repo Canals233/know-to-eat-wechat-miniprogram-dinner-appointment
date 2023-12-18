@@ -59,6 +59,7 @@ Page({
 					console.log("查话题成功:", noteList);
 					this.setData({
 						noteList: noteList,
+                        filter: "",
 					});
 					this.createOriginWaterfall();
 				} else {
@@ -99,9 +100,9 @@ Page({
 	onSearch(e) {
 		clearTimeout(this.data.timer);
 		// 启动新的定时器
-
+        console.log("搜索内容", e);
 		this.data.timer = setTimeout(() => {
-			filter = e.detail.value;
+			let filter = e.detail.value;
 			this.setData({
                 filter: filter,
             })
@@ -119,6 +120,7 @@ Page({
 	hideInput: function () {
 		this.setData({
 			inputShowed: false,
+            filter: "",
 		});
 		this.queryNote();
 	},
