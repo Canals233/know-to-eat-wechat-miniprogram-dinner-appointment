@@ -9,7 +9,7 @@
     </view>
     <!-- 图片按钮群 -->
     <cover-view wx:if="{{!authored}}" class="getLocate" bindtap="AuthorizeLogin">
-        请先登录并绑定邮箱
+        点击进行微信登录
     </cover-view>
     <cover-view wx:if="{{authored  && !cityChose}}" class="getLocate" bindtap="AuthorizeLocate">
         点击选择您的城市开始约饭

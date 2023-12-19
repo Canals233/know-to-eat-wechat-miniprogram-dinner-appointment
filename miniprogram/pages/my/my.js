@@ -292,6 +292,10 @@ Page({
 												"authored",
 												authored
 											);
+                                            wx.setStorageSync(
+                                                "userChanged",
+                                                false
+                                            )
 											if (!authored) {
 												wx.showModal({
 													title: "请先在 '我识' 界面绑定邮箱",

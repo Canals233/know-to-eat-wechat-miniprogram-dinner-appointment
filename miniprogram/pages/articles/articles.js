@@ -461,9 +461,9 @@ Page({
 		});
 	},
 
-	showDeleteTip(event) {
+	showDeleteTip() {
 		self = this;
-		const commentId = event.currentTarget.dataset.id;
+		const commentId = this.data.replyComment.commentId;
 		console.log("commentId", commentId);
 		// 判断是否可以删除
 
